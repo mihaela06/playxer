@@ -12,7 +12,7 @@ import spotifyIcon from "../../../../assets/images/SpotifyIcon.png";
 
 function AuthContainer() {
   return (
-    <Container style={{"text-align": "center", "margin-top": "20%"}}>
+    <Container>
       <Row>
         <Col md={{ span: 6, offset: 4 }}>
           <Container className="AuthContainer">
