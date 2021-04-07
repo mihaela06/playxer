@@ -3,34 +3,23 @@ import { withRouter } from "react-router-dom";
 import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Form, Icon, Input, Button, Checkbox, Typography } from "antd";
+import { Form, Icon, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
 import ParticleBackground from "./Sections/ParticleBackground";
 import { Container, Row, Col } from "reactstrap";
-//import "./AuthContainer.css";
+import "./LoginPage.css";
 import spotifyIcon from "../../../assets/images/SpotifyIcon.png";
-
-const { Title } = Typography;
+import mixIt from "../../../assets/images/MixIt.gif";
 
 function LoginPage(props) {
   const dispatch = useDispatch();
-  const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
 
   const [formErrorMessage, setFormErrorMessage] = useState("");
-  const [rememberMe, setRememberMe] = useState(rememberMeChecked);
-
-  const handleRememberMe = () => {
-    setRememberMe(!rememberMe);
-  };
-
-  const initialEmail = localStorage.getItem("rememberMe")
-    ? localStorage.getItem("rememberMe")
-    : "";
 
   return (
     <Formik
       initialValues={{
-        email: initialEmail,
+        email: "",
         password: "",
       }}
       validationSchema={Yup.object().shape({
@@ -52,18 +41,17 @@ function LoginPage(props) {
             .then((response) => {
               if (response.payload.loginSuccess) {
                 window.localStorage.setItem("userId", response.payload.userId);
-                if (rememberMe === true) {
-                  window.localStorage.setItem("rememberMe", values.id);
-                } else {
-                  localStorage.removeItem("rememberMe");
-                }
                 props.history.push("/");
               } else {
-                setFormErrorMessage("Check out your email or password again");
+                setFormErrorMessage(
+                  "Check your email and password and try again!"
+                );
               }
             })
             .catch((err) => {
-              setFormErrorMessage("Check out your email or password again");
+              setFormErrorMessage(
+                "Check your email and password and try again!"
+              );
               setTimeout(() => {
                 setFormErrorMessage("");
               }, 3000);
@@ -77,31 +65,20 @@ function LoginPage(props) {
           values,
           touched,
           errors,
-          dirty,
           isSubmitting,
           handleChange,
           handleBlur,
           handleSubmit,
-          handleReset,
         } = props;
         return (
           <div className="app">
             <ParticleBackground />
-
             <Container>
               <Row>
                 <Col md={{ span: 6, offset: 4 }} className="my-auto mx-auto">
-                  <Container
-                    className="AuthContainer"
-                    style={{ margin: "10px", zIndex:10, position: "relative" }}
-                  >
+                  <Container className="auth-container">
                     <Row>
-                      <Button
-                        className="ConnectButton mx-auto"
-                        style={{
-                          height: "50px",
-                        }}
-                      >
+                      <Button className="connect-spotify-button login-form-button mx-auto">
                         <Container>
                           <Row noGutters>
                             <Col xs={11} className="my-auto mx-auto">
@@ -117,15 +94,10 @@ function LoginPage(props) {
                     <Row>
                       <Col>
                         <form onSubmit={handleSubmit}>
-                          <Form.Item required style={{ marginBottom: "0px" }}>
+                          <Form.Item required className="mx-auto my-auto">
                             <Input
                               id="email"
-                              prefix={
-                                <Icon
-                                  type="user"
-                                  style={{ color: "rgba(0,0,0,.25)" }}
-                                />
-                              }
+                              prefix={<Icon type="mail" />}
                               placeholder="Enter your email"
                               type="email"
                               value={values.email}
@@ -147,12 +119,7 @@ function LoginPage(props) {
                           <Form.Item required>
                             <Input
                               id="password"
-                              prefix={
-                                <Icon
-                                  type="lock"
-                                  style={{ color: "rgba(0,0,0,.25)" }}
-                                />
-                              }
+                              prefix={<Icon type="lock" />}
                               placeholder="Enter your password"
                               type="password"
                               value={values.password}
@@ -172,48 +139,76 @@ function LoginPage(props) {
                             )}{" "}
                           </Form.Item>
                           {formErrorMessage && (
-                            <label>
-                              <p
-                                style={{
-                                  color: "#ff0000bf",
-                                  fontSize: "0.7rem",
-                                  border: "1px solid",
-                                  padding: "1rem",
-                                  borderRadius: "10px",
-                                }}
-                              >
-                                {formErrorMessage}{" "}
-                              </p>{" "}
+                            <label className="center-items">
+                              <p className="error">{formErrorMessage} </p>{" "}
                             </label>
                           )}
                           <Form.Item>
-                            <Checkbox
-                              id="rememberMe"
-                              onChange={handleRememberMe}
-                              checked={rememberMe}
-                            >
-                              Remember me{" "}
-                            </Checkbox>{" "}
-                            <a
-                              className="login-form-forgot"
-                              href="/reset_user"
-                              style={{ float: "right" }}
-                            >
-                              forgot password{" "}
-                            </a>{" "}
-                            <div>
-                              <Button
-                                type="primary"
-                                htmlType="submit"
-                                className="login-form-button"
-                                style={{ minWidth: "100%" }}
-                                disabled={isSubmitting}
-                                onSubmit={handleSubmit}
+                            <Container>
+                              <Row
+                                style={{
+                                  marginBottom: "20px",
+                                }}
                               >
-                                Log in
-                              </Button>{" "}
-                            </div>
-                            Or <a href="/register"> register now! </a>{" "}
+                                <Col xs={{ span: 8, offset: 3 }}>
+                                  <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    className="login-form-button login-form-button--main mx-auto my-auto"
+                                    disabled={isSubmitting}
+                                    onSubmit={handleSubmit}
+                                  >
+                                    <Container style={{ padding: "5px" }}>
+                                      <Row noGutters>
+                                        <Col xs={8}>
+                                          <p className="my-auto mx-auto">Mix it!</p>
+                                        </Col>
+                                        <Col xs={4}>
+                                          <img
+                                            src={mixIt}
+                                            style={{
+                                              height: "40px",
+                                              marginLeft: "5px",
+                                            }}
+                                          />
+                                        </Col>
+                                      </Row>
+                                    </Container>
+                                  </Button>{" "}
+                                </Col>
+                              </Row>
+                              <Row
+                                style={{
+                                  marginTop: "10px",
+                                  marginBottom: "-10px",
+                                }}
+                              >
+                                <Col xs={6} className="center-items">
+                                  <a href="/register">
+                                    <Button
+                                      type="secondary"
+                                      htmlType="button"
+                                      disabled={isSubmitting}
+                                      className="my-auto mx-auto login-form-button"
+                                    >
+                                      Register now
+                                    </Button>{" "}
+                                  </a>
+                                </Col>
+                                <Col xs={6} className="center-items">
+                                  <a href="/reset_user">
+                                    <Button
+                                      type="secondary"
+                                      htmlType="button"
+                                      disabled={isSubmitting}
+                                      className="my-auto mx-auto login-form-button"
+                                    >
+                                      Forgot password?
+                                    </Button>{" "}
+                                  </a>
+                                </Col>
+                              </Row>
+                            </Container>
                           </Form.Item>{" "}
                         </form>{" "}
                       </Col>

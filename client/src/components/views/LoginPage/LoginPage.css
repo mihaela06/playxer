@@ -1,0 +1,83 @@
+.auth-container {
+    background-color: rgba(95, 158, 160, 0.65);
+    border-radius: 15px;
+    margin: auto;
+    padding: 10px 20px;
+    position: relative;
+    z-index: 10;
+}
+
+.auth-container Input {
+    border-radius: 10px;
+    height: 50px;
+    margin: 10px 0px;
+}
+
+.auth-container Icon {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.connect-spotify-button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #1db954;
+    height: 50px;
+}
+
+.connect-spotify-button img {
+    max-height: 30px;
+    margin: 10px 0px;
+    width: auto;
+}
+
+.connect-spotify-button p {
+    margin: 5px;
+    font-family: Helvetica;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.connect-spotify-button:hover,
+.connect-spotify-button:active,
+.connect-spotify-button:focus {
+    transform: scale(1.05, 1.05);
+    background-color: #1db954;
+}
+
+.login-form-button {
+    border-radius: 15px;
+    border: none;
+    height: auto;
+    min-height: 100%;
+}
+
+.login-form-button:hover,
+.login-form-button:active,
+.login-form-button:focus {
+    transform: scale(1.05, 1.05);
+    min-height: 100%;
+    border-radius: 10px;
+}
+
+.login-form-button--main p {
+    font-size: 1.5rem;
+    font: Helvetica;
+    font-weight: bolder;
+}
+
+.input-feedback {
+    margin-bottom: 25px;
+}
+
+.center-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error p {
+    color: #ff0000bf;
+    font-weight: bold;
+}
