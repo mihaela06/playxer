@@ -14,8 +14,7 @@ router.get("/auth", auth, (req, res) => {
         isAdmin: req.user.role === 0 ? false : true,
         isAuth: true,
         email: req.user.email,
-        name: req.user.name,
-        lastname: req.user.lastname,
+        username: req.user.username,
         role: req.user.role,
         image: req.user.image,
     });
@@ -52,7 +51,8 @@ router.post("/login", (req, res) => {
                     .cookie("w_auth", user.token)
                     .status(200)
                     .json({
-                        loginSuccess: true, userId: user._id
+                        loginSuccess: true,
+                        userId: user._id
                     });
             });
         });

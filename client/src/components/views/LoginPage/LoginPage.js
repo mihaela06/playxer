@@ -94,7 +94,7 @@ function LoginPage(props) {
                     <Row>
                       <Col>
                         <form onSubmit={handleSubmit}>
-                          <Form.Item required className="mx-auto my-auto">
+                          <Form.Item required>
                             <Input
                               id="email"
                               prefix={<Icon type="mail" />}
