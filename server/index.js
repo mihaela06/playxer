@@ -63,6 +63,6 @@ const port = process.env.PORT || 5000;
 //   console.log(`Server Listening on ${port}`);
 // });
 
-http.createServer(app).listen(app.get('port'), function() {
-	console.log('Express server listening on port ' + app.get('port'));
-});
+http.createServer(app).listen(port, () => {
+   console.log(`Server Listening on ${port}`);
+ });
