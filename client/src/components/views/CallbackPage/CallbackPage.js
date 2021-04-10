@@ -1,4 +1,3 @@
-import { response } from "express";
 import { useDispatch } from "react-redux";
 import { exchangeCode } from "../../../_actions/user_actions";
 
@@ -25,8 +24,8 @@ function CallbackPage(props) {
       console.log(err);
     });
 
-  if (response.success && response.success == true) return <div> SUCCESS</div>;
-  else return <div></div>;
+  if (response.success && response.success == true) return <div> SUCCESS </div>;
+  else return <div> </div>;
 }
 
 export default CallbackPage;
