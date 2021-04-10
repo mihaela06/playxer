@@ -7,7 +7,6 @@ import { Form, Icon, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import "../../../../styles/AuthPage.css";
-import spotifyIcon from "../../../../assets/images/SpotifyIcon.png";
 import mixIt from "../../../../assets/images/MixIt.gif";
 
 function LoginPage(props) {

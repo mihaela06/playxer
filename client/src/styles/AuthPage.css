@@ -80,14 +80,12 @@
     border-radius: 15px;
     border: none;
     height: auto;
-    min-height: 100%;
 }
 
 .login-form-button:hover,
 .login-form-button:active,
 .login-form-button:focus {
     transform: scale(1.05, 1.05);
-    min-height: 100%;
     border-radius: 10px;
 }
 

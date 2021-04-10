@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import { withRouter } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -41,7 +40,7 @@ function RegisterPage(props) {
 
           dispatch(registerUser(dataToSubmit)).then((response) => {
             if (response.payload.success) {
-              props.history.push("/login");
+              props.history.push("/auth");
             } else {
               alert(response.payload.err.errmsg);
             }
@@ -68,11 +67,11 @@ function RegisterPage(props) {
             <Container>
               <Row>
                 <Col>
-                  <Form style={{ minWidth: "300px" }} onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit}>
                     <Form.Item required>
                       <Input
                         id="username"
-                        prefix={<Icon type="user" className="input__icon"/>}
+                        prefix={<Icon type="user" className="input__icon" />}
                         placeholder="Enter your username"
                         type="text"
                         value={values.username}
@@ -104,7 +103,7 @@ function RegisterPage(props) {
                     >
                       <Input
                         id="email"
-                        prefix={<Icon type="mail" className="input__icon"/>}
+                        prefix={<Icon type="mail" className="input__icon" />}
                         placeholder="Enter your email"
                         type="email"
                         value={values.email}
@@ -133,7 +132,7 @@ function RegisterPage(props) {
                     >
                       <Input
                         id="password"
-                        prefix={<Icon type="lock" className="input__icon"/>}
+                        prefix={<Icon type="lock" className="input__icon" />}
                         placeholder="Enter your password"
                         type="password"
                         value={values.password}
@@ -155,7 +154,7 @@ function RegisterPage(props) {
                     <Form.Item required hasFeedback>
                       <Input
                         id="confirmPassword"
-                        prefix={<Icon type="lock" className="input__icon"/>}
+                        prefix={<Icon type="lock" className="input__icon" />}
                         placeholder="Re-enter your password"
                         type="password"
                         value={values.confirmPassword}
@@ -189,7 +188,7 @@ function RegisterPage(props) {
                         </p>{" "}
                       </Button>{" "}
                     </Form.Item>{" "}
-                  </Form>{" "}
+                  </form>{" "}
                 </Col>{" "}
               </Row>{" "}
             </Container>{" "}

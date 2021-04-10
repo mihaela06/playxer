@@ -29,6 +29,7 @@
         "mongoose": "^5.12.3",
         "react-redux": "^5.0.7",
         "saslprep": "^1.0.3",
+        "spotify-web-api-node": "^5.0.2",
         "supports-color": "^7.1.0"
     },
     "devDependencies": {

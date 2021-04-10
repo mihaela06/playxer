@@ -33,7 +33,7 @@ function DarkMode(props) {
       theme = darkTheme;
       //   checked = true;
     }
-    props.switchParticle();
+    if (props.switchParticle) props.switchParticle();
   };
 
   return (
