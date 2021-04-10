@@ -19,13 +19,14 @@ function CallbackPage(props) {
   dispatch(exchangeCode(dataToSubmit))
     .then((response) => {
       console.log(response);
+      if (response.success && response.success == true)
+        return <div> SUCCESS </div>;
     })
     .catch((err) => {
       console.log(err);
     });
 
-  if (response.success && response.success == true) return <div> SUCCESS </div>;
-  else return <div> </div>;
+  return <div> </div>;
 }
 
 export default CallbackPage;
