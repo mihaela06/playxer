@@ -3,7 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
 const { exchangeCode } = require("../spotifyAPI");
-const config = require("../config/dev");
+const config = require("./config/key");
 
 //=================================
 //             User
