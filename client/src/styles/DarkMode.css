@@ -1,0 +1,14 @@
+#darkModeSwitch {
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 50;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#darkModeSwitch:hover,
+#darkModeSwitch:focus {
+    background-color: black;
+    cursor: pointer;
+}

@@ -1,13 +1,50 @@
 import Particles from "react-tsparticles";
+import React from "react";
+import DarkMode from "../../../DarkMode";
 
 function ParticleBackground() {
+  const body = document.body;
+  const containerRef = React.useRef();
+  var text_color = getComputedStyle(document.body)
+    .getPropertyValue("--text-color")
+    .trim();
+  var background_color = getComputedStyle(document.body)
+    .getPropertyValue("--background-color")
+    .trim();
+
+  const switchParticleTheme = () => {
+    text_color = getComputedStyle(document.body)
+      .getPropertyValue("--text-color")
+      .trim();
+    background_color = getComputedStyle(document.body)
+      .getPropertyValue("--background-color")
+      .trim();
+    if (containerRef && containerRef.current) {
+      containerRef.current.options.load({
+        background: {
+          color: {
+            value: background_color,
+          },
+        },
+        particles: {
+          color: {
+            value: text_color,
+          },
+        },
+      });
+      containerRef.current.refresh();
+    }
+  };
+
   return (
     <div>
+      <DarkMode switchParticle={switchParticleTheme} />{" "}
       <Particles
+        container={containerRef}
         options={{
           background: {
             color: {
-              value: "#eeeeee",
+              value: background_color,
             },
           },
           fullScreen: {
@@ -47,7 +84,7 @@ function ParticleBackground() {
           },
           particles: {
             color: {
-              value: "#000000",
+              value: text_color,
             },
             links: {
               color: "#ffffff",

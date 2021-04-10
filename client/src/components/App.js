@@ -5,8 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
 // pages for this product
 import LandingPage from "./views/LandingPage/LandingPage.js";
-import LoginPage from "./views/LoginPage/LoginPage.js";
-import RegisterPage from "./views/RegisterPage/RegisterPage.js";
+import AuthPage from "./views/AuthPage/AuthPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -19,8 +18,7 @@ function App() {
       <div>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, true)} />{" "}
-          <Route exact path="/login" component={Auth(LoginPage, false)} />{" "}
-          <Route exact path="/register" component={Auth(RegisterPage, false)} />{" "}
+          <Route exact path="/auth" component={Auth(AuthPage, false)} />{" "}
         </Switch>{" "}
       </div>{" "}
     </Suspense>
