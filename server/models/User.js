@@ -33,6 +33,14 @@ const userSchema = mongoose.Schema({
         type: String,
         default: "",
     },
+    accessTokenExp: {
+        type: Number,
+        default: 0,
+    },
+    accessTokenTimestamp: {
+        type: Number,
+        default: 0,
+    },
     connectedSpotify: {
         type: Boolean,
         default: false,

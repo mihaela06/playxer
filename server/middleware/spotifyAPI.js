@@ -34,6 +34,8 @@ let exchangeCode = (req, res, next) => {
             accessToken: data.body["access_token"],
             refreshToken: data.body["refresh_token"],
             connectedSpotify: true,
+            accessTokenExp: data.body["expires_in"],
+            accessTokenTimestamp: Math.floor(new Date().getTime() / 1000),
           },
           (err, doc) => {
             if (err) return res.json({ success: false, err });
@@ -65,4 +67,41 @@ let getTokens = (req, res, next) => {
   });
 };
 
-module.exports = { exchangeCode, getTokens, spotifyApi };
+let refreshTokens = (req, res, next) => {
+  let currentTimestamp = Math.floor(new Date().getTime() / 1000);
+  if (
+    req.user.accessTokenExp + req.user.accessTokenTimestamp <=
+    currentTimestamp - 10
+  ) {
+    spotifyApi.setRefreshToken(req.refreshToken);
+    spotifyApi.refreshAccessToken().then(
+      function (data) {
+        console.log("The access token has been refreshed!");
+        req.accessToken = data.body["access_token"];
+        User.findOneAndUpdate(
+          { _id: req.user._id },
+          {
+            accessToken: data.body["access_token"],
+            accessTokenExp: data.body["expires_in"],
+            accessTokenTimestamp: Math.floor(new Date().getTime() / 1000),
+          },
+          (err, doc) => {
+            return res.json({
+              success: false,
+              message: "User not found",
+              error: err,
+            });
+          }
+        );
+        req.refreshed = true;
+      },
+      function (err) {
+        req.refreshed = false;
+        console.log("Could not refresh access token", err);
+      }
+    );
+  }
+  next();
+};
+
+module.exports = { exchangeCode, getTokens, refreshTokens, spotifyApi };
