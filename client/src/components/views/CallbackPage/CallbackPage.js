@@ -18,7 +18,7 @@ function CallbackPage(props) {
 
   dispatch(exchangeCode(dataToSubmit))
     .then((response) => {
-      console.log(response);
+      console.log("Response ", response);
       if (response.success && response.success == true)
         return <div> SUCCESS </div>;
     })

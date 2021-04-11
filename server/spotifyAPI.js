@@ -23,6 +23,7 @@ let exchangeCode = (req, res) => {
             });
         spotifyApi.authorizationCodeGrant(code).then(
             function(data) {
+                console.log(data);
                 console.log("The token expires in " + data.body["expires_in"]);
                 console.log("The access token is " + data.body["access_token"]);
                 console.log("The refresh token is " + data.body["refresh_token"]);
@@ -41,6 +42,7 @@ let exchangeCode = (req, res) => {
                 );
                 return res.json({
                     success: true,
+                    accessToken: data.body["access_token"],
                     connectedSpotify: true,
                 });
             },

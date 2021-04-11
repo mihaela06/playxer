@@ -19,7 +19,7 @@ function RegisterPage(props) {
         confirmPassword: "",
       }}
       validationSchema={Yup.object().shape({
-        username: Yup.string().required("Userame is required"),
+        username: Yup.string().required("Username is required"),
         email: Yup.string()
           .email("Email is invalid")
           .required("Email is required"),

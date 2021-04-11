@@ -27,9 +27,11 @@ const userSchema = mongoose.Schema({
     image: String,
     accessToken: {
         type: String,
+        default: "",
     },
     refreshToken: {
         type: String,
+        default: "",
     },
     connectedSpotify: {
         type: Boolean,
