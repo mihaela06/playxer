@@ -13,9 +13,10 @@ var spotifyApi = new SpotifyWebApi(credentials);
 let exchangeCode = (req, res) => {
     let id = req.body.id;
     console.log(id);
-    console.log(req);
+    //console.log(req);
 
     User.findOne({ _id: id }, (err, user) => {
+        console.log("ID ", id);
         if (!user)
             return res.json({
                 success: false,
@@ -40,7 +41,7 @@ let exchangeCode = (req, res) => {
                         if (err) return res.json({ success: false, err });
                     }
                 );
-                return res.json({
+                return res.status(200).json({
                     success: true,
                     accessToken: data.body["access_token"],
                     connectedSpotify: true,
