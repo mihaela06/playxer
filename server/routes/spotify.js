@@ -13,6 +13,7 @@ var loadTokens = [auth, getTokens, refreshTokens];
 router.get("/get_followed_artists", loadTokens, (req, res) => {
   spotifyApi.setAccessToken(req.accessToken);
   spotifyApi.setRefreshToken(req.refreshToken);
+  console.log("token a", req.accessToken);
   spotifyApi.getFollowedArtists({ limit: 1 }).then(
     function (data) {
       console.log(

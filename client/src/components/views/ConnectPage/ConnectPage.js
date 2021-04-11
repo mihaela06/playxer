@@ -1,14 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { connectUser } from "../../../_actions/user_actions";
 
 function ConnectPage() {
-  const dispatch = useDispatch();
-
-  dispatch(connectUser())
+  connectUser()
     .then((response) => {
-      console.log(response.payload.link);
-      window.location = response.payload.link;
+      console.log(response);
+      console.log(response.link);
+      window.location = response.link;
     })
     .catch((err) => {
       console.log(err);

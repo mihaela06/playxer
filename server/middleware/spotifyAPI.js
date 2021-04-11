@@ -63,12 +63,15 @@ let getTokens = (req, res, next) => {
 
     req.accessToken = user.accessToken;
     req.refreshToken = user.refreshToken;
+
     next();
   });
 };
 
 let refreshTokens = (req, res, next) => {
   let currentTimestamp = Math.floor(new Date().getTime() / 1000);
+  console.log(currentTimestamp);
+  console.log(req.user.accessTokenExp + req.user.accessTokenTimestamp);
   if (
     req.user.accessTokenExp + req.user.accessTokenTimestamp <=
     currentTimestamp - 10
@@ -95,7 +98,6 @@ let refreshTokens = (req, res, next) => {
           }
         );
         req.refreshed = true;
-        next();
       },
       function (err) {
         req.refreshed = false;
@@ -108,6 +110,7 @@ let refreshTokens = (req, res, next) => {
       }
     );
   }
+  next();
 };
 
 module.exports = { exchangeCode, getTokens, refreshTokens, spotifyApi };
