@@ -14,7 +14,7 @@ let exchangeCode = (req, res) => {
     let id = req.body.userID;
     let code = req.body.code;
     console.log(id);
-    //console.log(req);
+    console.log("Body", req.body);
 
     User.findOne({ _id: id }, (err, user) => {
         console.log("ID ", id);
