@@ -68,7 +68,7 @@ router.get("/logout", auth, (req, res) => {
     );
 });
 
-router.get("/connect", function(req, res) {
+router.get("/connect", (req, res) => {
     res.status(200).send({
         link: "https://accounts.spotify.com/authorize" +
             "?response_type=code" +
@@ -80,9 +80,9 @@ router.get("/connect", function(req, res) {
     });
 });
 
-router.get("/exchange_code", function(req, res) {
+router.post("/exchange_code", (req, res) => {
     // console.log("Request", req);
-
+    console.log(req.body);
     exchangeCode(req, res);
 });
 
