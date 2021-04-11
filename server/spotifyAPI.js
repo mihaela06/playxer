@@ -37,6 +37,7 @@ let exchangeCode = (req, res) => {
                 User.findOneAndUpdate({ _id: id }, {
                         accessToken: data.body["access_token"],
                         refreshToken: data.body["refresh_token"],
+                        connectedSpotify: true,
                     },
                     (err, doc) => {
                         if (err) return res.json({ success: false, err });

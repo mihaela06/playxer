@@ -4,7 +4,7 @@ import { exchangeCode } from "../../../_actions/user_actions";
 function CallbackPage(props) {
   const dispatch = useDispatch();
   var url = new URL(window.location.href);
-  const code = new URLSearchParams(url.search).get('code');
+  const code = new URLSearchParams(url.search).get("code");
   const id = localStorage.getItem("userId");
 
   let dataToSubmit = {
@@ -17,8 +17,11 @@ function CallbackPage(props) {
   dispatch(exchangeCode(dataToSubmit))
     .then((response) => {
       console.log("Response ", response);
-      if (response.payload.success && response.payload.success == true)
+      if (response.payload.success && response.payload.success == true) {
+        console.log("Success!");
+        window.location.replace("/");
         return <div> SUCCESS </div>;
+      }
     })
     .catch((err) => {
       console.log(err);

@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import "../../../../styles/AuthPage.css";
 import { Container, Row, Col } from "reactstrap";
 import { Form, Icon, Input, Button } from "antd";
+import { NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
@@ -40,9 +42,10 @@ function RegisterPage(props) {
 
           dispatch(registerUser(dataToSubmit)).then((response) => {
             if (response.payload.success) {
-              props.history.push("/auth");
+              //props.history.push("/auth");
+              NotificationManager.success('You can now log in', 'Registration successful');
             } else {
-              alert(response.payload.err.errmsg);
+              NotificationManager.error(response.payload.err.errmsg, "Registration unsuccessful");
             }
           });
 
