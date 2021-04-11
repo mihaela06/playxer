@@ -8,7 +8,7 @@ function ConnectPage() {
   dispatch(connectUser())
     .then((response) => {
       console.log(response.payload.link);
-      window.location.replace(response.payload.link);
+      window.location = response.payload.link;
     })
     .catch((err) => {
       console.log(err);
