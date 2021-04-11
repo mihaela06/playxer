@@ -2,12 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
-const { exchangeCode } = require("../spotifyAPI");
+const { exchangeCode } = require("../middleware/spotifyAPI");
 const config = require("../config/key");
-
-//=================================
-//             User
-//=================================
 
 router.get("/auth", auth, (req, res) => {
     res.status(200).json({
@@ -69,7 +65,7 @@ router.get("/logout", auth, (req, res) => {
 });
 
 router.get("/connect", (req, res) => {
-    res.status(200).send({
+    return res.status(200).send({
         link: "https://accounts.spotify.com/authorize" +
             "?response_type=code" +
             "&client_id=" +
@@ -80,10 +76,11 @@ router.get("/connect", (req, res) => {
     });
 });
 
-router.post("/exchange_code", (req, res) => {
-    // console.log("Request", req);
-    console.log(req.body);
-    exchangeCode(req, res);
+router.post("/exchange_code", exchangeCode, (req, res) => {
+    return res.status(200).json({
+        connectedSpotify: req.connectedSpotify,
+        success: true
+    });
 });
 
 module.exports = router;

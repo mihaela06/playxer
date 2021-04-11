@@ -2,9 +2,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
-import { USER_SERVER } from "../../Config";
 import "../../../styles/index.css";
 import DarkMode from "../../DarkMode";
+import MainPage from "../MainPage/MainPage";
 import spotifyIcon from "../../../assets/images/SpotifyIcon.png";
 
 function LandingPage() {
@@ -34,7 +34,7 @@ function LandingPage() {
           </a>{" "}
         </div>
       );
-    else return <div> connected </div>;
+    else return <MainPage />;
   } else if (user.userData && !user.userData.isAuth)
     return <div> User not logged in </div>;
   else return <div className="app"> userData null </div>;

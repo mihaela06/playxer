@@ -30,6 +30,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
 
 app.use("/api/users", require("./routes/users"));
+app.use("/api/spotify", require("./routes/spotify"));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
