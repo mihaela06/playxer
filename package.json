@@ -1,7 +1,7 @@
 {
-    "name": "react-boiler-plate",
+    "name": "playxer",
     "version": "1.0.0",
-    "description": "react boiler plate",
+    "description": "Playxer - mix your Spotify© playlists",
     "main": "index.js",
     "engine": {
         "node": "14.16.0",
@@ -14,7 +14,7 @@
         "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
-    "author": "John ahn",
+    "author": "Mihaela Mihaiu",
     "license": "ISC",
     "dependencies": {
         "bcrypt": "^3.0.6",

@@ -4,7 +4,7 @@ import { exchangeCode } from "../../../_actions/user_actions";
 function CallbackPage(props) {
   const dispatch = useDispatch();
   var url = new URL(window.location.href);
-  const code = new URLSearchParams(url.search);
+  const code = new URLSearchParams(url.search).get('code');
   const id = localStorage.getItem("userId");
 
   let dataToSubmit = {
