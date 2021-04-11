@@ -80,7 +80,8 @@ router.get("/connect", function(req, res) {
     });
 });
 
-router.get("/exchange_user", function(req, res) {
+router.get("/exchange_code", function(req, res) {
+    console.log("Request", req);
     exchangeCode(req, res);
     return res.status(200).send({
         success: true

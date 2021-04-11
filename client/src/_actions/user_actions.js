@@ -66,11 +66,10 @@ export function connectUser() {
 
 export function exchangeCode(dataToSubmit) {
   const request = axios
-  .get(`${USER_SERVER}/exchange_code`, dataToSubmit)
-  .then((response) => response.data);
-
-return {
-  type: EXCHANGE_CODE,
-  payload: request,
-};
+    .get(`${USER_SERVER}/exchange_code`, dataToSubmit)
+    .then((response) => response.data);
+  return {
+    type: EXCHANGE_CODE,
+    payload: request,
+  };
 }

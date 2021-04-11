@@ -7,19 +7,17 @@ function CallbackPage(props) {
   const code = new URLSearchParams(url.search);
   const id = localStorage.getItem("userId");
 
-  console.log(url.search);
-  console.log(code.get("code"));
-  console.log(id);
-
   let dataToSubmit = {
     code: code,
     userID: id,
   };
 
+  console.log("Data to submit", dataToSubmit);
+
   dispatch(exchangeCode(dataToSubmit))
     .then((response) => {
       console.log("Response ", response);
-      if (response.success && response.success == true)
+      if (response.payload.success && response.payload.success == true)
         return <div> SUCCESS </div>;
     })
     .catch((err) => {
