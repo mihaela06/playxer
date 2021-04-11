@@ -86,22 +86,28 @@ let refreshTokens = (req, res, next) => {
             accessTokenTimestamp: Math.floor(new Date().getTime() / 1000),
           },
           (err, doc) => {
-            return res.json({
-              success: false,
-              message: "User not found",
-              error: err,
-            });
+            if (err)
+              return res.json({
+                success: false,
+                message: "User not found",
+                error: err,
+              });
           }
         );
         req.refreshed = true;
+        next();
       },
       function (err) {
         req.refreshed = false;
         console.log("Could not refresh access token", err);
+        return res.json({
+          success: false,
+          message: "Could not refresh access token",
+          error: err,
+        });
       }
     );
   }
-  next();
 };
 
 module.exports = { exchangeCode, getTokens, refreshTokens, spotifyApi };
