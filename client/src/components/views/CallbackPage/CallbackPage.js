@@ -17,7 +17,7 @@ function CallbackPage(props) {
   dispatch(exchangeCode(dataToSubmit))
     .then((response) => {
       console.log("Response ", response);
-      if (response.payload.success && response.payload.success == true) {
+      if (response.payload.success && response.payload.success === true) {
         console.log("Success!");
         window.location.replace("/");
         return <div> SUCCESS </div>;

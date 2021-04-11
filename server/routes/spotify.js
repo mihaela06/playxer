@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
-const { getTokens } = require("../middleware/spotifyAPI");
+const { getTokens, spotifyApi } = require("../middleware/spotifyAPI");
 const { auth } = require("../middleware/auth");
 
 var loadTokens = [auth, getTokens];

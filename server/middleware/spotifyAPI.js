@@ -65,4 +65,4 @@ let getTokens = (req, res, next) => {
   });
 };
 
-module.exports = { exchangeCode, getTokens };
+module.exports = { exchangeCode, getTokens, spotifyApi };
