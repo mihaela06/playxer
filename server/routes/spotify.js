@@ -14,7 +14,7 @@ router.get("/get_followed_artists", loadTokens, (req, res) => {
   spotifyApi.setAccessToken(req.accessToken);
   spotifyApi.setRefreshToken(req.refreshToken);
   console.log("token a", req.accessToken);
-  spotifyApi.getFollowedArtists({ limit: 1 }).then(
+  spotifyApi.getFollowedArtists({ limit: 10 }).then(
     function (data) {
       console.log(
         "This user is following ",

@@ -53,17 +53,6 @@ export function logoutUser() {
     };
 }
 
-// export function connectUser() {
-//     const request = axios
-//         .get(`${USER_SERVER}/connect`)
-//         .then((response) => response.data);
-
-//     return {
-//         type: CONNECT_USER,
-//         payload: request,
-//     };
-// }
-
 export function connectUser() {
     return axios.get(`${USER_SERVER}/connect`).then((response) => response.data);
 }
