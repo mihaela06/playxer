@@ -36,14 +36,25 @@ function DarkMode(props) {
     if (props.switchParticle) props.switchParticle();
   };
 
+  const switchVisible = () => {
+    const route = window.location.pathname;
+    console.log(route);
+
+    if (route == "/profile" || route == "/connect" || route == "/auth")
+      return true;
+    else return false;
+  };
+
   return (
-    <Switch
-      id="darkModeSwitch"
-      onChange={() => switchTheme()}
-      checkedChildren={<FiMoon />}
-      unCheckedChildren={<FiSun />}
-      defaultChecked={theme === "dark" ? true : false}
-    ></Switch>
+    switchVisible() && (
+      <Switch
+        id="darkModeSwitch"
+        onChange={() => switchTheme()}
+        checkedChildren={<FiMoon />}
+        unCheckedChildren={<FiSun />}
+        defaultChecked={theme === "dark" ? true : false}
+      ></Switch>
+    )
   );
 }
 

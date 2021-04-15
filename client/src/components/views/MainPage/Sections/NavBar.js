@@ -7,7 +7,7 @@ import { RiPlayListFill, RiAlbumFill } from "react-icons/ri";
 import { GiMicrophone } from "react-icons/gi";
 import { useSelector } from "react-redux";
 
-import "../../../../styles/Navbar.css";
+import "../../../../styles/MainPage.css";
 import logoPlayxer from "../../../../assets/images/Logo.png";
 
 function NavBar(props) {
@@ -40,8 +40,16 @@ function NavBar(props) {
     <div>
       <Nav className="ml-auto sidebar d-none d-lg-block">
         <NavItem className="center-items">
-          <img src={logoPlayxer} style={{ width: "12vw" }} />
-        </NavItem>
+          <img
+            src={logoPlayxer}
+            style={{
+              width: "12vw",
+              marginTop: "20px",
+              marginRight: "5px",
+              marginLeft: "5px",
+            }}
+          />{" "}
+        </NavItem>{" "}
         <NavItem style={{ marginTop: "40px", marginBottom: "15px" }}>
           <NavLink
             to="/artists"
@@ -78,10 +86,10 @@ function NavBar(props) {
             className="sidebar__link"
             activeClassName="activeLink"
           >
-            {user.userData.username}
+            {user.userData.username}{" "}
           </NavLink>{" "}
         </NavItem>{" "}
-      </Nav>
+      </Nav>{" "}
       <Nav className="w-100 navbar fixed-bottom navbar-light d-block d-lg-none bottom-tab-nav">
         <div className=" d-flex flex-row justify-content-around w-100">
           {" "}
@@ -97,11 +105,11 @@ function NavBar(props) {
                   className="sidebar__icon"
                   size="1.5rem"
                 />
-              </NavLink>
+              </NavLink>{" "}
             </NavItem>
           ))}{" "}
         </div>{" "}
-      </Nav>
+      </Nav>{" "}
     </div>
   );
 }

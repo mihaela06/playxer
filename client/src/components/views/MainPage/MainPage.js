@@ -1,26 +1,17 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import DarkMode from "../../DarkMode";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
-import { Nav, NavItem } from "reactstrap";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import ArtistsPage from "./Sections/ArtistsPage";
 import PlaylistsPage from "./Sections/PlaylistsPage";
 import NavBar from "./Sections/NavBar";
 import ProfilePage from "../ProfilePage/ProfilePage";
+import AlbumsPage from "./Sections/AlbumsPage";
 
 function MainPage() {
-  let { path, url } = useRouteMatch();
-
   return (
     <Suspense fallback={<div> Loading... </div>}>
       {" "}
@@ -35,6 +26,7 @@ function MainPage() {
               <Switch>
                 <Route exact path="/artists" component={ArtistsPage} />{" "}
                 <Route exact path="/playlists" component={PlaylistsPage} />{" "}
+                <Route exact path="/albums" component={AlbumsPage} />{" "}
                 <Route exact path="/profile" component={ProfilePage} />{" "}
               </Switch>{" "}
             </Col>{" "}

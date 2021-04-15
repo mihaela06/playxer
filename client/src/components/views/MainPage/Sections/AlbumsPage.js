@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "../../../Loading";
 
-function PlaylistsPage(props) {
+function AlbumsPage(props) {
   return (
     <div className="h-100">
       <Loading />
@@ -9,4 +9,4 @@ function PlaylistsPage(props) {
   );
 }
 
-export default PlaylistsPage;
+export default AlbumsPage;
