@@ -24,7 +24,7 @@ function DisplayCard(props) {
             bottom: "0",
             padding: "5%",
             textAlign: "left",
-            backgroundColor: "rgba(120,120,120,0.3)",
+            backgroundColor: "rgba(120,120,120,0.8)",
             color: "var(--text-color)",
             textShadow: "0 0 0.3rem var(--background-color-main)",
             fontSize: "1.2rem",

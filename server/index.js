@@ -1,3 +1,4 @@
+const sslRedirect = require('heroku-ssl-redirect').default
 const express = require("express");
 
 const app = express();
@@ -19,6 +20,8 @@ const connect = mongoose
     })
     .then(() => console.log("MongoDB Connected..."))
     .catch((err) => console.log(err));
+
+app.use(sslRedirect(["production"], 301));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,18 +49,6 @@ if (process.env.NODE_ENV === "production") {
 
 const port = process.env.PORT || 5050;
 
-if (process.env.NODE_ENV === "production") {
-    var http = require("http");
-    var https = require("https");
-    var fs = require("fs");
-    var enforce = require("express-sslify");
-    app.use(enforce.HTTPS({ trustProtoHeader: true }));
-    http.createServer(app).listen(port, () => {
-        console.log(`Server Listening on ${port}`);
-    });
-} else {
-    console.log("DEVELOPMENT MODE");
-    app.listen(port, () => {
-        console.log(`Server Listening on ${port}`);
-    });
-}
+app.listen(port, () => {
+    console.log(`Server Listening on ${port}`);
+});

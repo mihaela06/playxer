@@ -11,17 +11,6 @@
     transition: background-color 1.5s ease-in-out !important;
 }
 
-h1 {
-    color: black;
-    -webkit-text-fill-color: var(--cadet-blue);
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: black;
-    font-weight: bold;
-    font-family: "Pacifico", cursive;
-    font-size: 3rem;
-    margin: 0 20px 50px;
-}
-
 .sidebar__link {
     font-weight: bold;
     color: var(--text-color);
@@ -99,6 +88,10 @@ h1 {
 .box img {
     min-width: 100%;
     height: auto;
+}
+
+.box:hover {
+    transform: scale(1.1, 1.1);
 }
 
 .content {
