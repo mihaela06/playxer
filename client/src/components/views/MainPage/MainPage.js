@@ -10,6 +10,7 @@ import PlaylistsPage from "./Sections/PlaylistsPage";
 import NavBar from "./Sections/NavBar";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import AlbumsPage from "./Sections/AlbumsPage";
+import Artist from "./Sections/Artist";
 
 function MainPage() {
   return (
@@ -25,6 +26,7 @@ function MainPage() {
             <Col id="page-content-wrapper">
               <Switch>
                 <Route exact path="/artists" component={ArtistsPage} />{" "}
+                <Route path="/artists/:artistId" component={Artist} />{" "}
                 <Route exact path="/playlists" component={PlaylistsPage} />{" "}
                 <Route exact path="/albums" component={AlbumsPage} />{" "}
                 <Route exact path="/profile" component={ProfilePage} />{" "}

@@ -77,12 +77,7 @@ function LoginPage(props) {
                     <Form.Item required>
                       <Input
                         id="email"
-                        prefix={
-                          <Icon
-                            type="mail"
-                            className="input__icon"
-                          />
-                        }
+                        prefix={<Icon type="mail" className="input__icon" />}
                         placeholder="Enter your email"
                         type="email"
                         value={values.email}
@@ -101,12 +96,7 @@ function LoginPage(props) {
                     <Form.Item required>
                       <Input
                         id="password"
-                        prefix={
-                          <Icon
-                            type="lock"
-                            className="input__icon"
-                          />
-                        }
+                        prefix={<Icon type="lock" className="input__icon" />}
                         placeholder="Enter your password"
                         type="password"
                         value={values.password}
@@ -127,28 +117,28 @@ function LoginPage(props) {
                     </Form.Item>{" "}
                     {formErrorMessage && (
                       <label className="center-items">
-                        <p className="error"> {formErrorMessage} </p>
-                        <a href="/reset_user">Forgot your password?</a>
-                        <br/>
+                        <p className="error"> {formErrorMessage} </p>{" "}
+                        <a href="/reset_user"> Forgot your password ? </a>{" "}
+                        <br />
                       </label>
-                    )}
+                    )}{" "}
                     <Form.Item>
                       <Container>
                         <Row>
-                          <Col>
+                          <Col className="center-items">
                             <Button
                               type="primary"
                               htmlType="submit"
-                              className="login-form-button login-form-button--main mx-auto my-auto center-items"
+                              className="login-form-button login-form-button--main"
                               disabled={isSubmitting}
                               onSubmit={handleSubmit}
                             >
                               <Container style={{ padding: "5px" }}>
-                                <Row noGutters>
+                                <Row noGutters >
                                   <Col xs={8}>
                                     <p className="my-auto mx-auto"> Mix it! </p>{" "}
                                   </Col>{" "}
-                                  <Col xs={4}>
+                                  <Col xs={4} >
                                     <img
                                       src={mixIt}
                                       style={{

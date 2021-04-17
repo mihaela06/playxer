@@ -43,9 +43,9 @@ function NavBar(props) {
           <img
             src={logoPlayxer}
             style={{
-              width: "12vw",
+              width: "15vw",
               marginTop: "20px",
-              marginRight: "5px",
+              paddingRight: "40px",
               marginLeft: "5px",
             }}
           />{" "}

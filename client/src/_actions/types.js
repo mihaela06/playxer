@@ -6,3 +6,6 @@ export const CONNECT_USER = 'connect_user';
 export const EXCHANGE_CODE = 'exchange_code';
 
 export const GET_FOLLOWED_ARTISTS = 'get_followed_artists';
+export const GET_ARTIST = 'get_artist';
+export const CHANGE_ARTIST_FOLLOWING = 'change_artist_following';
+export const GET_ARTIST_ALBUMS = 'get_artist_albums';

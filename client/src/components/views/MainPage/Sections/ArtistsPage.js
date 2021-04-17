@@ -63,6 +63,7 @@ function ArtistsPage(props) {
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight - 1) {
       {
+        console.log("Getting extra data...");
         getData();
         loadingExtra = true;
       }
@@ -79,16 +80,19 @@ function ArtistsPage(props) {
   return (
     <div>
       <Row noGutters>
+        {" "}
         {artists &&
           artists.map((artist, index) => (
             <React.Fragment key={index}>
               <DisplayCard
-                artistImages={artist.images}
-                artistName={artist.name}
-              />
+                type="artist"
+                images={artist.images}
+                name={artist.name}
+                id={artist.id}
+              />{" "}
             </React.Fragment>
-          ))}
-      </Row>
+          ))}{" "}
+      </Row>{" "}
     </div>
   );
 }

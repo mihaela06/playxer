@@ -31,13 +31,22 @@ body {
 }
 
 .app {
-    flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
     width: 100wh;
     background: var(--background-color-main) !important;
     color: var(--text-color) !important;
     transition: background-color 1.5s ease-in-out !important;
+}
+
+.center-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.increase-hover:hover,
+.increase-hover:active,
+.increase-hover:focus {
+    transform: scale(1.05, 1.05);
 }

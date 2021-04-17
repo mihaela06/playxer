@@ -13,7 +13,7 @@ function LandingPage() {
   if (user.userData && user.userData.isAuth) {
     if (!user.userData.connectedSpotify)
       return (
-        <div className="app">
+        <div className="app center-items">
           <DarkMode />
           <h1 style={{ color: "var(--text-color)", textAlign: "center" }}>
             First, you have to connect your Spotify account{" "}

@@ -53,7 +53,10 @@ function RegisterPage(props) {
                 errorMessage = "";
                 console.log(response.payload.err.keyValue.value);
                 for (var prop in response.payload.err.keyValue)
-                  errorMessage += prop.charAt(0).toUpperCase() + prop.slice(1) + " is already in use";
+                  errorMessage +=
+                    prop.charAt(0).toUpperCase() +
+                    prop.slice(1) +
+                    " is already in use";
               }
               NotificationManager.error(
                 errorMessage,
@@ -191,19 +194,23 @@ function RegisterPage(props) {
                       )}{" "}
                     </Form.Item>{" "}
                     <Form.Item>
-                      <Button
-                        onClick={handleSubmit}
-                        type="primary"
-                        className="login-form-button login-form-button--main mx-auto my-auto center-items"
-                        disabled={isSubmitting}
-                      >
-                        <p
-                          className="my-auto mx-auto"
-                          style={{ padding: "5px" }}
+                      <Container className="center-items">
+                        <Button
+                          onClick={handleSubmit}
+                          type="primary"
+                          className="login-form-button login-form-button--main center-items"
+                          disabled={isSubmitting}
                         >
-                          Sign up{" "}
-                        </p>{" "}
-                      </Button>{" "}
+                          <Container>
+                            <p
+                              className="my-auto mx-auto"
+                              style={{ padding: "5px" }}
+                            >
+                              Sign up{" "}
+                            </p>{" "}
+                          </Container>
+                        </Button>{" "}
+                      </Container>
                     </Form.Item>{" "}
                   </form>{" "}
                 </Col>{" "}

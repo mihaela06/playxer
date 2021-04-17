@@ -16,18 +16,26 @@ function AuthPage() {
   };
 
   return (
-    <div className="app">
+    <div className="app center-items">
       <ParticleBackground />
       <Container className="center-items auth-container">
-        <Row className="toggle-tab my-auto" noGutters style={{width: "100%"}}>
-          <Col xs={6} style={{border: "1px"}}>
-            <button className="toggle-tab__button" onClick={showLogin} disabled={loggingIn}>
-              <p>Log in</p>
+        <Row className="toggle-tab my-auto" noGutters style={{ width: "100%" }}>
+          <Col xs={6} style={{ border: "1px" }}>
+            <button
+              className="toggle-tab__button"
+              onClick={showLogin}
+              disabled={loggingIn}
+            >
+              <p> Log in </p>{" "}
             </button>{" "}
           </Col>{" "}
-          <Col xs={6} style={{border: "1px"}}>
-            <button className="toggle-tab__button" onClick={showSignup} disabled={!loggingIn}>
-              <p>Sign up</p>
+          <Col xs={6} style={{ border: "1px" }}>
+            <button
+              className="toggle-tab__button"
+              onClick={showSignup}
+              disabled={!loggingIn}
+            >
+              <p> Sign up </p>{" "}
             </button>{" "}
           </Col>{" "}
         </Row>{" "}
@@ -37,7 +45,7 @@ function AuthPage() {
             {loggingIn && <LoginForm />} {!loggingIn && <RegisterForm />}{" "}
           </Col>{" "}
         </Row>{" "}
-      </Container>
+      </Container>{" "}
     </div>
   );
 }

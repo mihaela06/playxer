@@ -19,7 +19,7 @@ function App() {
   return (
     <Suspense fallback={<div> Loading... </div>}>
       {" "}
-      <div>
+      <div className="app">
         <NotificationContainer />
         <Switch>
           <Route exact path="/auth" component={Auth(AuthPage, false)} />{" "}
