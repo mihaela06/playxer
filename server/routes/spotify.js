@@ -126,4 +126,22 @@ router.post("/get_artist_albums", loadTokens, (req, res) => {
         );
 });
 
+router.get("/get_profile", loadTokens, (req, res) => {
+    spotifyApi.setAccessToken(req.accessToken);
+    spotifyApi.setRefreshToken(req.refreshToken);
+    spotifyApi.getMe().then(
+        function(data) {
+            console.log("Some information about the authenticated user", data.body);
+            return res.status(200).json({
+                success: true,
+                spotifyData: data,
+            });
+        },
+        function(err) {
+            console.log("Something went wrong!", err);
+            return res.status(400).send(err);
+        }
+    );
+});
+
 module.exports = router;

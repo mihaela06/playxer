@@ -123,8 +123,8 @@ function Artist({ match }) {
                 <Row noGutters>
                   {albumsInfo.map(function (album, index) {
                     if (album.album_group === albumType.type) {
-                      if (albumType.array.indexOf(album.name) == -1) {
-                        albumType.array.push(album.name);
+                      if (albumType.array.indexOf(album.name.toLowerCase()) == -1) {
+                        albumType.array.push(album.name.toLowerCase());
                         return (
                           <React.Fragment key={index}>
                             <DisplayCard

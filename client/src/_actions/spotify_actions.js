@@ -4,6 +4,7 @@ import {
     GET_ARTIST,
     CHANGE_ARTIST_FOLLOWING,
     GET_ARTIST_ALBUMS,
+    GET_PROFILE,
 } from "./types";
 import { SPOTIFY_API } from "../components/Config.js";
 
@@ -32,5 +33,11 @@ export function getArtistAlbums(artistId, offset) {
     const dataToSubmit = { artistId: artistId, offset: offset };
     return axios
         .post(`${SPOTIFY_API}/${GET_ARTIST_ALBUMS}`, dataToSubmit)
+        .then((response) => response.data);
+}
+
+export function getProfile() {
+    return axios
+        .get(`${SPOTIFY_API}/${GET_PROFILE}`)
         .then((response) => response.data);
 }

@@ -3,6 +3,7 @@ import { getFollowedArtists } from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
 import DisplayCard from "./DisplayCard";
 import { Row, Col } from "reactstrap";
+import { NotificationManager } from "react-notifications";
 
 function ArtistsPage(props) {
   const [artists, setArtists] = useState([]);
@@ -23,12 +24,12 @@ function ArtistsPage(props) {
   const getData = () => {
     if (total < offset || loadingExtra) return;
     console.log("offset", offset);
+    if (total > 0) NotificationManager.info("Loading...", "", 500);
     getFollowedArtists(after)
       .then((response) => {
         after = response.spotifyData.body.artists.cursors.after;
         console.log("Response", response);
         console.log([...artists, ...response.spotifyData.body.artists.items]);
-
         setArtists((artists) => [
           ...artists,
           ...response.spotifyData.body.artists.items,
