@@ -6,6 +6,8 @@ import {
     LOGOUT_USER,
     CONNECT_USER,
     EXCHANGE_CODE,
+    CHANGE_EMAIL,
+    CHANGE_PASSWORD,
 } from "./types";
 import { USER_SERVER } from "../components/Config.js";
 
@@ -63,6 +65,26 @@ export function exchangeCode(dataToSubmit) {
         .then((response) => response.data);
     return {
         type: EXCHANGE_CODE,
+        payload: request,
+    };
+}
+
+export function changeEmail(dataToSubmit) {
+    const request = axios
+        .post(`${USER_SERVER}/change_email`, dataToSubmit)
+        .then((response) => response.data);
+    return {
+        type: CHANGE_EMAIL,
+        payload: request,
+    };
+}
+
+export function changePassword(dataToSubmit) {
+    const request = axios
+        .post(`${USER_SERVER}/change_password`, dataToSubmit)
+        .then((response) => response.data);
+    return {
+        type: CHANGE_PASSWORD,
         payload: request,
     };
 }

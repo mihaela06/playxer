@@ -62,7 +62,6 @@ function RegisterPage(props) {
                 errorMessage,
                 "Registration unsuccessful"
               );
-              //to do: check error type if mongo and on which element
             }
           });
 
@@ -208,9 +207,9 @@ function RegisterPage(props) {
                             >
                               Sign up{" "}
                             </p>{" "}
-                          </Container>
+                          </Container>{" "}
                         </Button>{" "}
-                      </Container>
+                      </Container>{" "}
                     </Form.Item>{" "}
                   </form>{" "}
                 </Col>{" "}

@@ -4,6 +4,8 @@ export const AUTH_USER = 'auth_user';
 export const LOGOUT_USER = 'logout_user';
 export const CONNECT_USER = 'connect_user';
 export const EXCHANGE_CODE = 'exchange_code';
+export const CHANGE_EMAIL = 'change_email';
+export const CHANGE_PASSWORD = 'change_password';
 
 export const GET_FOLLOWED_ARTISTS = 'get_followed_artists';
 export const GET_ARTIST = 'get_artist';

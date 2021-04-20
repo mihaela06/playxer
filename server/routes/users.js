@@ -79,7 +79,49 @@ router.get("/connect", (req, res) => {
 router.post("/exchange_code", exchangeCode, (req, res) => {
     return res.status(200).json({
         connectedSpotify: req.connectedSpotify,
-        success: true
+        success: true,
+    });
+});
+
+router.post("/change_email", (req, res) => {
+    User.findOneAndUpdate({ _id: req.body.id }, { email: req.body.email },
+        (err, doc) => {
+            if (err) return res.json({ success: false, err });
+            return res.status(200).send({
+                success: true,
+            });
+        }
+    );
+});
+
+router.post("/change_password", (req, res) => {
+    User.findOne({ _id: req.body.id }, (err, user) => {
+        if (!user)
+            return res.json({
+                loginSuccess: false,
+                message: "User not found",
+            });
+
+        user.comparePassword(req.body.oldPassword, (err, isMatch) => {
+            if (!isMatch)
+                return res.json({
+                    loginSuccess: false,
+                    message: "Wrong current password",
+                });
+            else {
+                User.findOne({ _id: req.body.id }, (err, doc) => {
+                    console.log(req.body.newPassword);
+                    if (err || !doc) return res.json({ success: false, err });
+                    doc["password"] = req.body.newPassword;
+                    doc.save(function(err) {
+                        if (err) return res.status(500).send(err);
+                        return res.status(200).send({
+                            success: true,
+                        });
+                    });
+                });
+            }
+        });
     });
 });
 

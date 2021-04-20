@@ -35,9 +35,8 @@ function LandingPage() {
         </div>
       );
     else return <MainPage />;
-  } else if (user.userData && !user.userData.isAuth)
-    return <div> User not logged in </div>;
-  else return <div className="app"> userData null </div>;
+  } else if (user.userData && !user.userData.isAuth) return <div> </div>;
+  else return <div className="app"> </div>;
 }
 
 export default withRouter(LandingPage);

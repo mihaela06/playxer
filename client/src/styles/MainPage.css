@@ -34,7 +34,6 @@
 
 .activeLink {
     color: var(--cadet-blue);
-    font-size: 1.8rem;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
 }
@@ -43,11 +42,11 @@
     min-height: 100vh !important;
     max-width: 0vw;
     width: fit-content;
-    -webkit-transition: margin 0.25s ease-out;
-    -moz-transition: margin 0.25s ease-out;
-    -o-transition: margin 0.25s ease-out;
-    transition: margin 0.25s ease-out;
     padding: 0 !important;
+}
+
+.navbar {
+    background-color: var(--background-color-sec);
 }
 
 @media screen and (min-width: 990px) {
