@@ -118,7 +118,7 @@ function Artist({ match }) {
         {albumsInfo &&
           albumContainers.map(function (albumType, indexC) {
             var container = (
-              <div className="albums-container">
+              <div className="albums-container" key={indexC}>
                 <h3>{albumType.name}</h3>
                 <Row noGutters>
                   {albumsInfo.map(function (album, index) {

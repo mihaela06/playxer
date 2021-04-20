@@ -8,68 +8,75 @@ import { NotificationManager } from "react-notifications";
 function ArtistsPage(props) {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
-  var loadingExtra = false;
-  var total = 0;
-  var offset = 0;
-  var after = "";
+  const [loadingExtraData, setLoadingExtraData] = useState(
+    { loadingExtra: false, total: 0, offset: 0, after: "" }
+  );
 
   useEffect(() => {
     getData();
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, []);
-
   const getData = () => {
-    if (total < offset || loadingExtra) return;
-    console.log("offset", offset);
-    if (total > 0) NotificationManager.info("Loading...", "", 500);
-    getFollowedArtists(after)
+    if (
+      loadingExtraData.total < loadingExtraData.offset ||
+      loadingExtraData.loadingExtra
+    )
+      return;
+    if (loadingExtraData.total > 0)
+      NotificationManager.info("Loading...", "", 500);
+
+    getFollowedArtists(loadingExtraData.after)
       .then((response) => {
-        after = response.spotifyData.body.artists.cursors.after;
         console.log("Response", response);
-        console.log([...artists, ...response.spotifyData.body.artists.items]);
         setArtists((artists) => [
           ...artists,
           ...response.spotifyData.body.artists.items,
         ]);
-        console.log("loading", loading);
         if (loading) setLoading(false);
-        console.log(artists);
-        if (total == 0) total = response.spotifyData.body.artists.total;
-        offset += 24;
-        console.log(after);
-        loadingExtra = false;
+        var total = response.spotifyData.body.artists.total;
+        var offset = loadingExtraData.offset + 24;
+        var after =
+          response.spotifyData.body.artists.cursors.after;
+        var loadingExtra = false;
+        setLoadingExtraData({loadingExtra: loadingExtra, total: total, offset: offset, after: after});
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleScroll = () => {
-    const windowHeight =
-      "innerHeight" in window
-        ? window.innerHeight
-        : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-    const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight - 1) {
-      {
-        console.log("Getting extra data...");
-        getData();
-        loadingExtra = true;
+  React.useEffect(function setupListener() {
+    const handleScroll = () => {
+      const windowHeight =
+        "innerHeight" in window
+          ? window.innerHeight
+          : document.documentElement.offsetHeight;
+      const body = document.body;
+      const html = document.documentElement;
+      const docHeight = Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        html.clientHeight,
+        html.scrollHeight,
+        html.offsetHeight
+      );
+      const windowBottom = windowHeight + window.pageYOffset;
+      if (windowBottom >= docHeight - 1 && !loadingExtraData.loadingExtra) {
+        {
+          getData();
+
+          var temp = loadingExtraData;
+          temp.loadingExtra = true;
+          setLoadingExtraData(temp);
+        }
       }
-    }
-  };
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return function cleanupListener() {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
 
   if (loading)
     return (
