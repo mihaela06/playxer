@@ -39,6 +39,35 @@ router.post("/get_followed_artists", loadTokens, (req, res) => {
     );
 });
 
+router.post("/get_liked_albums", loadTokens, (req, res) => {
+    console.log("token access", req.accessToken);
+    spotifyApi.setAccessToken(req.accessToken);
+    spotifyApi.setRefreshToken(req.refreshToken);
+    console.log("after", req.body.after);
+    var options = {};
+    if (req.body.after == "") options = { limit: 24 };
+    else options = { limit: 24, offset: req.body.after };
+    console.log(options);
+    spotifyApi.getMySavedAlbums(options).then(
+        function(data) {
+            console.log(
+                "This user is following ",
+                data.body.total,
+                " albums!",
+                data.body.offset
+            );
+            return res.status(200).json({
+                success: true,
+                spotifyData: data,
+            });
+        },
+        function(err) {
+            console.log("Something went wrong!", err);
+            return res.status(400).send(err);
+        }
+    );
+});
+
 router.post("/get_artist", loadTokens, (req, res) => {
     spotifyApi.setAccessToken(req.accessToken);
     spotifyApi.setRefreshToken(req.refreshToken);
@@ -52,6 +81,34 @@ router.post("/get_artist", loadTokens, (req, res) => {
                     return res.status(200).json({
                         success: true,
                         isFollowing: following,
+                        spotifyData: data,
+                    });
+                },
+                function(err) {
+                    console.log("Something went wrong!", err);
+                    return res.status(400).send(err);
+                }
+            );
+        },
+        function(err) {
+            console.log("Something went wrong!", err);
+        }
+    );
+});
+
+router.post("/get_album", loadTokens, (req, res) => {
+    spotifyApi.setAccessToken(req.accessToken);
+    spotifyApi.setRefreshToken(req.refreshToken);
+    var saved = false;
+    let albumIds = [req.body.albumId];
+    spotifyApi.containsMySavedAlbums(albumIds).then(
+        function(data) {
+            saved = data.body[0];
+            spotifyApi.getAlbum(req.body.albumId).then(
+                function(data) {
+                    return res.status(200).json({
+                        success: true,
+                        isFollowing: saved,
                         spotifyData: data,
                     });
                 },

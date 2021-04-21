@@ -30,7 +30,7 @@ function Artist({ match }) {
           console.log(err);
         });
     };
-    
+
     getData();
   }, []);
 
@@ -94,7 +94,11 @@ function Artist({ match }) {
                 borderRadius: "50%",
               }}
             />
-            <button className="increase-hover" onClick={clickedFollowButton}>
+            <button
+              className="increase-hover"
+              onClick={clickedFollowButton}
+              style={{ fontSize: "4vmin" }}
+            >
               {following ? "Unfollow" : "Follow"}
             </button>
           </Col>
@@ -105,7 +109,7 @@ function Artist({ match }) {
                 paddingTop: "5%",
                 marginBottom: "5%",
                 overflow: "clip",
-                color: "var(--text-color)"
+                color: "var(--text-color)",
               }}
             >
               {artistInfo.name}
@@ -125,7 +129,9 @@ function Artist({ match }) {
                 <Row noGutters>
                   {albumsInfo.map(function (album, index) {
                     if (album.album_group === albumType.type) {
-                      if (albumType.array.indexOf(album.name.toLowerCase()) === -1) {
+                      if (
+                        albumType.array.indexOf(album.name.toLowerCase()) === -1
+                      ) {
                         albumType.array.push(album.name.toLowerCase());
                         return (
                           <React.Fragment key={index}>

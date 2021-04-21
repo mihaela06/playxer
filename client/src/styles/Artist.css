@@ -21,14 +21,13 @@
     border: 0px;
     border-radius: 10px;
     font-weight: bold;
-    font-size: 0.8rem;
     position: absolute;
     bottom: 5px;
     margin: 5px;
 }
 
 .header-container__followers {
-    font-size: 3vmin;
+    font-size: 5vmin;
     margin: auto;
     width: 100%;
     text-align: right;

@@ -11,6 +11,7 @@ import NavBar from "./Sections/NavBar";
 import ProfilePage from "../ProfilePage/ProfilePage";
 import AlbumsPage from "./Sections/AlbumsPage";
 import Artist from "./Sections/Artist";
+import Album from "./Sections/Album";
 
 function MainPage() {
   return (
@@ -29,6 +30,7 @@ function MainPage() {
                 <Route path="/artists/:artistId" component={Artist} />{" "}
                 <Route exact path="/playlists" component={PlaylistsPage} />{" "}
                 <Route exact path="/albums" component={AlbumsPage} />{" "}
+                <Route path="/albums/:albumId" component={Album} />{" "}
                 <Route exact path="/profile" component={ProfilePage} />{" "}
               </Switch>{" "}
             </Col>{" "}
