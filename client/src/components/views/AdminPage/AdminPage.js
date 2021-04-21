@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { getUsers, deleteUser } from "../../../_actions/admin_actions";
 import { Table, Input } from "antd";
 import { Container } from "reactstrap";
+
+import axios from "axios";
+import { USER_SERVER } from "../../Config";
 import "antd/dist/antd.css";
+import DarkMode from "../../DarkMode";
+import { RiShutDownLine } from "react-icons/ri";
 
 import { NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
 const { Search } = Input;
 
-function AdminPage() {
+function AdminPage(props) {
   const [usersInfo, setUsersInfo] = useState([]);
   const [filteredInfo, setFilteredInfo] = useState([]);
   useEffect(() => {
@@ -37,7 +42,9 @@ function AdminPage() {
             NotificationManager.success("User deleted", "Success!");
             let temp = usersInfo.filter((item) => item.email !== record.email);
             setUsersInfo(temp);
-            let tempfil = filteredInfo.filter((item) => item.email !== record.email);
+            let tempfil = filteredInfo.filter(
+              (item) => item.email !== record.email
+            );
             setFilteredInfo(tempfil);
           } else NotificationManager.error("User not deleted", "Error!");
         })
@@ -47,17 +54,33 @@ function AdminPage() {
     }
   };
 
+  const logoutHandler = () => {
+    axios.get(`${USER_SERVER}/logout`).then((response) => {
+      if (response.status === 200) {
+        props.history.push("/auth");
+      } else {
+        alert("Log Out Failed");
+      }
+    });
+  };
+
   const columns = [
     {
       title: "Username",
       dataIndex: "username",
       key: "username",
       sorter: (a, b) => a.username.localeCompare(b.username),
+      render: (record) => (
+        <p style={{ color: "var(--text-color)" }}>{record}</p>
+      ),
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      render: (record) => (
+        <p style={{ color: "var(--text-color)" }}>{record}</p>
+      ),
     },
     {
       title: "Action",
@@ -81,17 +104,35 @@ function AdminPage() {
 
   return (
     <div className="center-items">
+      <DarkMode />
       <Container style={{ margin: "10px" }}>
-        <p
-          style={{
-            fontWeight: "bold",
-            fontSize: "2rem",
-            textAlign: "center",
-            marginTop: "20px",
-          }}
+        <div
+          className="center-items"
+          style={{ display: "flex", flexDirection: "row" }}
         >
-          Admin control panel
-        </p>
+          <p
+            style={{
+              fontWeight: "bold",
+              fontSize: "2rem",
+              textAlign: "center",
+              marginTop: "20px",
+              marginBottom: "20px",
+            }}
+          >
+            Admin control panel
+          </p>
+          <a onClick={logoutHandler}>
+            <RiShutDownLine
+              color="red"
+              size="sm"
+              style={{
+                maxHeight: "30px",
+                maxWidth: "30px",
+                marginLeft: "2vw",
+              }}
+            />
+          </a>
+        </div>
 
         <Search
           style={{ margin: "0 0 20px 0" }}
