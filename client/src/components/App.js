@@ -10,6 +10,7 @@ import LandingPage from "./views/LandingPage/LandingPage";
 import AuthPage from "./views/AuthPage/AuthPage";
 import ConnectPage from "./views/ConnectPage/ConnectPage";
 import CallbackPage from "./views/CallbackPage/CallbackPage";
+import AdminPage from "./views/AdminPage/AdminPage";
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/auth" component={Auth(AuthPage, false)} />{" "}
           <Route exact path="/connect" component={Auth(ConnectPage, true)} />{" "}
           <Route path="/callback" component={Auth(CallbackPage, true)} />{" "}
+          <Route path="/admin" component={Auth(AdminPage, true, true)} />{" "}
           <Route path="/" component={Auth(LandingPage, true)} />{" "}
         </Switch>{" "}
       </div>{" "}

@@ -17,4 +17,14 @@ let auth = (req, res, next) => {
   });
 };
 
-module.exports = { auth };
+let admin = (req, res, next) => {
+  if (req.user.isAdmin === 0)
+    return res.json({
+      isAdmin: false,
+      error: true,
+    });
+
+  next();
+};
+
+module.exports = { auth, admin };

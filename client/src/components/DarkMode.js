@@ -40,7 +40,12 @@ function DarkMode(props) {
     const route = window.location.pathname;
     console.log(route);
 
-    if (route == "/profile" || route == "/connect" || route == "/auth")
+    if (
+      route == "/profile" ||
+      route == "/connect" ||
+      route == "/auth" ||
+      route == "/admin"
+    )
       return true;
     else return false;
   };

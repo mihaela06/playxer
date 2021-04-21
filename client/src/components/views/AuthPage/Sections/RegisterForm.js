@@ -170,7 +170,17 @@ function RegisterPage(props) {
                         </div>
                       )}{" "}
                     </Form.Item>{" "}
-                    <Form.Item required hasFeedback>
+                    <Form.Item
+                      required
+                      hasFeedback
+                      validateStatus={
+                        values.confirmPassword == ""
+                          ? undefined
+                          : errors.confirmPassword && touched.confirmPassword
+                          ? "error"
+                          : "success"
+                      }
+                    >
                       <Input
                         id="confirmPassword"
                         prefix={<Icon type="lock" className="input__icon" />}
@@ -200,14 +210,11 @@ function RegisterPage(props) {
                           className="login-form-button login-form-button--main center-items"
                           disabled={isSubmitting}
                         >
-                          <Container>
                             <p
-                              className="my-auto mx-auto"
-                              style={{ padding: "5px" }}
+                              className="my-auto mx-auto center-items h-100"
                             >
                               Sign up{" "}
                             </p>{" "}
-                          </Container>{" "}
                         </Button>{" "}
                       </Container>{" "}
                     </Form.Item>{" "}

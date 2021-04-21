@@ -34,6 +34,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/spotify", require("./routes/spotify"));
+app.use("/api/admins", require("./routes/admins"));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

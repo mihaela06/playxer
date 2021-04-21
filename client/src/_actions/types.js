@@ -12,3 +12,6 @@ export const GET_ARTIST = 'get_artist';
 export const CHANGE_ARTIST_FOLLOWING = 'change_artist_following';
 export const GET_ARTIST_ALBUMS = 'get_artist_albums';
 export const GET_PROFILE = 'get_profile';
+
+export const GET_USERS = 'get_users';
+export const DELETE_USER = 'delete_user';
