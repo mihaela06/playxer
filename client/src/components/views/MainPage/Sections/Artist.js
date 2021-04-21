@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Container } from "reactstrap";
+import { Col, Row } from "reactstrap";
 import {
   getArtist,
   changeArtistFollowing,
@@ -16,7 +16,21 @@ function Artist({ match }) {
   const [following, setFollowing] = useState(false);
   var totalAlbums = 0;
   var offset = 0;
+
   useEffect(() => {
+    const getData = () => {
+      getArtist(match.params.artistId)
+        .then((response) => {
+          console.log(response);
+          setArtistInfo(response.spotifyData.body);
+          setFollowing(response.isFollowing);
+          getAlbums(response.spotifyData.body.id);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    
     getData();
   }, []);
 
@@ -41,19 +55,6 @@ function Artist({ match }) {
         totalAlbums = response.spotifyData.body.total;
         if (offset < totalAlbums) getAlbums(artistId);
         else setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const getData = () => {
-    getArtist(match.params.artistId)
-      .then((response) => {
-        console.log(response);
-        setArtistInfo(response.spotifyData.body);
-        setFollowing(response.isFollowing);
-        getAlbums(response.spotifyData.body.id);
       })
       .catch((err) => {
         console.log(err);
@@ -86,6 +87,7 @@ function Artist({ match }) {
           >
             <img
               src={artistInfo.images[1].url}
+              alt={artistInfo.name}
               style={{
                 height: "90%",
                 maxHeight: "30vmin",
@@ -123,7 +125,7 @@ function Artist({ match }) {
                 <Row noGutters>
                   {albumsInfo.map(function (album, index) {
                     if (album.album_group === albumType.type) {
-                      if (albumType.array.indexOf(album.name.toLowerCase()) == -1) {
+                      if (albumType.array.indexOf(album.name.toLowerCase()) === -1) {
                         albumType.array.push(album.name.toLowerCase());
                         return (
                           <React.Fragment key={index}>
@@ -136,6 +138,7 @@ function Artist({ match }) {
                         );
                       }
                     }
+                    return null;
                   })}
                 </Row>
               </div>

@@ -3,7 +3,6 @@ import React from "react";
 import DarkMode from "../../../DarkMode";
 
 function ParticleBackground() {
-  const body = document.body;
   const containerRef = React.useRef();
   var text_color = getComputedStyle(document.body)
     .getPropertyValue("--text-color")

@@ -1,8 +1,8 @@
-export const LOGIN_USER = 'login_user';
-export const REGISTER_USER = 'register_user';
-export const AUTH_USER = 'auth_user';
-export const LOGOUT_USER = 'logout_user';
-export const CONNECT_USER = 'connect_user';
+export const LOGIN_USER = 'login';
+export const REGISTER_USER = 'register';
+export const AUTH_USER = 'auth';
+export const LOGOUT_USER = 'logout';
+export const CONNECT_USER = 'connect';
 export const EXCHANGE_CODE = 'exchange_code';
 export const CHANGE_EMAIL = 'change_email';
 export const CHANGE_PASSWORD = 'change_password';

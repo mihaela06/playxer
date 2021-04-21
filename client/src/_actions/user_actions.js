@@ -13,7 +13,7 @@ import { USER_SERVER } from "../components/Config.js";
 
 export function registerUser(dataToSubmit) {
     const request = axios
-        .post(`${USER_SERVER}/register`, dataToSubmit)
+        .post(`${USER_SERVER}/${REGISTER_USER}`, dataToSubmit)
         .then((response) => response.data);
 
     return {
@@ -24,7 +24,7 @@ export function registerUser(dataToSubmit) {
 
 export function loginUser(dataToSubmit) {
     const request = axios
-        .post(`${USER_SERVER}/login`, dataToSubmit)
+        .post(`${USER_SERVER}/${LOGIN_USER}`, dataToSubmit)
         .then((response) => response.data);
 
     return {
@@ -35,7 +35,7 @@ export function loginUser(dataToSubmit) {
 
 export function auth() {
     const request = axios
-        .get(`${USER_SERVER}/auth`)
+        .get(`${USER_SERVER}/${AUTH_USER}`)
         .then((response) => response.data);
 
     return {
@@ -46,7 +46,7 @@ export function auth() {
 
 export function logoutUser() {
     const request = axios
-        .get(`${USER_SERVER}/logout`)
+        .get(`${USER_SERVER}/${LOGOUT_USER}`)
         .then((response) => response.data);
 
     return {
@@ -56,12 +56,12 @@ export function logoutUser() {
 }
 
 export function connectUser() {
-    return axios.get(`${USER_SERVER}/connect`).then((response) => response.data);
+    return axios.get(`${USER_SERVER}/${CONNECT_USER}`).then((response) => response.data);
 }
 
 export function exchangeCode(dataToSubmit) {
     const request = axios
-        .post(`${USER_SERVER}/exchange_code`, dataToSubmit)
+        .post(`${USER_SERVER}/${EXCHANGE_CODE}`, dataToSubmit)
         .then((response) => response.data);
     return {
         type: EXCHANGE_CODE,
@@ -71,7 +71,7 @@ export function exchangeCode(dataToSubmit) {
 
 export function changeEmail(dataToSubmit) {
     const request = axios
-        .post(`${USER_SERVER}/change_email`, dataToSubmit)
+        .post(`${USER_SERVER}/${CHANGE_EMAIL}`, dataToSubmit)
         .then((response) => response.data);
     return {
         type: CHANGE_EMAIL,
@@ -81,7 +81,7 @@ export function changeEmail(dataToSubmit) {
 
 export function changePassword(dataToSubmit) {
     const request = axios
-        .post(`${USER_SERVER}/change_password`, dataToSubmit)
+        .post(`${USER_SERVER}/${CHANGE_PASSWORD}`, dataToSubmit)
         .then((response) => response.data);
     return {
         type: CHANGE_PASSWORD,

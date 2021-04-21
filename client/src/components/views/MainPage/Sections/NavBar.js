@@ -1,7 +1,6 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
-import { Icon } from "antd";
 import { FiUser } from "react-icons/fi";
 import { RiPlayListFill, RiAlbumFill } from "react-icons/ri";
 import { GiMicrophone } from "react-icons/gi";
@@ -42,6 +41,7 @@ function NavBar(props) {
         <NavItem className="center-items">
           <img
             src={logoPlayxer}
+            alt="Playxer logo"
             style={{
               width: "15vw",
               marginTop: "20px",

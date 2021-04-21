@@ -8,21 +8,14 @@ function DisplayCard(props) {
   let { type, name, images, id } = props;
   var defaultPic;
   var toLink;
-  if(type == "artist")
-  {
+  if (type === "artist") {
     defaultPic = DefaultArtist;
     toLink = `/artists/${id}`;
-  }
-  else
-  {
+  } else {
     defaultPic = DefaultArtist;
     toLink = `/albums/${id}`;
   }
-  var source = images
-    ? images[1]
-      ? images[1].url
-      : defaultPic
-    : defaultPic;
+  var source = images ? (images[1] ? images[1].url : defaultPic) : defaultPic;
   return (
     <Col lg={2} md={3} xs={6} className="box">
       <Link to={toLink}>
@@ -52,7 +45,7 @@ function DisplayCard(props) {
               overflow: "hidden",
               textOverflow: "ellipsis",
               display: "block",
-              lineHeight: "1em"
+              lineHeight: "1em",
             }}
           >
             {" "}

@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { getFollowedArtists } from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
 import DisplayCard from "./DisplayCard";
-import { Row, Col } from "reactstrap";
+import { Row } from "reactstrap";
 import { NotificationManager } from "react-notifications";
 
 function ArtistsPage(props) {
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingExtraData, setLoadingExtraData] = useState(
-    { loadingExtra: false, total: 0, offset: 0, after: "" }
-  );
+  const [loadingExtraData, setLoadingExtraData] = useState({
+    loadingExtra: false,
+    total: 0,
+    offset: 0,
+    after: "",
+  });
 
   useEffect(() => {
     getData();
@@ -35,10 +38,14 @@ function ArtistsPage(props) {
         if (loading) setLoading(false);
         var total = response.spotifyData.body.artists.total;
         var offset = loadingExtraData.offset + 24;
-        var after =
-          response.spotifyData.body.artists.cursors.after;
+        var after = response.spotifyData.body.artists.cursors.after;
         var loadingExtra = false;
-        setLoadingExtraData({loadingExtra: loadingExtra, total: total, offset: offset, after: after});
+        setLoadingExtraData({
+          loadingExtra: loadingExtra,
+          total: total,
+          offset: offset,
+          after: after,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -62,13 +69,10 @@ function ArtistsPage(props) {
       );
       const windowBottom = windowHeight + window.pageYOffset;
       if (windowBottom >= docHeight - 1 && !loadingExtraData.loadingExtra) {
-        {
-          getData();
-
-          var temp = loadingExtraData;
-          temp.loadingExtra = true;
-          setLoadingExtraData(temp);
-        }
+        getData();
+        var temp = loadingExtraData;
+        temp.loadingExtra = true;
+        setLoadingExtraData(temp);
       }
     };
 

@@ -1,9 +1,9 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { withRouter } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import DarkMode from "../../DarkMode";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import ArtistsPage from "./Sections/ArtistsPage";
 import PlaylistsPage from "./Sections/PlaylistsPage";

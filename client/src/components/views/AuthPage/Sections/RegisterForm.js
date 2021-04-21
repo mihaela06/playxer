@@ -74,12 +74,10 @@ function RegisterPage(props) {
           values,
           touched,
           errors,
-          dirty,
           isSubmitting,
           handleChange,
           handleBlur,
           handleSubmit,
-          handleReset,
         } = props;
         return (
           <div>
@@ -113,7 +111,7 @@ function RegisterPage(props) {
                       required
                       hasFeedback
                       validateStatus={
-                        values.email == ""
+                        values.email === ""
                           ? undefined
                           : errors.email && touched.email
                           ? "error"
@@ -142,7 +140,7 @@ function RegisterPage(props) {
                       required
                       hasFeedback
                       validateStatus={
-                        values.password == ""
+                        values.password === ""
                           ? undefined
                           : errors.password && touched.password
                           ? "error"
@@ -174,7 +172,7 @@ function RegisterPage(props) {
                       required
                       hasFeedback
                       validateStatus={
-                        values.confirmPassword == ""
+                        values.confirmPassword === ""
                           ? undefined
                           : errors.confirmPassword && touched.confirmPassword
                           ? "error"
@@ -210,11 +208,9 @@ function RegisterPage(props) {
                           className="login-form-button login-form-button--main center-items"
                           disabled={isSubmitting}
                         >
-                            <p
-                              className="my-auto mx-auto center-items h-100"
-                            >
-                              Sign up{" "}
-                            </p>{" "}
+                          <p className="my-auto mx-auto center-items h-100">
+                            Sign up{" "}
+                          </p>{" "}
                         </Button>{" "}
                       </Container>{" "}
                     </Form.Item>{" "}

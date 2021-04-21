@@ -9,7 +9,7 @@ import spotifyIcon from "../../../assets/images/SpotifyIcon.png";
 
 function LandingPage() {
   const user = useSelector((state) => state.user);
-  console.log(user);
+  console.log("user", user);
   if (user.userData && user.userData.isAuth) {
     if (!user.userData.connectedSpotify)
       return (
@@ -26,7 +26,7 @@ function LandingPage() {
                     <p> Connect with Spotify® </p>{" "}
                   </Col>{" "}
                   <Col xs={1} className="my-auto mx-auto">
-                    <img src={spotifyIcon} />{" "}
+                    <img src={spotifyIcon} alt="Spotify logo" />{" "}
                   </Col>{" "}
                 </Row>{" "}
               </Container>{" "}

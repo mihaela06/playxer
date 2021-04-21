@@ -1,10 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "../styles/DarkMode.css";
 import "antd/dist/antd.css";
 import { Switch } from "antd";
 import { FiSun, FiMoon } from "react-icons/fi";
-import ParticleBackground from "./views/AuthPage/Sections/ParticleBackground";
 
 function DarkMode(props) {
   const body = document.body;
@@ -40,7 +38,7 @@ function DarkMode(props) {
     const route = window.location.pathname;
     console.log(route);
 
-    if (route == "/profile" || route == "/connect" || route == "/auth")
+    if (route === "/profile" || route === "/connect" || route === "/auth")
       return true;
     else return false;
   };

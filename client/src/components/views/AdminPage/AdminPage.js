@@ -71,7 +71,7 @@ function AdminPage(props) {
       key: "username",
       sorter: (a, b) => a.username.localeCompare(b.username),
       render: (record) => (
-        <p style={{ color: "var(--text-color)" }}>{record}</p>
+        <p style={{ color: "var(--text-color)" }}> {record} </p>
       ),
     },
     {
@@ -79,15 +79,19 @@ function AdminPage(props) {
       dataIndex: "email",
       key: "email",
       render: (record) => (
-        <p style={{ color: "var(--text-color)" }}>{record}</p>
+        <p style={{ color: "var(--text-color)" }}> {record} </p>
       ),
     },
     {
       title: "Action",
       key: "action",
       render: (record) => (
-        <a style={{ color: "red" }} onClick={() => handleDelete(record)}>
-          Delete
+        <a
+          style={{ color: "red" }}
+          href="/#"
+          onClick={() => handleDelete(record)}
+        >
+          Delete{" "}
         </a>
       ),
     },
@@ -119,9 +123,16 @@ function AdminPage(props) {
               marginBottom: "20px",
             }}
           >
-            Admin control panel
-          </p>
-          <a onClick={logoutHandler}>
+            Admin control panel{" "}
+          </p>{" "}
+          <button
+            onClick={logoutHandler}
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              padding: "0px!important",
+            }}
+          >
             <RiShutDownLine
               color="red"
               size="sm"
@@ -130,25 +141,24 @@ function AdminPage(props) {
                 maxWidth: "30px",
                 marginLeft: "2vw",
               }}
-            />
-          </a>
-        </div>
-
+            />{" "}
+          </button>{" "}
+        </div>{" "}
         <Search
           style={{ margin: "0 0 20px 0" }}
           placeholder="Search by..."
           enterButton
           onSearch={searchFunction}
           on
-        />
+        />{" "}
         {filteredInfo && (
           <Table
             columns={columns}
             rowKey={(record) => record.username}
             dataSource={filteredInfo}
           />
-        )}
-      </Container>
+        )}{" "}
+      </Container>{" "}
     </div>
   );
 }

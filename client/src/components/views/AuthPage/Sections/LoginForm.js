@@ -141,6 +141,7 @@ function LoginPage(props) {
                                   <Col xs={4} >
                                     <img
                                       src={mixIt}
+                                      alt="Mix it!"
                                       style={{
                                         height: "40px",
                                         marginLeft: "5px",

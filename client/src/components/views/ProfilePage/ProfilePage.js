@@ -61,12 +61,13 @@ function ProfilePage(props) {
               src={profile.images ? profile.images[0].url : null}
               alt={profile.display_name}
               style={{ borderRadius: "50%", height: "20vmin" }}
-            ></img>
-          </Col>
+            ></img>{" "}
+          </Col>{" "}
           <Col xs={9}>
             <p style={{ color: "var(--text-color)", fontSize: "8vmin" }}>
-              {profile.display_name}
-            </p>
+              {" "}
+              {profile.display_name}{" "}
+            </p>{" "}
             <a onClick={logoutHandler}>
               <button
                 style={{
@@ -80,12 +81,12 @@ function ProfilePage(props) {
                 }}
                 className="increase-hover"
               >
-                Logout from Playxer
+                Logout from Playxer{" "}
               </button>{" "}
             </a>{" "}
-          </Col>
-        </Row>
-        <h4 style={{ marginTop: "5vh" }}>Modify your account information</h4>
+          </Col>{" "}
+        </Row>{" "}
+        <h4 style={{ marginTop: "5vh" }}> Modify your account information </h4>{" "}
         <Formik
           initialValues={{
             email: "",
@@ -136,12 +137,10 @@ function ProfilePage(props) {
               values,
               touched,
               errors,
-              dirty,
               isSubmitting,
               handleChange,
               handleBlur,
               handleSubmit,
-              handleReset,
             } = props;
             return (
               <div>
@@ -152,7 +151,7 @@ function ProfilePage(props) {
                         required
                         hasFeedback
                         validateStatus={
-                          values.email == ""
+                          values.email === ""
                             ? undefined
                             : errors.email && touched.email
                             ? "error"
@@ -183,7 +182,7 @@ function ProfilePage(props) {
                           </div>
                         )}{" "}
                       </Form.Item>{" "}
-                    </Col>
+                    </Col>{" "}
                     <Col md={4}>
                       <Form.Item>
                         <Container className="center-items">
@@ -262,23 +261,21 @@ function ProfilePage(props) {
               values,
               touched,
               errors,
-              dirty,
               isSubmitting,
               handleChange,
               handleBlur,
               handleSubmit,
-              handleReset,
             } = props;
             return (
-              <div style={{marginTop: "5vh"}}>
-                <form onSubmit={handleSubmit} className="center-items"> 
+              <div style={{ marginTop: "5vh" }}>
+                <form onSubmit={handleSubmit} className="center-items">
                   <Row className="w-100">
                     <Col md={8}>
                       <Form.Item
                         required
                         hasFeedback
                         validateStatus={
-                          values.oldPassword == ""
+                          values.oldPassword === ""
                             ? undefined
                             : errors.oldPassword && touched.oldPassword
                             ? "error"
@@ -313,7 +310,7 @@ function ProfilePage(props) {
                         required
                         hasFeedback
                         validateStatus={
-                          values.newPassword == ""
+                          values.newPassword === ""
                             ? undefined
                             : errors.newPassword && touched.newPassword
                             ? "error"
@@ -348,7 +345,7 @@ function ProfilePage(props) {
                         required
                         hasFeedback
                         validateStatus={
-                          values.newPasswordConfirm == ""
+                          values.newPasswordConfirm === ""
                             ? undefined
                             : errors.newPasswordConfirm &&
                               touched.newPasswordConfirm
@@ -382,7 +379,7 @@ function ProfilePage(props) {
                             </div>
                           )}{" "}
                       </Form.Item>{" "}
-                    </Col>
+                    </Col>{" "}
                     <Col md={4} className="center-items">
                       <Form.Item>
                         <Container className="center-items">
