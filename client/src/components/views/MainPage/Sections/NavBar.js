@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
 import { FiUser } from "react-icons/fi";
-import { RiPlayListFill, RiAlbumFill } from "react-icons/ri";
+import { RiPlayListFill, RiAlbumFill, RiHome2Line } from "react-icons/ri";
 import { GiMicrophone } from "react-icons/gi";
 import { useSelector } from "react-redux";
 
@@ -11,6 +11,11 @@ import logoPlayxer from "../../../../assets/images/Logo.png";
 
 function NavBar(props) {
   const tabs = [
+    {
+      route: "/",
+      icon: RiHome2Line,
+      label: "Home",
+    },
     {
       route: "/artists",
       icon: GiMicrophone,
@@ -39,16 +44,18 @@ function NavBar(props) {
     <div>
       <Nav className="ml-auto sidebar d-none d-lg-block">
         <NavItem className="center-items">
-          <img
-            src={logoPlayxer}
-            alt="Playxer logo"
-            style={{
-              width: "15vw",
-              marginTop: "20px",
-              paddingRight: "40px",
-              marginLeft: "5px",
-            }}
-          />{" "}
+          <NavLink to="/">
+            <img
+              src={logoPlayxer}
+              alt="Playxer logo"
+              style={{
+                width: "15vw",
+                marginTop: "20px",
+                paddingRight: "40px",
+                marginLeft: "5px",
+              }}
+            />{" "}
+          </NavLink>
         </NavItem>{" "}
         <NavItem style={{ marginTop: "40px", marginBottom: "15px" }}>
           <NavLink

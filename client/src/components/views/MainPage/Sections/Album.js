@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 
-import { getAlbum } from "../../../../_actions/spotify_actions";
+import { getAlbum, changeAlbumSave } from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
 
 function Album({ match }) {
@@ -32,6 +32,11 @@ function Album({ match }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
+  const clickedSaveButton = () => {
+    setSaved(!saved);
+    changeAlbumSave(albumInfo.id, saved);
+  };
+
   if (loading)
     return (
       <div className="h-100">
@@ -59,7 +64,7 @@ function Album({ match }) {
                 padding: "5px",
               }}
             />
-            <button className="increase-hover" style={{ fontSize: "4vmin" }}>
+            <button className="increase-hover" onClick={clickedSaveButton} style={{ fontSize: "4vmin" }}>
               {saved ? "Saved" : "Save"}
             </button>
           </Col>

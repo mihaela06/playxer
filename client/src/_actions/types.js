@@ -12,8 +12,10 @@ export const GET_LIKED_ALBUMS = 'get_liked_albums';
 export const GET_ARTIST = 'get_artist';
 export const GET_ALBUM = 'get_album';
 export const CHANGE_ARTIST_FOLLOWING = 'change_artist_following';
+export const CHANGE_ALBUM_SAVED = 'change_album_saved';
 export const GET_ARTIST_ALBUMS = 'get_artist_albums';
 export const GET_PROFILE = 'get_profile';
+export const SEARCH = 'search';
 
 export const GET_USERS = 'get_users';
 export const DELETE_USER = 'delete_user';

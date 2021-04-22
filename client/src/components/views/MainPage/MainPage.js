@@ -12,6 +12,7 @@ import ProfilePage from "../ProfilePage/ProfilePage";
 import AlbumsPage from "./Sections/AlbumsPage";
 import Artist from "./Sections/Artist";
 import Album from "./Sections/Album";
+import SearchPage from "./Sections/SearchPage";
 
 function MainPage() {
   return (
@@ -32,6 +33,7 @@ function MainPage() {
                 <Route exact path="/albums" component={AlbumsPage} />{" "}
                 <Route path="/albums/:albumId" component={Album} />{" "}
                 <Route exact path="/profile" component={ProfilePage} />{" "}
+                <Route exact path="/" component={SearchPage} />{" "}
               </Switch>{" "}
             </Col>{" "}
           </Row>{" "}
