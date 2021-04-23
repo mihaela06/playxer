@@ -26,6 +26,13 @@
     margin: 5px;
 }
 
+.header-container__artist {
+    font-size: 4.5vmin;
+    margin: auto;
+    width: 100%;
+    cursor: pointer;
+}
+
 .header-container__followers {
     font-size: 5vmin;
     margin: auto;

@@ -5,9 +5,11 @@ import {
   GET_ALBUM,
   CHANGE_ARTIST_FOLLOWING,
   GET_ARTIST_ALBUMS,
+  GET_ARTIST_RELATED,
   GET_PROFILE,
   GET_LIKED_ALBUMS,
   CHANGE_ALBUM_SAVED,
+  CHANGE_TRACK_SAVED,
   SEARCH,
 } from "./types";
 import { SPOTIFY_API } from "../components/Config.js";
@@ -54,10 +56,24 @@ export function changeAlbumSave(albumId, saved) {
     .then((response) => response.data);
 }
 
+export function changeTrackSave(trackId, saved) {
+  const dataToSubmit = { trackId: trackId, saved: saved };
+  return axios
+    .post(`${SPOTIFY_API}/${CHANGE_TRACK_SAVED}`, dataToSubmit)
+    .then((response) => response.data);
+}
+
 export function getArtistAlbums(artistId, offset) {
   const dataToSubmit = { artistId: artistId, offset: offset };
   return axios
     .post(`${SPOTIFY_API}/${GET_ARTIST_ALBUMS}`, dataToSubmit)
+    .then((response) => response.data);
+}
+
+export function getArtistRelated(artistId) {
+  const dataToSubmit = { artistId: artistId };
+  return axios
+    .post(`${SPOTIFY_API}/${GET_ARTIST_RELATED}`, dataToSubmit)
     .then((response) => response.data);
 }
 

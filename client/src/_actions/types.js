@@ -13,7 +13,9 @@ export const GET_ARTIST = 'get_artist';
 export const GET_ALBUM = 'get_album';
 export const CHANGE_ARTIST_FOLLOWING = 'change_artist_following';
 export const CHANGE_ALBUM_SAVED = 'change_album_saved';
+export const CHANGE_TRACK_SAVED = 'change_track_saved';
 export const GET_ARTIST_ALBUMS = 'get_artist_albums';
+export const GET_ARTIST_RELATED = 'get_artist_related';
 export const GET_PROFILE = 'get_profile';
 export const SEARCH = 'search';
 

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 
-import { getAlbum, changeAlbumSave } from "../../../../_actions/spotify_actions";
+import {
+  getAlbum,
+  changeAlbumSave,
+} from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
+import LikeButton from "./LikeButton";
 
-function Album({ match }) {
+function Album({ match, history }) {
   const [albumInfo, setAlbumInfo] = useState({});
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -14,7 +18,10 @@ function Album({ match }) {
       getAlbum(match.params.albumId)
         .then((response) => {
           console.log("album", response);
-          setAlbumInfo(response.spotifyData.body);
+          setAlbumInfo({
+            ...response.spotifyData.body,
+            savedTracks: response.spotifyData.savedTracks,
+          });
           setSaved(response.isFollowing);
           setLoading(false);
         })
@@ -64,7 +71,11 @@ function Album({ match }) {
                 padding: "5px",
               }}
             />
-            <button className="increase-hover" onClick={clickedSaveButton} style={{ fontSize: "4vmin" }}>
+            <button
+              className="increase-hover"
+              onClick={clickedSaveButton}
+              style={{ fontSize: "4vmin" }}
+            >
               {saved ? "Saved" : "Save"}
             </button>
           </Col>
@@ -79,6 +90,14 @@ function Album({ match }) {
               }}
             >
               {albumInfo.name}
+              <p
+                className="header-container__artist"
+                onClick={() => {
+                  history.push("/artists/" + albumInfo.artists[0].id);
+                }}
+              >
+                {albumInfo.artists && albumInfo.artists[0].name}
+              </p>
             </p>
             <p className="header-container__followers">
               Release date: {albumInfo.release_date}
@@ -99,12 +118,23 @@ function Album({ match }) {
                   }}
                 >
                   <Col xs={1} className="p-0 center-items">
-                    {index + 1}
+                    {track.track_number}
                   </Col>
-                  <Col xs={9} className="p-0">
+                  <Col xs={8} md={9} className="p-0">
                     {track.name}
                   </Col>
-                  <Col xs={2} style={{ textAlign: "right" }}>
+                  <Col xs={1} className="p-0 center-items">
+                    <LikeButton
+                      initial={albumInfo.savedTracks[index]}
+                      trackId={albumInfo.tracks.items[index].id}
+                    />
+                  </Col>
+                  <Col
+                    xs={2}
+                    md={1}
+                    className="center-items"
+                    style={{ textAlign: "right" }}
+                  >
                     {msToMin(track.duration_ms)}
                   </Col>
                 </Row>

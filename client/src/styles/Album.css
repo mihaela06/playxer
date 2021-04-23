@@ -1,0 +1,10 @@
+.like-button {
+    cursor: pointer;
+    color: var(--cadet-blue);
+}
+
+.like-button:hover,
+.like-button:active,
+.like-button:focus {
+    transform: scale(1.2, 1.2);
+}

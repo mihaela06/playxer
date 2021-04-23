@@ -8,7 +8,7 @@ import { Col, Row } from "reactstrap";
 function SearchPage(props) {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState(
-    localStorage ? localStorage.getItem("searchTerm") : ""
+    localStorage.getItem("searchTerm") ? localStorage.getItem("searchTerm") : ""
   );
   const [searchResult, setSearchResult] = useState();
 
@@ -129,17 +129,17 @@ function SearchPage(props) {
                                   );
                                 }}
                               >
-                                <Col xs={1} className="p-0 center-items">
+                                <Col xs={2} md={1} className="p-0 center-items">
                                   <img
                                     src={content.album.images[2].url}
                                     alt={content.album.name}
                                     style={{ height: "40px" }}
                                   />
                                 </Col>
-                                <Col xs={9} className="p-0">
+                                <Col xs={7} md={9} className="p-0">
                                   {content.name}
                                 </Col>
-                                <Col xs={2} style={{ textAlign: "right" }}>
+                                <Col xs={3} md={2} style={{ textAlign: "right" }}>
                                   {msToMin(content.duration_ms)}
                                 </Col>
                               </Row>

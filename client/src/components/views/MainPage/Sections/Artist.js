@@ -4,6 +4,7 @@ import {
   getArtist,
   changeArtistFollowing,
   getArtistAlbums,
+  getArtistRelated,
 } from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
 import DisplayCard from "./DisplayCard";
@@ -22,7 +23,10 @@ function Artist({ match }) {
       getArtist(match.params.artistId)
         .then((response) => {
           console.log(response);
-          setArtistInfo(response.spotifyData.body);
+          setArtistInfo({
+            ...response.spotifyData.body,
+            ...{ relatedArtists: response.spotifyData.relatedArtists.artists },
+          });
           setFollowing(response.isFollowing);
           getAlbums(response.spotifyData.body.id);
         })
@@ -30,9 +34,10 @@ function Artist({ match }) {
           console.log(err);
         });
     };
-
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    setLoading(true);
     getData();
-  }, []);
+  }, [match]);
 
   const clickedFollowButton = () => {
     setFollowing(!following);
@@ -152,6 +157,23 @@ function Artist({ match }) {
             if (albumType.array.length > 0) return container;
             else return null;
           })}
+        <div className="albums-container">
+          <h3>Related artists</h3>
+          <Row noGutters>
+            {artistInfo.relatedArtists.slice(0, 6).map(function (artist, index) {
+              return (
+                <React.Fragment key={index}>
+                  <DisplayCard
+                    images={artist.images}
+                    name={artist.name}
+                    id={artist.id}
+                    type="artist"
+                  />
+                </React.Fragment>
+              );
+            })}
+          </Row>
+        </div>
       </div>
     </div>
   );

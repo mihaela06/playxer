@@ -74,7 +74,7 @@ let refreshTokens = (req, res, next) => {
   console.log(req.user.accessTokenExp + req.user.accessTokenTimestamp);
   if (
     req.user.accessTokenExp + req.user.accessTokenTimestamp <=
-    currentTimestamp - 30
+    (currentTimestamp - 30)
   ) {
     spotifyApi.setRefreshToken(req.refreshToken);
     spotifyApi.refreshAccessToken().then(
