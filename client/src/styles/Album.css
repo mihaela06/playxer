@@ -8,3 +8,14 @@
 .like-button:focus {
     transform: scale(1.2, 1.2);
 }
+
+.artist-link {
+    opacity: 0.4;
+}
+
+.artist-link__name:hover,
+.artist-link__name:active,
+.artist-link__name:focus {
+    opacity: 0.8 !important;
+    cursor: pointer;
+}

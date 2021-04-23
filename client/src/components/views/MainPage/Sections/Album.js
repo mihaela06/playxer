@@ -90,14 +90,14 @@ function Album({ match, history }) {
               }}
             >
               {albumInfo.name}
-              <p
-                className="header-container__artist"
-                onClick={() => {
-                  history.push("/artists/" + albumInfo.artists[0].id);
-                }}
-              >
-                {albumInfo.artists && albumInfo.artists[0].name}
-              </p>
+            </p>
+            <p
+              className="header-container__artist"
+              onClick={() => {
+                history.push("/artists/" + albumInfo.artists[0].id);
+              }}
+            >
+              {albumInfo.artists && albumInfo.artists[0].name}
             </p>
             <p className="header-container__followers">
               Release date: {albumInfo.release_date}
@@ -122,6 +122,29 @@ function Album({ match, history }) {
                   </Col>
                   <Col xs={8} md={9} className="p-0">
                     {track.name}
+                    {track.artists.length > 1 && (
+                      <span className="artist-link"> feat. </span>
+                    )}
+                    {track.artists.map(function (artist, indexA) {
+                      if (artist.name != albumInfo.artists[0].name)
+                        return (
+                          <React.Fragment key={indexA}>
+                            <span className="artist-link">
+                              {" "}
+                              <span
+                                onClick={() => {
+                                  history.push("/artists/" + artist.id);
+                                }}
+                                className="artist-link__name"
+                              >
+                                {artist.name}
+                              </span>
+                              {indexA < track.artists.length - 1 ? "," : ""}
+                            </span>
+                          </React.Fragment>
+                        );
+                      else return null;
+                    })}
                   </Col>
                   <Col xs={1} className="p-0 center-items">
                     <LikeButton

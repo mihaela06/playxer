@@ -31,6 +31,7 @@
     margin: auto;
     width: 100%;
     cursor: pointer;
+    margin-top: 0px !important;
 }
 
 .header-container__followers {
@@ -57,7 +58,7 @@
 h3,
 h4 {
     color: var(--text-color);
-    padding-left: 5%!important;
+    padding-left: 5% !important;
     padding: 5px;
     width: 100%;
     border: solid var(--border) !important;
