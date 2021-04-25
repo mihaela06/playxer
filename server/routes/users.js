@@ -86,7 +86,7 @@ router.post("/exchange_code", exchangeCode, (req, res) => {
   });
 });
 
-router.post("/change_email", (req, res) => {
+router.post("/change_email", auth, (req, res) => {
   User.findOneAndUpdate(
     { _id: req.body.id },
     { email: req.body.email },
@@ -99,7 +99,7 @@ router.post("/change_email", (req, res) => {
   );
 });
 
-router.post("/change_password", (req, res) => {
+router.post("/change_password", auth, (req, res) => {
   User.findOne({ _id: req.body.id }, (err, user) => {
     if (!user)
       return res.json({

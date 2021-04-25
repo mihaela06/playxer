@@ -1,0 +1,62 @@
+.tag-body {
+    color: var(--text-color);
+    margin: 0px;
+    height: 30px;
+}
+
+.tag-head {
+    color: var(--text-color);
+    margin: 0px;
+    height: 30px;
+    z-index: 20 !important;
+}
+
+.tag-head__background {
+    width: 10px;
+    height: 27px;
+    position: absolute;
+    left: -1px;
+    top: 0px;
+    margin: 0px;
+    z-index: -1 !important;
+    margin-top: 1.5px !important;
+}
+
+.tag-text {
+    height: 30px;
+    border-bottom: solid 2px var(--text-color);
+    border-top: solid 2px var(--text-color);
+    border-left: solid 2px var(--text-color);
+    font-size: 20px;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.tag-close:hover,
+.tag-close:active,
+.tag-close:focus {
+    color: red !important;
+}
+
+.react-confirm-alert-body {
+    background-color: var(--background-color-sec);
+    color: var(--text-color);
+    max-width: 90vw;
+    text-align: center;
+}
+
+.react-confirm-alert-body h1 {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.react-confirm-alert-button-group {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.overlay-alert {
+    opacity: 0.8;
+}

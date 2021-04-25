@@ -4,10 +4,10 @@ import {
   getArtist,
   changeArtistFollowing,
   getArtistAlbums,
-  getArtistRelated,
 } from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
 import DisplayCard from "./DisplayCard";
+import TagModal from "./TagModal";
 import "../../../../styles/Artist.css";
 
 function Artist({ match }) {
@@ -34,7 +34,7 @@ function Artist({ match }) {
           console.log(err);
         });
     };
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setLoading(true);
     getData();
   }, [match]);
@@ -108,17 +108,22 @@ function Artist({ match }) {
             </button>
           </Col>
           <Col xs={8} md={9}>
-            <p
-              style={{
-                fontSize: "8vmin",
-                paddingTop: "5%",
-                marginBottom: "5%",
-                overflow: "clip",
-                color: "var(--text-color)",
-              }}
-            >
-              {artistInfo.name}
-            </p>
+            <div style={{ display: "flex", flexDirection: "row", width: "100%"}}>
+              <p
+                style={{
+                  fontSize: "8vmin",
+                  paddingTop: "5%",
+                  marginBottom: "5%",
+                  overflow: "clip",
+                  color: "var(--text-color)",
+                }}
+              >
+                {artistInfo.name}
+              </p>
+              <span style={{ justifySelf: "flex-end", marginLeft: "auto", marginTop: "auto", marginBottom: "auto", marginRight: "5%" }}>
+                <TagModal contentId={artistInfo.id} />
+              </span>
+            </div>
             <p className="header-container__followers">
               Followers: {artistInfo.followers.total}
             </p>
@@ -160,18 +165,20 @@ function Artist({ match }) {
         <div className="albums-container">
           <h3>Related artists</h3>
           <Row noGutters>
-            {artistInfo.relatedArtists.slice(0, 6).map(function (artist, index) {
-              return (
-                <React.Fragment key={index}>
-                  <DisplayCard
-                    images={artist.images}
-                    name={artist.name}
-                    id={artist.id}
-                    type="artist"
-                  />
-                </React.Fragment>
-              );
-            })}
+            {artistInfo.relatedArtists
+              .slice(0, 6)
+              .map(function (artist, index) {
+                return (
+                  <React.Fragment key={index}>
+                    <DisplayCard
+                      images={artist.images}
+                      name={artist.name}
+                      id={artist.id}
+                      type="artist"
+                    />
+                  </React.Fragment>
+                );
+              })}
           </Row>
         </div>
       </div>

@@ -21,3 +21,10 @@ export const SEARCH = 'search';
 
 export const GET_USERS = 'get_users';
 export const DELETE_USER = 'delete_user';
+
+export const GET_ALL_TAGS = 'get_all';
+export const GET_CONTENT_TAGS = 'get_content_tags'; 
+export const ADD_TAG = 'add_tag';
+export const ASSIGN_TAG = 'assign_tag';
+export const UNASSIGN_TAG = 'unassign_tag';
+export const DELETE_TAG = 'delete_tag';

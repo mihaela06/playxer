@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Col } from "reactstrap";
 import DefaultArtist from "../../../../assets/images/DefaultArtist.jpg";
+import DefaultAlbum from "../../../../assets/images/DefaultAlbum.jpg";
 import "../../../../styles/MainPage.css";
 
 function DisplayCard(props) {
@@ -12,7 +13,7 @@ function DisplayCard(props) {
     defaultPic = DefaultArtist;
     toLink = `/artists/${id}`;
   } else {
-    defaultPic = DefaultArtist;
+    defaultPic = DefaultAlbum;
     toLink = `/albums/${id}`;
   }
   var source = images ? (images[1] ? images[1].url : defaultPic) : defaultPic;
@@ -26,6 +27,7 @@ function DisplayCard(props) {
               height: "100%",
               overflow: "hidden",
               objectFit: "cover",
+              borderRadius: "5px"
             }}
             alt={name}
             src={source}
