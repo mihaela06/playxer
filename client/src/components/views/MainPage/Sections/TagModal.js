@@ -22,7 +22,7 @@ import { Input, Button } from "antd";
 
 Modal.setAppElement("#root");
 
-function TagModal({ contentId }) {
+function TagModal({ contentId, iconSize = "2rem" }) {
   const [userTags, setUserTags] = useState();
   const [unusedTags, setUnusedTags] = useState();
   const [loading, setLoading] = useState(true);
@@ -79,9 +79,6 @@ function TagModal({ contentId }) {
     };
     if (!userTags) return;
     if (!contentTags) return;
-    console.log("user tags", userTags);
-    console.log("content tags", contentTags);
-    console.log("unused tags", unusedTags);
     var temp = userTags.filter((tag) => !assigned(tag));
     setUnusedTags(temp);
     setLoading(false);
@@ -119,44 +116,35 @@ function TagModal({ contentId }) {
         console.log(err);
       });
     let temp = [...contentTags];
-    console.log("content before", temp);
     temp.push(userTags.find((tag) => tag.name === name));
-    console.log("content after", temp);
-    console.log(contentTags === temp);
 
     setContentTags(temp);
   };
 
   const unassignTagByName = (name) => {
-    console.log("pressed unassign", name);
     unassignTag(name, contentId)
       .then((response) => {
-        console.log("response un", response.data);
+        console.log("response unassigned", response.data);
       })
       .catch((err) => {
         console.log(err);
       });
     let oldContent = [...contentTags].filter((e) => e.name !== name);
 
-    console.log("before", contentTags);
-
-    console.log("after", oldContent);
     setContentTags(oldContent);
   };
 
   const deleteTagByName = (name) => {
     const sendDelete = (name) => {
-      console.log("pressed del");
       deleteTag(name)
         .then((response) => {
-          console.log("response del", response.data);
+          console.log("response delete", response.data);
         })
         .catch((err) => {
           console.log(err);
         });
 
       let temp = [...userTags].filter((e) => e.name !== name);
-      console.log("after del", temp);
       setUserTags(temp);
       localStorage.setItem("tags", JSON.stringify(temp));
       let unusedTemp = [...unusedTags].filter((e) => e.name !== name);
@@ -191,7 +179,6 @@ function TagModal({ contentId }) {
   };
 
   const addNewTag = () => {
-    console.log("color", color);
     addTag(newTagName, color)
       .then((response) => {
         console.log("response new", response.data);
@@ -233,7 +220,7 @@ function TagModal({ contentId }) {
     <div>
       <HiOutlineTag
         onClick={openModal}
-        style={{ fontSize: "2rem", cursor: "pointer" }}
+        style={{ fontSize: iconSize, cursor: "pointer" }}
         className="increase-hover"
       />
 

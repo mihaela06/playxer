@@ -7,6 +7,7 @@ import {
 } from "../../../../_actions/spotify_actions";
 import Loading from "../../../Loading";
 import LikeButton from "./LikeButton";
+import TagModal from "./TagModal";
 
 function Album({ match, history }) {
   const [albumInfo, setAlbumInfo] = useState({});
@@ -80,17 +81,33 @@ function Album({ match, history }) {
             </button>
           </Col>
           <Col xs={8} md={9}>
-            <p
-              style={{
-                fontSize: "8vmin",
-                paddingTop: "5%",
-                marginBottom: "5%",
-                overflow: "clip",
-                color: "var(--text-color)",
-              }}
+            <div
+              style={{ display: "flex", flexDirection: "row", width: "100%" }}
             >
-              {albumInfo.name}
-            </p>
+              <p
+                style={{
+                  fontSize: "8vmin",
+                  paddingTop: "5%",
+                  marginBottom: "5%",
+                  overflow: "clip",
+                  color: "var(--text-color)",
+                }}
+              >
+                {albumInfo.name}
+              </p>
+
+              <span
+                style={{
+                  justifySelf: "flex-end",
+                  marginLeft: "auto",
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                  marginRight: "5%",
+                }}
+              >
+                <TagModal contentId={albumInfo.id} />
+              </span>
+            </div>
             <p
               className="header-container__artist"
               onClick={() => {
@@ -120,7 +137,7 @@ function Album({ match, history }) {
                   <Col xs={1} className="p-0 center-items">
                     {track.track_number}
                   </Col>
-                  <Col xs={8} md={9} className="p-0">
+                  <Col xs={7} md={9} className="p-0">
                     {track.name}
                     {track.artists.length > 1 && (
                       <span className="artist-link"> feat. </span>
@@ -146,11 +163,31 @@ function Album({ match, history }) {
                       else return null;
                     })}
                   </Col>
-                  <Col xs={1} className="p-0 center-items">
-                    <LikeButton
-                      initial={albumInfo.savedTracks[index]}
-                      trackId={albumInfo.tracks.items[index].id}
-                    />
+                  <Col xs={2} md={1} className="p-0 center-items">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        width: "100%",
+                      }}
+                    >
+                      <LikeButton
+                        initial={albumInfo.savedTracks[index]}
+                        trackId={albumInfo.tracks.items[index].id}
+                      />
+
+                      <span
+                        style={{
+                          justifySelf: "flex-end",
+                          marginLeft: "auto",
+                          marginTop: "auto",
+                          marginBottom: "auto",
+                          marginRight: "5%",
+                        }}
+                      >
+                        <TagModal contentId={albumInfo.tracks.items[index].id} iconSize="1.5rem"/>
+                      </span>
+                    </div>
                   </Col>
                   <Col
                     xs={2}
