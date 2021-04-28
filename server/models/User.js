@@ -11,6 +11,7 @@ const tagSchema = mongoose.Schema({
 
 const contentSchema = mongoose.Schema({
   contentId: { type: String, unique: 1, trim: true },
+  contentType: { type: String },
   tag: { type: tagSchema },
 });
 

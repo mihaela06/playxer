@@ -83,8 +83,11 @@ export function getProfile() {
     .then((response) => response.data);
 }
 
-export function search(searchTerm) {
+export function search(searchTerm, searchType = null) {
+  let dataToSubmit = { searchTerm: searchTerm };
+  if (searchType)
+    dataToSubmit = { searchTerm: searchTerm, searchType: searchType };
   return axios
-    .post(`${SPOTIFY_API}/${SEARCH}`, { searchTerm: searchTerm })
+    .post(`${SPOTIFY_API}/${SEARCH}`, dataToSubmit)
     .then((response) => response.data);
 }

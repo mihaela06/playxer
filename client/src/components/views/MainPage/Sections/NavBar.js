@@ -1,15 +1,16 @@
 import React from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { Nav, NavItem } from "reactstrap";
+import { useSelector } from "react-redux";
 import { FiUser } from "react-icons/fi";
 import { RiPlayListFill, RiAlbumFill, RiHome2Line } from "react-icons/ri";
 import { GiMicrophone } from "react-icons/gi";
-import { useSelector } from "react-redux";
 
 import "../../../../styles/MainPage.css";
 import logoPlayxer from "../../../../assets/images/Logo.png";
 
-function NavBar(props) {
+function NavBar({ userPlaylists }) {
+  const user = useSelector((state) => state.user);
   const tabs = [
     {
       route: "/",
@@ -37,8 +38,6 @@ function NavBar(props) {
       label: "Profile",
     },
   ];
-
-  const user = useSelector((state) => state.user);
 
   return (
     <div>
@@ -87,6 +86,34 @@ function NavBar(props) {
             Playlists{" "}
           </NavLink>{" "}
         </NavItem>{" "}
+        <div
+          style={{
+            maxHeight: "calc(100vh - 400px)",
+            overflowY: "auto",
+            margin: 0,
+            padding: 0,
+            listStyle: "none",
+            height: "100%",
+          }}
+          className="scrollbar"
+        >
+          {user.userData &&
+            user.userData.isAuth &&
+            userPlaylists.map(function (playlist, index) {
+              return (
+                <React.Fragment key={index}>
+                  <NavItem style={{ marginBottom: "20px", marginTop: "20px" }}>
+                    <NavLink
+                      to={"/playlists/" + playlist.playlistId}
+                      className="sidebar__link__playlist"
+                    >
+                      {playlist.name}
+                    </NavLink>
+                  </NavItem>
+                </React.Fragment>
+              );
+            })}
+        </div>
         <NavItem style={{ position: "fixed", bottom: "15px" }}>
           <NavLink
             to="/profile"

@@ -63,7 +63,11 @@ router.post("/get_content_tags", auth, (req, res) => {
 
 router.post("/assign_tag", auth, (req, res) => {
   const tag = req.user.tags.find((tag) => tag.name == req.body.tagName);
-  const content = new Content({ contentId: req.body.contentId, tag: tag });
+  const content = new Content({
+    contentId: req.body.contentId,
+    tag: tag,
+    contentType: req.body.contentType,
+  });
   req.user.content.push(content);
   req.user.save().then(
     function (data) {

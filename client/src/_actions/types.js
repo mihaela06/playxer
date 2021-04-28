@@ -28,3 +28,6 @@ export const ADD_TAG = 'add_tag';
 export const ASSIGN_TAG = 'assign_tag';
 export const UNASSIGN_TAG = 'unassign_tag';
 export const DELETE_TAG = 'delete_tag';
+
+export const CREATE_PLAYLIST = 'create_playlist';
+export const GET_PLAYLIST = 'get_playlist';

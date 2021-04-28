@@ -86,7 +86,10 @@ router.post("/get_artist", loadTokens, (req, res) => {
               return res.status(200).json({
                 success: true,
                 isFollowing: following,
-                spotifyData: { ...data, ...{ relatedArtists: relatedData.body } },
+                spotifyData: {
+                  ...data,
+                  ...{ relatedArtists: relatedData.body },
+                },
               });
             });
         })
@@ -302,19 +305,20 @@ router.get("/get_profile", loadTokens, (req, res) => {
 router.post("/search", loadTokens, (req, res) => {
   spotifyApi.setAccessToken(req.accessToken);
   spotifyApi.setRefreshToken(req.refreshToken);
-  spotifyApi
-    .search(req.body.searchTerm, ["track", "album", "artist"], { limit: 6 })
-    .then(
-      function (data) {
-        return res.status(200).json({
-          success: true,
-          spotifyData: data,
-        });
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
+  let searchArray = [];
+  if (!req.body.searchType) searchArray = ["track", "album", "artist"];
+  else searchArray = [req.body.searchType];
+  spotifyApi.search(req.body.searchTerm, searchArray, { limit: 6 }).then(
+    function (data) {
+      return res.status(200).json({
+        success: true,
+        spotifyData: data,
+      });
+    },
+    function (err) {
+      console.error(err);
+    }
+  );
 });
 
 module.exports = router;

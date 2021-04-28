@@ -22,8 +22,12 @@ export function addTag(name, color) {
     .then((response) => response.data);
 }
 
-export function assignTag(name, contentId) {
-  const dataToSubmit = { tagName: name, contentId: contentId };
+export function assignTag(name, contentId, contentType) {
+  const dataToSubmit = {
+    tagName: name,
+    contentId: contentId,
+    contentType: contentType,
+  };
   return axios
     .post(`${TAG_SERVER}/${ASSIGN_TAG}`, dataToSubmit)
     .then((response) => response.data);
@@ -37,14 +41,14 @@ export function unassignTag(name, contentId) {
 }
 
 export function deleteTag(name) {
-  const dataToSubmit = { tagName: name};
+  const dataToSubmit = { tagName: name };
   return axios
     .post(`${TAG_SERVER}/${DELETE_TAG}`, dataToSubmit)
     .then((response) => response.data);
 }
 
 export function getContentTags(contentId) {
-  const dataToSubmit = { contentId: contentId};
+  const dataToSubmit = { contentId: contentId };
   return axios
     .post(`${TAG_SERVER}/${GET_CONTENT_TAGS}`, dataToSubmit)
     .then((response) => response.data);

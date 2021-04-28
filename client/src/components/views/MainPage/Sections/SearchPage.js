@@ -157,7 +157,6 @@ function SearchPage(props) {
                             </React.Fragment>
                           );
                       }
-
                       return null;
                     })}
                   </Row>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import Modal from "react-modal";
 import { HiOutlineTag } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
@@ -19,10 +18,11 @@ import MixIt from "../../../../assets/images/MixIt256.gif";
 import { SliderPicker } from "react-color";
 import "../../../../styles/Tag.css";
 import { Input, Button } from "antd";
+import { NotificationManager } from "react-notifications";
 
 Modal.setAppElement("#root");
 
-function TagModal({ contentId, iconSize = "2rem" }) {
+function TagModal({ contentId, contentType, iconSize = "2rem" }) {
   const [userTags, setUserTags] = useState();
   const [unusedTags, setUnusedTags] = useState();
   const [loading, setLoading] = useState(true);
@@ -108,7 +108,7 @@ function TagModal({ contentId, iconSize = "2rem" }) {
   };
 
   const assignTagByName = (name) => {
-    assignTag(name, contentId)
+    assignTag(name, contentId, contentType)
       .then((response) => {
         console.log("response", response.data);
       })
@@ -179,6 +179,15 @@ function TagModal({ contentId, iconSize = "2rem" }) {
   };
 
   const addNewTag = () => {
+    const sameName = userTags.filter((e) => e.name === newTagName);
+    if (sameName.length > 0) {
+      NotificationManager.error("Tag name must be unique");
+      return;
+    }
+    if (newTagName.length == 0) {
+      NotificationManager.error("Please choose a name");
+      return;
+    }
     addTag(newTagName, color)
       .then((response) => {
         console.log("response new", response.data);

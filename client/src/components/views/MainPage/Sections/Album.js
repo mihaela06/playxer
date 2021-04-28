@@ -105,7 +105,7 @@ function Album({ match, history }) {
                   marginRight: "5%",
                 }}
               >
-                <TagModal contentId={albumInfo.id} />
+                <TagModal contentId={albumInfo.id} contentType="Album" />
               </span>
             </div>
             <p
@@ -142,8 +142,9 @@ function Album({ match, history }) {
                     {track.artists.length > 1 && (
                       <span className="artist-link"> feat. </span>
                     )}
-                    {track.artists.map(function (artist, indexA) {
-                      if (artist.name != albumInfo.artists[0].name)
+                    {track.artists
+                      .filter((a) => a.name !== albumInfo.artists[0].name)
+                      .map(function (artist, indexA) {
                         return (
                           <React.Fragment key={indexA}>
                             <span className="artist-link">
@@ -156,12 +157,17 @@ function Album({ match, history }) {
                               >
                                 {artist.name}
                               </span>
-                              {indexA < track.artists.length - 1 ? "," : ""}
+                              {indexA <
+                              track.artists.filter(
+                                (a) => a.name !== albumInfo.artists[0].name
+                              ).length -
+                                1
+                                ? ","
+                                : ""}
                             </span>
                           </React.Fragment>
                         );
-                      else return null;
-                    })}
+                      })}
                   </Col>
                   <Col xs={2} md={1} className="p-0 center-items">
                     <div
@@ -185,7 +191,11 @@ function Album({ match, history }) {
                           marginRight: "5%",
                         }}
                       >
-                        <TagModal contentId={albumInfo.tracks.items[index].id} iconSize="1.5rem"/>
+                        <TagModal
+                          contentId={albumInfo.tracks.items[index].id}
+                          contentType="Track"
+                          iconSize="1.5rem"
+                        />
                       </span>
                     </div>
                   </Col>

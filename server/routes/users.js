@@ -1,20 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
+const { Playlist } = require("../models/Playlist");
 const { auth } = require("../middleware/auth");
 const { exchangeCode } = require("../middleware/spotifyAPI");
 const config = require("../config/key");
 
 router.get("/auth", auth, (req, res) => {
-  res.status(200).json({
-    _id: req.user._id,
-    isAdmin: req.user.role === 0 ? false : true,
-    isAuth: true,
-    email: req.user.email,
-    username: req.user.username,
-    role: req.user.role,
-    image: req.user.image,
-    connectedSpotify: req.user.connectedSpotify,
+  Playlist.find({ userId: req.user._id }, function (err, playlists) {
+    return res.status(200).json({
+      _id: req.user._id,
+      isAdmin: req.user.role === 0 ? false : true,
+      isAuth: true,
+      email: req.user.email,
+      username: req.user.username,
+      role: req.user.role,
+      image: req.user.image,
+      connectedSpotify: req.user.connectedSpotify,
+      playlists: playlists,
+    });
   });
 });
 

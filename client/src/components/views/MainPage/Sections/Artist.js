@@ -108,7 +108,9 @@ function Artist({ match }) {
             </button>
           </Col>
           <Col xs={8} md={9}>
-            <div style={{ display: "flex", flexDirection: "row", width: "100%"}}>
+            <div
+              style={{ display: "flex", flexDirection: "row", width: "100%" }}
+            >
               <p
                 style={{
                   fontSize: "8vmin",
@@ -120,8 +122,16 @@ function Artist({ match }) {
               >
                 {artistInfo.name}
               </p>
-              <span style={{ justifySelf: "flex-end", marginLeft: "auto", marginTop: "auto", marginBottom: "auto", marginRight: "5%" }}>
-                <TagModal contentId={artistInfo.id} />
+              <span
+                style={{
+                  justifySelf: "flex-end",
+                  marginLeft: "auto",
+                  marginTop: "auto",
+                  marginBottom: "auto",
+                  marginRight: "5%",
+                }}
+              >
+                <TagModal contentId={artistInfo.id} contentType="Artist" />
               </span>
             </div>
             <p className="header-container__followers">
