@@ -3,11 +3,13 @@ import { getPlaylist } from "../../../../_actions/playlists_actions";
 import Loading from "../../../Loading";
 import { Row, Col } from "reactstrap";
 import TagModal from "./TagModal";
+import { FiEdit3 } from "react-icons/fi";
 
 function Playlist({ match, history }) {
   const [tracks, setTracks] = useState([]);
   const [playlist, setPlaylist] = useState();
   const [loading, setLoading] = useState(true);
+  var playlistImage;
 
   useEffect(() => {
     const getData = () => {
@@ -15,8 +17,12 @@ function Playlist({ match, history }) {
         .then(function (response) {
           console.log(response);
           setTracks(response.tracks);
-          setPlaylist(response.playlist);
+          setPlaylist({
+            ...response.playlist,
+            playlistImage: response.playlistImage,
+          });
           setLoading(false);
+          playlistImage = response.playlistImage;
         })
         .catch((err) => {
           console.log(err);
@@ -39,21 +45,37 @@ function Playlist({ match, history }) {
       {playlist && (
         <div className="header-container">
           <Row className="header-container__row" noGutters>
-            <Col
-              xs={8}
-              style={{ height: "inherit", maxHeight: "inherit" }}
-              className="center-items"
-            >
+            <Col xs={2} className="center-items">
+              <img
+                src={playlist.playlistImage}
+                alt={playlist.name}
+                style={{
+                  maxHeight: "20vh",
+                  borderRadius: "10px",
+                  margin: "10px",
+                }}
+              />
+            </Col>
+            <Col xs={9} style={{ height: "inherit", maxHeight: "inherit" }}>
               <h1 style={{ color: "var(--text)", margin: "5%" }}>
                 {playlist.name}
               </h1>
             </Col>
             <Col
-              xs={4}
+              xs={1}
               style={{ height: "inherit", maxHeight: "inherit" }}
               className="center-items"
             >
-              Edit recipe
+              <FiEdit3
+                style={{ fontSize: "30px", cursor: "pointer" }}
+                className="increase-hover"
+                onClick={() => {
+                  history.push({
+                    pathname: "/playlists/edit/" + playlist.playlistId,
+                    playlist: playlist,
+                  });
+                }}
+              />
             </Col>
           </Row>
         </div>
@@ -104,11 +126,6 @@ function Playlist({ match, history }) {
                           width: "100%",
                         }}
                       >
-                        {/* <LikeButton
-                          initial={albumInfo.savedTracks[index]}
-                          trackId={albumInfo.tracks.items[index].id}
-                        /> */}
-
                         <span
                           style={{
                             justifySelf: "flex-end",

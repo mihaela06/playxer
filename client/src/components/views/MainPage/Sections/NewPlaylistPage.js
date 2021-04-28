@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "../../../../hooks/MediaQuery";
 import { search } from "../../../../_actions/spotify_actions";
-import { createPlaylist } from "../../../../_actions/playlists_actions";
+import {
+  createPlaylist,
+  editPlaylist,
+} from "../../../../_actions/playlists_actions";
 import Modal from "react-modal";
 import { Input, Button, Icon, Checkbox, Switch } from "antd";
 import { MdClose } from "react-icons/md";
@@ -15,14 +18,62 @@ import { BiAlbum } from "react-icons/bi";
 import { IoMdMicrophone, IoMdPricetag } from "react-icons/io";
 import { IoMusicalNote } from "react-icons/io5";
 import { getAllTags } from "../../../../_actions/tags_actions";
+import { getPlaylist } from "../../../../_actions/playlists_actions";
+import Loading from "../../../Loading";
 import { NotificationManager } from "react-notifications";
 import { withRouter } from "react-router-dom";
-import Loading from "../../../Loading";
+import { TiDelete, TiPlus } from "react-icons/ti";
 
 Modal.setAppElement("#root");
 
-function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
+function NewPlaylistPage({
+  match,
+  history,
+  location,
+  userPlaylists,
+  setUserPlaylists,
+}) {
   const smallScreen = useMediaQuery("screen and (max-width: 990px)");
+
+  const [playlistId, setPlaylistId] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [loadingIngr, setLoadingIngr] = useState(false);
+
+  useEffect(() => {
+    if (location.playlist) {
+      console.log("play", location.playlist);
+      let ingr = location.playlist.ingredients;
+      ingr.forEach((i) => (i.old = true));
+      setIngredients(ingr);
+      setPlaylistDescription(location.playlist.description);
+      setPlaylistName(location.playlist.name);
+      setCheckInstrumentals(location.playlist.noInstrumentals);
+      setCheckRemixes(location.playlist.noRemixes);
+      setPublicPlaylist(location.playlist.public);
+      setPlaylistId(location.playlist.playlistId);
+    }
+    if (match.path !== "/playlists/new") {
+      setLoadingIngr(true);
+      getPlaylist(match.params.playlistId)
+        .then(function (response) {
+          console.log(response);
+          let ingr = response.playlist.ingredients;
+          ingr.forEach((i) => (i.old = true));
+          setIngredients(ingr);
+          setPlaylistDescription(response.playlist.description);
+          setPlaylistName(response.playlist.name);
+          setCheckInstrumentals(response.playlist.noInstrumentals);
+          setCheckRemixes(response.playlist.noRemixes);
+          setPublicPlaylist(response.playlist.public);
+          setPlaylistId(response.playlist.playlistId);
+          setLoadingIngr(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    console.log(match);
+  }, [match]);
 
   const iconStyle = {
     fontSize: "30px",
@@ -53,7 +104,6 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
     fontSize: "1.1rem",
     paddingTop: "15px",
     paddingBottom: "15px",
-    cursor: "pointer",
   };
 
   const customStyles = {
@@ -71,6 +121,7 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
         maxWidth: smallScreen ? "90vw" : "60vw",
         minWidth: "30vw",
         maxHeight: smallScreen ? "80vh" : "90vh",
+        color: "var(--text-color)",
       },
       overlay: {
         backgroundColor: "var(--border)",
@@ -80,7 +131,6 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [loading, setLoading] = useState(false);
-  const [ingredients, setIngredients] = React.useState([]);
   const [dropdownValue, setDropdownValue] = React.useState(
     "Choose ingredient type"
   );
@@ -187,24 +237,54 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
       return;
     }
     setLoading(true);
-    createPlaylist(
-      ingredients,
-      checkInstrumentals,
-      checkRemixes,
-      playlistName,
-      playlistDescription,
-      publicPlaylist
-    )
+    var promise =
+      playlistId === ""
+        ? createPlaylist(
+            ingredients,
+            checkInstrumentals,
+            checkRemixes,
+            playlistName,
+            playlistDescription,
+            publicPlaylist
+          )
+        : editPlaylist(
+            ingredients,
+            checkInstrumentals,
+            checkRemixes,
+            playlistName,
+            playlistDescription,
+            publicPlaylist,
+            playlistId
+          );
+    promise
       .then((response) => {
         console.log("rasp play", response);
-        setUserPlaylists([...userPlaylists, response.playlist]);
-        history.push("/playlists/" + response.playlist.playlistId);
+        if (playlistId === "" && userPlaylists)
+          setUserPlaylists([...userPlaylists, response.playlist]);
+        else if(userPlaylists) {
+          let temp = userPlaylists;
+          let old = temp.find((el) => el._id === response.playlist._id);
+          temp.splice(temp.indexOf(old), 1);
+          temp.push(response.playlist);
+          setUserPlaylists(temp);
+        }
+        history.push("/playlists/" + playlistId);
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  function removeIngredient(ref) {
+    var i = ingredients.find((e) => e.reference === ref);
+    var temp = [...ingredients];
+    temp.splice(temp.indexOf(i), 1);
+    console.log(temp);
+    setIngredients(temp);
+  }
+
+  if (loadingIngr) return <Loading />;
 
   return (
     <div>
@@ -351,6 +431,7 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
                       {
                         type: dropdownValue,
                         content: getResultArray()[selectedIndex],
+                        old: false,
                       },
                     ]);
                     closeModal();
@@ -383,8 +464,21 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
               autoComplete="off"
               rows={3}
             />
-            <div className="center-items" onClick={openModal} style={rowStyle}>
-              + Add a new ingredient
+            <div
+              className="center-items"
+              onClick={openModal}
+              style={{ ...rowStyle, cursor: "pointer", fontWeight: "bold" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <TiPlus style={{ fontSize: "30px", color: "green" }} />
+                <span>Add a new ingredient</span>
+              </div>
             </div>
             {ingredients.length > 0 &&
               ingredients.map(function (ingredient, index) {
@@ -395,19 +489,25 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
                       {ingredient.type !== "Tag" && (
                         <img
                           src={
-                            ingredient.type !== "Track"
-                              ? ingredient.content.images
-                                ? ingredient.content.images[2]
-                                  ? ingredient.content.images[2].url
+                            !ingredient.old
+                              ? ingredient.type !== "Track"
+                                ? ingredient.content.images
+                                  ? ingredient.content.images[2]
+                                    ? ingredient.content.images[2].url
+                                    : null
+                                  : null
+                                : ingredient.content.album.images
+                                ? ingredient.content.album.images[2]
+                                  ? ingredient.content.album.images[2].url
                                   : null
                                 : null
-                              : ingredient.content.album.images
-                              ? ingredient.content.album.images[2]
-                                ? ingredient.content.album.images[2].url
-                                : null
-                              : null
+                              : ingredient.imageUrl
                           }
-                          alt={ingredient.content.name}
+                          alt={
+                            !ingredient.old
+                              ? ingredient.content.name
+                              : ingredient.name
+                          }
                           style={{
                             marginLeft: "15px",
                             marginRight: "15px",
@@ -416,9 +516,28 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
                           }}
                         />
                       )}
-                      <span style={{ marginLeft: "20px" }}>
-                        {ingredient.content.name}
+                      <span style={{ marginLeft: "20px", marginRight: "60px" }}>
+                        {ingredient.old
+                          ? ingredient.name
+                          : ingredient.content.name}
                       </span>
+                      <div
+                        style={{
+                          float: "right",
+                          marginTop: "auto",
+                          marginBottom: "auto",
+                        }}
+                        className="center-items"
+                        onClick={() => removeIngredient(ingredient.reference)}
+                      >
+                        <TiDelete
+                          style={{
+                            fontSize: "40px",
+                            color: "red",
+                            cursor: "pointer",
+                          }}
+                        />
+                      </div>
                     </div>
                   </React.Fragment>
                 );
@@ -427,18 +546,25 @@ function NewPlaylistPage({ history, userPlaylists, setUserPlaylists }) {
               <div style={{ marginTop: "20px" }}>
                 <Checkbox
                   onChange={(e) => setCheckInstrumentals(e.target.checked)}
+                  style={{ color: "var(--text-color)" }}
+                  checked={checkInstrumentals}
                 >
                   Exclude instrumentals (experimental)
                 </Checkbox>
               </div>
               <div style={{ marginTop: "20px" }}>
-                <Checkbox onChange={(e) => setCheckRemixes(e.target.checked)}>
+                <Checkbox
+                  onChange={(e) => setCheckRemixes(e.target.checked)}
+                  style={{ color: "var(--text-color)" }}
+                  checked={checkRemixes}
+                >
                   Exclude remixes (experimental)
                 </Checkbox>
               </div>
               <div style={{ marginTop: "20px" }}>
                 <Switch
                   defaultChecked
+                  checked={publicPlaylist}
                   onChange={(checked) => setPublicPlaylist(checked)}
                 />
                 <span style={{ marginLeft: "20px" }}>

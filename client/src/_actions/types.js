@@ -31,3 +31,4 @@ export const DELETE_TAG = 'delete_tag';
 
 export const CREATE_PLAYLIST = 'create_playlist';
 export const GET_PLAYLIST = 'get_playlist';
+export const EDIT_PLAYLIST = 'edit_playlist';

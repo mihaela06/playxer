@@ -55,6 +55,10 @@ function MainPage() {
                     />
                   )}
                 />{" "}
+                <Route
+                  path="/playlists/edit/:playlistId"
+                  component={NewPlaylistPage}
+                />{" "}
                 <Route path="/playlists/:playlistId" component={Playlist} />{" "}
                 <Route exact path="/albums" component={AlbumsPage} />{" "}
                 <Route path="/albums/:albumId" component={Album} />{" "}

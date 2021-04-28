@@ -4,6 +4,7 @@ const ingredientSchema = mongoose.Schema({
   type: { type: String },
   reference: { type: String },
   imageUrl: { type: String },
+  name: {type: String}
 });
 
 const playlistSchema = mongoose.Schema({
