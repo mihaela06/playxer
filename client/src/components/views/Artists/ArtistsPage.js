@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { getLikedAlbums } from "../../../../_actions/spotify_actions";
-import Loading from "../../../Loading";
-import DisplayCard from "./DisplayCard";
+import { getFollowedArtists } from "../../../_actions/spotify_actions";
+import Loading from "../../common/Loading";
+import DisplayCard from "../../common/DisplayCard";
 import { Row } from "reactstrap";
 import { NotificationManager } from "react-notifications";
 
-function AlbumsPage(props) {
-  const [albums, setAlbums] = useState([]);
+function ArtistsPage(props) {
+  const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingExtraData, setLoadingExtraData] = useState({
     loadingExtra: false,
     total: 0,
     offset: 0,
+    after: "",
   });
 
   useEffect(() => {
@@ -27,23 +28,24 @@ function AlbumsPage(props) {
     if (loadingExtraData.total > 0)
       NotificationManager.info("Loading...", "", 500);
 
-    getLikedAlbums(loadingExtraData.offset)
+    getFollowedArtists(loadingExtraData.after)
       .then((response) => {
         console.log("Response", loadingExtraData.offset, response);
-        setAlbums((albums) => [
-          ...albums,
-          ...response.spotifyData.body.items,
+        setArtists((artists) => [
+          ...artists,
+          ...response.spotifyData.body.artists.items,
         ]);
         if (loading) setLoading(false);
-        var total = response.spotifyData.body.total;
+        var total = response.spotifyData.body.artists.total;
         var offset = loadingExtraData.offset + 24;
+        var after = response.spotifyData.body.artists.cursors.after;
         var loadingExtra = false;
         setLoadingExtraData({
           loadingExtra: loadingExtra,
           total: total,
           offset: offset,
+          after: after,
         });
-        console.log("albums", albums);
       })
       .catch((err) => {
         console.log(err);
@@ -90,14 +92,15 @@ function AlbumsPage(props) {
   return (
     <div>
       <Row noGutters>
-        {albums &&
-          albums.map((item, index) => (
+        {" "}
+        {artists &&
+          artists.map((artist, index) => (
             <React.Fragment key={index}>
               <DisplayCard
-                type="album"
-                images={item.album.images}
-                name={item.album.name}
-                id={item.album.id}
+                type="artist"
+                images={artist.images}
+                name={artist.name}
+                id={artist.id}
               />{" "}
             </React.Fragment>
           ))}{" "}
@@ -106,4 +109,4 @@ function AlbumsPage(props) {
   );
 }
 
-export default AlbumsPage;
+export default ArtistsPage;

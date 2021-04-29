@@ -9,6 +9,13 @@ const {
   spotifyApi,
 } = require("../middleware/spotifyAPI");
 
+function getImageURL(urlArray) {
+  if (!urlArray) return null;
+  if (urlArray.length === 0) return null;
+  if (urlArray.length === 1) return urlArray[0].url;
+  return urlArray[1].url;
+}
+
 var loadTokens = [auth, getTokens, refreshTokens];
 
 function getTracksFromIngredients(
@@ -136,7 +143,7 @@ function getTracksFromIngredients(
                   )))
             ) {
               let artist = tracks.find((tr) => tr.id === t.id)
-                ? tracks.find((tr) =>tr.id === t.id).artist
+                ? tracks.find((tr) => tr.id === t.id).artist
                 : null;
               if (artist === null) return t.uri;
               else if (artist) {
@@ -323,11 +330,7 @@ router.post("/get_playlist", loadTokens, (req, res) => {
     spotifyApi.getPlaylist(req.body.playlistId).then(
       function (data) {
         tracks.push(...data.body.tracks.items);
-        let url = data.body.images[1]
-          ? data.body.images[1].url
-          : data.body.images[0]
-          ? data.body.images[0].url
-          : null;
+        let url = getImageURL(data.body.images);
         if (tracks.length < data.body.tracks.total) {
           var offsets = [];
           for (let i = 100; i < data.body.tracks.total; i += 100)
@@ -393,6 +396,8 @@ router.post("/edit_playlist", loadTokens, (req, res) => {
     playlist.public = req.body.publicPlaylist;
     playlist.save();
 
+    var url = "";
+
     function getTracks(offset) {
       return spotifyApi
         .getPlaylistTracks(req.body.playlistId, {
@@ -419,11 +424,6 @@ router.post("/edit_playlist", loadTokens, (req, res) => {
         function (data) {
           var tracks = [];
           tracks.push(...data.body.tracks.items);
-          let url = data.body.images[1]
-            ? data.body.images[1].url
-            : data.body.images[0]
-            ? data.body.images[0].url
-            : null;
           if (tracks.length < data.body.tracks.total) {
             var offsets = [];
             for (let i = 100; i < data.body.tracks.total; i += 100)
@@ -446,16 +446,17 @@ router.post("/edit_playlist", loadTokens, (req, res) => {
       );
 
       promiseGetTracks.then(function (result) {
-        if (result.failed) return res.json({ success: false, err: result.err });
+        if (!result || result.failed)
+          return res.json({ success: false, err: result.err });
         var tracks = result;
         var toDel = [];
         var toAdd = [];
         tracks.forEach((t) => {
-          if (!ingredientsURI.find((e) => e === t))
+          if (!ingredientsURI.find((e) => e === t.track.uri))
             toDel.push({ uri: t.track.uri });
         });
         ingredientsURI.forEach((t) => {
-          if (!tracks.find((e) => e === t)) toAdd.push(t);
+          if (!tracks.find((e) => e.track.uri === t)) toAdd.push(t);
         });
 
         var offsetsA = [];
@@ -498,7 +499,7 @@ router.post("/edit_playlist", loadTokens, (req, res) => {
           });
 
           Promise.all(promisesD).then(function (results) {
-            return res.status(200).json({ success: true });
+            return res.status(200).json({ success: true, playlist: playlist });
           });
         });
       });

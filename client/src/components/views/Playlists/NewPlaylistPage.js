@@ -1,28 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useMediaQuery } from "../../../../hooks/MediaQuery";
-import { search } from "../../../../_actions/spotify_actions";
-import {
-  createPlaylist,
-  editPlaylist,
-} from "../../../../_actions/playlists_actions";
-import Modal from "react-modal";
-import { Input, Button, Icon, Checkbox, Switch } from "antd";
+import { Button, Checkbox, Icon, Input, Switch } from "antd";
+import React, { useEffect, useState } from "react";
+import { BiAlbum } from "react-icons/bi";
+import { IoMdMicrophone, IoMdPricetag } from "react-icons/io";
+import { IoMusicalNote } from "react-icons/io5";
 import { MdClose } from "react-icons/md";
+import { TiDelete, TiPlus } from "react-icons/ti";
+import Modal from "react-modal";
+import { NotificationManager } from "react-notifications";
+import { withRouter } from "react-router-dom";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
-import { BiAlbum } from "react-icons/bi";
-import { IoMdMicrophone, IoMdPricetag } from "react-icons/io";
-import { IoMusicalNote } from "react-icons/io5";
-import { getAllTags } from "../../../../_actions/tags_actions";
-import { getPlaylist } from "../../../../_actions/playlists_actions";
-import Loading from "../../../Loading";
-import { NotificationManager } from "react-notifications";
-import { withRouter } from "react-router-dom";
-import { TiDelete, TiPlus } from "react-icons/ti";
+import { useMediaQuery } from "../../../hooks/MediaQuery";
+import {
+  createPlaylist,
+  editPlaylist,
+  getPlaylist,
+} from "../../../_actions/playlists_actions";
+import { search } from "../../../_actions/spotify_actions";
+import { getAllTags } from "../../../_actions/tags_actions";
+import Loading from "../../common/Loading";
+import { getImageURL } from "../../../functions/Helpers.js";
 
 Modal.setAppElement("#root");
 
@@ -261,7 +262,7 @@ function NewPlaylistPage({
         console.log("rasp play", response);
         if (playlistId === "" && userPlaylists)
           setUserPlaylists([...userPlaylists, response.playlist]);
-        else if(userPlaylists) {
+        else if (userPlaylists) {
           let temp = userPlaylists;
           let old = temp.find((el) => el._id === response.playlist._id);
           temp.splice(temp.indexOf(old), 1);
@@ -297,26 +298,10 @@ function NewPlaylistPage({
             contentLabel="Add a new ingredient"
           >
             <MdClose
-              style={{
-                color: "red",
-                cursor: "pointer",
-                position: "absolute",
-                top: "5px",
-                right: "5px",
-                size: "15px",
-              }}
-              className="increase-hover"
+              className="increase-hover modal-close"
               onClick={closeModal}
             />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                height: "100%",
-                justifyContent: "center",
-              }}
-            >
+            <div className="modal__div">
               <Dropdown
                 isOpen={dropdownOpen}
                 toggle={toggleDropdown}
@@ -376,16 +361,16 @@ function NewPlaylistPage({
                             <img
                               src={
                                 dropdownValue !== "Track"
-                                  ? content.images
-                                    ? content.images[2]
-                                      ? content.images[2].url
-                                      : null
-                                    : null
-                                  : content.album.images
-                                  ? content.album.images[2]
-                                    ? content.album.images[2].url
-                                    : null
-                                  : null
+                                  ? getImageURL(
+                                      dropdownValue,
+                                      content.images,
+                                      false
+                                    )
+                                  : getImageURL(
+                                      dropdownValue,
+                                      content.album.images,
+                                      false
+                                    )
                               }
                               alt={content.name}
                               style={{
@@ -491,16 +476,16 @@ function NewPlaylistPage({
                           src={
                             !ingredient.old
                               ? ingredient.type !== "Track"
-                                ? ingredient.content.images
-                                  ? ingredient.content.images[2]
-                                    ? ingredient.content.images[2].url
-                                    : null
-                                  : null
-                                : ingredient.content.album.images
-                                ? ingredient.content.album.images[2]
-                                  ? ingredient.content.album.images[2].url
-                                  : null
-                                : null
+                                ? getImageURL(
+                                    ingredient.type,
+                                    ingredient.content.images,
+                                    false
+                                  )
+                                : getImageURL(
+                                    ingredient.type,
+                                    ingredient.content.album.images,
+                                    false
+                                  )
                               : ingredient.imageUrl
                           }
                           alt={

@@ -3,19 +3,19 @@ import { useSelector } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import DarkMode from "../../DarkMode";
+import DarkMode from "../../common/DarkMode";
 
 import { Switch, Route } from "react-router-dom";
 
-import ArtistsPage from "./Sections/ArtistsPage";
-import PlaylistsPage from "./Sections/PlaylistsPage";
-import NewPlaylistPage from "./Sections/NewPlaylistPage";
+import ArtistsPage from "../Artists/ArtistsPage";
+import PlaylistsPage from "../Playlists/PlaylistsPage";
+import NewPlaylistPage from "../Playlists/NewPlaylistPage";
 import NavBar from "./Sections/NavBar";
 import ProfilePage from "../ProfilePage/ProfilePage";
-import AlbumsPage from "./Sections/AlbumsPage";
-import Artist from "./Sections/Artist";
-import Album from "./Sections/Album";
-import Playlist from "./Sections/Playlist";
+import AlbumsPage from "../Albums/AlbumsPage";
+import Artist from "../Artists/Sections/Artist";
+import Album from "../Albums/Sections/Album";
+import Playlist from "../Playlists/Sections/Playlist";
 import SearchPage from "./Sections/SearchPage";
 
 function MainPage() {

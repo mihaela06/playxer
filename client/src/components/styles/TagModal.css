@@ -1,0 +1,33 @@
+.tag-div--assigned {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.tag-div--unassigned {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0px;
+    border-top: solid 1px var(--border);
+    padding-top: 10px;
+}
+
+.modal-close {
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    size: 15px;
+}
+
+.modal-input {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 90%;
+    margin-left: 5%;
+}

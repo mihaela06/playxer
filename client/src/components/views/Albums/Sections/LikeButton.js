@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import "../../../../styles/Album.css";
+import "../../../styles/Albums.css";
 import { changeTrackSave } from "../../../../_actions/spotify_actions";
+
 
 function LikeButton({ initial, trackId }) {
   const [liked, setLiked] = useState(initial);

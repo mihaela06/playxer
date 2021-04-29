@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { getPlaylist } from "../../../../_actions/playlists_actions";
-import Loading from "../../../Loading";
+import {
+  getPlaylist,
+  editPlaylist,
+} from "../../../../_actions/playlists_actions";
+import Loading from "../../../common/Loading";
 import { Row, Col } from "reactstrap";
-import TagModal from "./TagModal";
+import TagModal from "../../../common/TagModal";
 import { FiEdit3 } from "react-icons/fi";
+import { IoRefreshOutline } from "react-icons/io5";
 
 function Playlist({ match, history }) {
   const [tracks, setTracks] = useState([]);
   const [playlist, setPlaylist] = useState();
   const [loading, setLoading] = useState(true);
-  var playlistImage;
 
   useEffect(() => {
     const getData = () => {
@@ -22,7 +25,6 @@ function Playlist({ match, history }) {
             playlistImage: response.playlistImage,
           });
           setLoading(false);
-          playlistImage = response.playlistImage;
         })
         .catch((err) => {
           console.log(err);
@@ -38,6 +40,33 @@ function Playlist({ match, history }) {
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
+  const refreshPlaylist = () => {
+    setLoading(true);
+    var temp = playlist.ingredients;
+    temp.forEach((i) => (i.old = true));
+    console.log(temp);
+    editPlaylist(
+      temp,
+      playlist.checkInstrumentals,
+      playlist.checkRemixes,
+      playlist.name,
+      playlist.description,
+      playlist.publicPlaylist,
+      playlist.playlistId
+    )
+      .then(function (response) {
+        console.log(response);
+        setPlaylist({
+          ...response.playlist,
+          playlistImage: playlist.playlistImage,
+        });
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   if (loading) return <Loading />;
 
   return (
@@ -45,37 +74,36 @@ function Playlist({ match, history }) {
       {playlist && (
         <div className="header-container">
           <Row className="header-container__row" noGutters>
-            <Col xs={2} className="center-items">
+            <Col xs={3} md={2} className="center-items">
               <img
                 src={playlist.playlistImage}
                 alt={playlist.name}
-                style={{
-                  maxHeight: "20vh",
-                  borderRadius: "10px",
-                  margin: "10px",
-                }}
+                className="album__image"
               />
             </Col>
-            <Col xs={9} style={{ height: "inherit", maxHeight: "inherit" }}>
-              <h1 style={{ color: "var(--text)", margin: "5%" }}>
-                {playlist.name}
-              </h1>
+            <Col xs={8} md={9}>
+              <h2 className="album__name">{playlist.name}</h2>
             </Col>
-            <Col
-              xs={1}
-              style={{ height: "inherit", maxHeight: "inherit" }}
-              className="center-items"
-            >
-              <FiEdit3
-                style={{ fontSize: "30px", cursor: "pointer" }}
-                className="increase-hover"
-                onClick={() => {
-                  history.push({
-                    pathname: "/playlists/edit/" + playlist.playlistId,
-                    playlist: playlist,
-                  });
-                }}
-              />
+            <Col xs={1} className="center-items">
+              <div className="playlist__button__div">
+                <FiEdit3
+                  style={{ fontSize: "30px", cursor: "pointer", margin: "5px" }}
+                  className="increase-hover"
+                  onClick={() => {
+                    history.push({
+                      pathname: "/playlists/edit/" + playlist.playlistId,
+                      playlist: playlist,
+                    });
+                  }}
+                />
+                <IoRefreshOutline
+                  style={{ fontSize: "30px", cursor: "pointer", margin: "5px" }}
+                  className="increase-hover"
+                  onClick={() => {
+                    refreshPlaylist();
+                  }}
+                />
+              </div>
             </Col>
           </Row>
         </div>
@@ -87,13 +115,7 @@ function Playlist({ match, history }) {
               let track = item.track;
               return (
                 <React.Fragment key={index}>
-                  <Row
-                    style={{
-                      margin: "10px 0px",
-                      fontSize: "1.2rem",
-                      width: "100%",
-                    }}
-                  >
+                  <Row className="track-row">
                     <Col xs={1} className="p-0 center-items">
                       {index + 1}
                     </Col>
@@ -126,15 +148,7 @@ function Playlist({ match, history }) {
                           width: "100%",
                         }}
                       >
-                        <span
-                          style={{
-                            justifySelf: "flex-end",
-                            marginLeft: "auto",
-                            marginTop: "auto",
-                            marginBottom: "auto",
-                            marginRight: "5%",
-                          }}
-                        >
+                        <span className="track-row__tag">
                           <TagModal
                             contentId={tracks[index].track.id}
                             contentType="Track"

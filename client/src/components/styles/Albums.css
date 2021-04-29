@@ -1,0 +1,80 @@
+.like-button {
+    cursor: pointer;
+    color: var(--cadet-blue);
+}
+
+.like-button:hover,
+.like-button:active,
+.like-button:focus {
+    transform: scale(1.2, 1.2);
+}
+
+.artist-link {
+    opacity: 0.4;
+}
+
+.artist-link__name:hover,
+.artist-link__name:active,
+.artist-link__name:focus {
+    opacity: 0.8 !important;
+    cursor: pointer;
+}
+
+.album__image {
+    max-height: 120px;
+    border-radius: 10px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.save__button {
+    font-size: 15px;
+}
+
+.album__name {
+    font-size: 30px;
+    padding-top: 5%;
+    margin-bottom: 10px;
+    overflow: clip;
+    color: var(--text-color);
+}
+
+.tag__icon {
+    justify-self: flex-end;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5%;
+}
+
+.track-row {
+    margin: 10px 0px;
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+.track-row__like {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.track-row__tag {
+    justify-self: flex-end;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5%;
+}
+
+@media screen and (min-width: 990px) {
+    .save__button {
+        font-size: 20px;
+    }
+    .album__name {
+        font-size: 40px;
+    }
+    .album__image {
+        max-height: 180px;
+    }
+}

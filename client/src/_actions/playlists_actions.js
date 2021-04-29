@@ -1,6 +1,7 @@
 import axios from "axios";
 import { CREATE_PLAYLIST, GET_PLAYLIST, EDIT_PLAYLIST } from "./types";
 import { PLAYLIST_SERVER } from "../components/Config.js";
+import { getImageURL } from "../functions/Helpers.js";
 
 export function createPlaylist(
   ingredients,
@@ -29,16 +30,8 @@ export function createPlaylist(
       ingredient.type === "Tag"
         ? null
         : ingredient.type === "Track"
-        ? ingredient.content.album.images
-          ? ingredient.content.album.images[2]
-            ? ingredient.content.album.images[2].url
-            : null
-          : null
-        : ingredient.content.images
-        ? ingredient.content.images[2]
-          ? ingredient.content.images[2].url
-          : null
-        : null;
+        ? getImageURL(ingredient.type, ingredient.content.album.images)
+        : getImageURL(ingredient.type, ingredient.content.images);
     dataToSubmit.ingredients.push({
       type: ingredient.type,
       reference: ref,
@@ -71,6 +64,8 @@ export function editPlaylist(
     ingredients: [],
   };
 
+  console.log(ingredients);
+
   ingredients.map(function (ingredient) {
     console.log(ingredient);
     if (!ingredient.old) {
@@ -82,16 +77,8 @@ export function editPlaylist(
         ingredient.type === "Tag"
           ? null
           : ingredient.type === "Track"
-          ? ingredient.content.album.images
-            ? ingredient.content.album.images[2]
-              ? ingredient.content.album.images[2].url
-              : null
-            : null
-          : ingredient.content.images
-          ? ingredient.content.images[2]
-            ? ingredient.content.images[2].url
-            : null
-          : null;
+          ? getImageURL(ingredient.type, ingredient.content.album.images)
+          : getImageURL(ingredient.type, ingredient.content.images);
       dataToSubmit.ingredients.push({
         type: ingredient.type,
         reference: ref,

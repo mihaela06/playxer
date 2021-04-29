@@ -6,7 +6,7 @@ import { FiUser } from "react-icons/fi";
 import { RiPlayListFill, RiAlbumFill, RiHome2Line } from "react-icons/ri";
 import { GiMicrophone } from "react-icons/gi";
 
-import "../../../../styles/MainPage.css";
+import "../../../styles/MainPage.css";
 import logoPlayxer from "../../../../assets/images/Logo.png";
 
 function NavBar({ userPlaylists }) {
@@ -47,12 +47,7 @@ function NavBar({ userPlaylists }) {
             <img
               src={logoPlayxer}
               alt="Playxer logo"
-              style={{
-                width: "15vw",
-                marginTop: "20px",
-                paddingRight: "40px",
-                marginLeft: "5px",
-              }}
+              className="navbar__logo"
             />{" "}
           </NavLink>
         </NavItem>{" "}
@@ -62,8 +57,7 @@ function NavBar({ userPlaylists }) {
             className="sidebar__link"
             activeClassName="activeLink"
           >
-            {" "}
-            Artists{" "}
+            Artists
           </NavLink>{" "}
         </NavItem>{" "}
         <NavItem style={{ marginTop: "20px", marginBottom: "15px" }}>
@@ -86,35 +80,25 @@ function NavBar({ userPlaylists }) {
             Playlists{" "}
           </NavLink>{" "}
         </NavItem>{" "}
-        <div
-          style={{
-            maxHeight: "calc(100vh - 400px)",
-            overflowY: "auto",
-            margin: 0,
-            padding: 0,
-            listStyle: "none",
-            height: "100%",
-          }}
-          className="scrollbar"
-        >
+        <div className="scrollbar">
           {user.userData &&
             user.userData.isAuth &&
             userPlaylists.map(function (playlist, index) {
               return (
                 <React.Fragment key={index}>
-                  <NavItem style={{ marginBottom: "20px", marginTop: "20px" }}>
+                  <NavItem>
                     <NavLink
                       to={"/playlists/" + playlist.playlistId}
                       className="sidebar__link__playlist"
                     >
-                      {playlist.name}
+                      <div className="scrollbox__item">{playlist.name}</div>
                     </NavLink>
                   </NavItem>
                 </React.Fragment>
               );
             })}
         </div>
-        <NavItem style={{ position: "fixed", bottom: "15px" }}>
+        <NavItem className="navbar__item__profile">
           <NavLink
             to="/profile"
             className="sidebar__link"

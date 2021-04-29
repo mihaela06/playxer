@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Input, Icon } from "antd";
 import MixIt from "../../../../assets/images/MixIt256.gif";
 import { search } from "../../../../_actions/spotify_actions";
-import DisplayCard from "./DisplayCard";
+import DisplayCard from "../../../common/DisplayCard";
 import { Col, Row } from "reactstrap";
+import { getImageURL } from "../../../../functions/Helpers.js";
 
 function SearchPage(props) {
   const [loading, setLoading] = useState(false);
@@ -131,7 +132,11 @@ function SearchPage(props) {
                               >
                                 <Col xs={2} md={1} className="p-0 center-items">
                                   <img
-                                    src={content.album.images[2].url}
+                                    src={getImageURL(
+                                      "album",
+                                      content.album.images,
+                                      false
+                                    )}
                                     alt={content.album.name}
                                     style={{ height: "40px" }}
                                   />
@@ -139,7 +144,11 @@ function SearchPage(props) {
                                 <Col xs={7} md={9} className="p-0">
                                   {content.name}
                                 </Col>
-                                <Col xs={3} md={2} style={{ textAlign: "right" }}>
+                                <Col
+                                  xs={3}
+                                  md={2}
+                                  style={{ textAlign: "right" }}
+                                >
                                   {msToMin(content.duration_ms)}
                                 </Col>
                               </Row>

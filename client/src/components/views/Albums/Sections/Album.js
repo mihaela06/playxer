@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
-
 import {
-  getAlbum,
   changeAlbumSave,
+  getAlbum,
 } from "../../../../_actions/spotify_actions";
-import Loading from "../../../Loading";
+import Loading from "../../../common/Loading";
+import TagModal from "../../../common/TagModal";
 import LikeButton from "./LikeButton";
-import TagModal from "./TagModal";
+import "../../../styles/Albums.css";
+import { getImageURL } from "../../../../functions/Helpers.js";
 
 function Album({ match, history }) {
   const [albumInfo, setAlbumInfo] = useState({});
@@ -56,26 +57,15 @@ function Album({ match, history }) {
     <div>
       <div className="header-container">
         <Row className="header-container__row" noGutters>
-          <Col
-            xs={4}
-            md={3}
-            style={{ height: "inherit", maxHeight: "inherit" }}
-            className="center-items"
-          >
+          <Col xs={4} md={3} className="center-items">
             <img
-              src={albumInfo.images[1].url}
+              src={getImageURL("album", albumInfo.images)}
               alt={albumInfo.name}
-              style={{
-                height: "90%",
-                maxHeight: "30vmin",
-                borderRadius: "10px",
-                padding: "5px",
-              }}
+              className="album__image"
             />
             <button
-              className="increase-hover"
+              className="increase-hover save__button"
               onClick={clickedSaveButton}
-              style={{ fontSize: "4vmin" }}
             >
               {saved ? "Saved" : "Save"}
             </button>
@@ -84,27 +74,8 @@ function Album({ match, history }) {
             <div
               style={{ display: "flex", flexDirection: "row", width: "100%" }}
             >
-              <p
-                style={{
-                  fontSize: "8vmin",
-                  paddingTop: "5%",
-                  marginBottom: "5%",
-                  overflow: "clip",
-                  color: "var(--text-color)",
-                }}
-              >
-                {albumInfo.name}
-              </p>
-
-              <span
-                style={{
-                  justifySelf: "flex-end",
-                  marginLeft: "auto",
-                  marginTop: "auto",
-                  marginBottom: "auto",
-                  marginRight: "5%",
-                }}
-              >
+              <p className="album__name">{albumInfo.name}</p>
+              <span className="tag__icon">
                 <TagModal contentId={albumInfo.id} contentType="Album" />
               </span>
             </div>
@@ -127,13 +98,7 @@ function Album({ match, history }) {
           albumInfo.tracks.items.map(function (track, index) {
             return (
               <React.Fragment key={index}>
-                <Row
-                  style={{
-                    margin: "10px 0px",
-                    fontSize: "1.2rem",
-                    width: "100%",
-                  }}
-                >
+                <Row className="track-row">
                   <Col xs={1} className="p-0 center-items">
                     {track.track_number}
                   </Col>
@@ -170,27 +135,13 @@ function Album({ match, history }) {
                       })}
                   </Col>
                   <Col xs={2} md={1} className="p-0 center-items">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        width: "100%",
-                      }}
-                    >
+                    <div className="track-row__like">
                       <LikeButton
                         initial={albumInfo.savedTracks[index]}
                         trackId={albumInfo.tracks.items[index].id}
                       />
 
-                      <span
-                        style={{
-                          justifySelf: "flex-end",
-                          marginLeft: "auto",
-                          marginTop: "auto",
-                          marginBottom: "auto",
-                          marginRight: "5%",
-                        }}
-                      >
+                      <span className="track-row__tag">
                         <TagModal
                           contentId={albumInfo.tracks.items[index].id}
                           contentType="Track"

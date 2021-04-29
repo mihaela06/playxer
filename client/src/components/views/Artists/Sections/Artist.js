@@ -5,10 +5,11 @@ import {
   changeArtistFollowing,
   getArtistAlbums,
 } from "../../../../_actions/spotify_actions";
-import Loading from "../../../Loading";
-import DisplayCard from "./DisplayCard";
-import TagModal from "./TagModal";
-import "../../../../styles/Artist.css";
+import Loading from "../../../common/Loading";
+import DisplayCard from "../../../common/DisplayCard";
+import TagModal from "../../../common/TagModal";
+import "../../../styles/Artists.css";
+import { getImageURL } from "../../../../functions/Helpers.js";
 
 function Artist({ match }) {
   const [loading, setLoading] = useState(true);
@@ -84,25 +85,16 @@ function Artist({ match }) {
     <div>
       <div className="header-container">
         <Row className="header-container__row" noGutters>
-          <Col
-            xs={4}
-            md={3}
-            style={{ height: "inherit", maxHeight: "inherit" }}
-            className="center-items"
-          >
+          <Col xs={4} md={3} className="center-items">
             <img
-              src={artistInfo.images[1].url}
+              src={getImageURL("artist", artistInfo.images)}
+              className="header__artist__image"
               alt={artistInfo.name}
-              style={{
-                height: "90%",
-                maxHeight: "30vmin",
-                borderRadius: "50%",
-              }}
             />
             <button
               className="increase-hover"
               onClick={clickedFollowButton}
-              style={{ fontSize: "4vmin" }}
+              className="save__button"
             >
               {following ? "Unfollow" : "Follow"}
             </button>
@@ -111,26 +103,8 @@ function Artist({ match }) {
             <div
               style={{ display: "flex", flexDirection: "row", width: "100%" }}
             >
-              <p
-                style={{
-                  fontSize: "8vmin",
-                  paddingTop: "5%",
-                  marginBottom: "5%",
-                  overflow: "clip",
-                  color: "var(--text-color)",
-                }}
-              >
-                {artistInfo.name}
-              </p>
-              <span
-                style={{
-                  justifySelf: "flex-end",
-                  marginLeft: "auto",
-                  marginTop: "auto",
-                  marginBottom: "auto",
-                  marginRight: "5%",
-                }}
-              >
+              <p className="album__name">{artistInfo.name}</p>
+              <span className="tag__icon">
                 <TagModal contentId={artistInfo.id} contentType="Artist" />
               </span>
             </div>
@@ -159,6 +133,7 @@ function Artist({ match }) {
                               images={album.images}
                               name={album.name}
                               id={album.id}
+                              type="album"
                             />
                           </React.Fragment>
                         );

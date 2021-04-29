@@ -1,6 +1,6 @@
 import Particles from "react-tsparticles";
 import React from "react";
-import DarkMode from "../../../DarkMode";
+import DarkMode from "../../../common/DarkMode";
 
 function ParticleBackground() {
   const containerRef = React.useRef();

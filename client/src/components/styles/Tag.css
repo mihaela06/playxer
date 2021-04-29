@@ -22,6 +22,11 @@
     margin-top: 1.5px !important;
 }
 
+.tag-head__div {
+    display: block;
+    position: relative;
+}
+
 .tag-text {
     height: 30px;
     border-bottom: solid 2px var(--text-color);
@@ -33,10 +38,25 @@
     border-top-left-radius: 5px;
 }
 
+.tag-close {
+    cursor: pointer;
+    height: 20px;
+    margin-bottom: 5px;
+    margin-right: 3px;
+}
+
 .tag-close:hover,
 .tag-close:active,
 .tag-close:focus {
     color: red !important;
+}
+
+.tag-add {
+    cursor: pointer;
+    height: 20px;
+    margin-bottom: 5px;
+    margin-right: 3px;
+    color: green;
 }
 
 .react-confirm-alert-body {
@@ -59,4 +79,11 @@
 
 .overlay-alert {
     opacity: 0.8;
+}
+
+.tag__div {
+    display: flex;
+    flex-direction: row;
+    min-width: fit-content;
+    margin: 5px;
 }

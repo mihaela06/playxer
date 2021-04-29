@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Form, Icon, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
-import "../../../../styles/AuthPage.css";
+import "../../../styles/AuthPage.css";
 import mixIt from "../../../../assets/images/MixIt.gif";
 
 function LoginPage(props) {

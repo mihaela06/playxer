@@ -1,0 +1,32 @@
+.playlist__button__div {
+    display: flex;
+    flex-direction: column;
+}
+
+.playlist__heading {
+    margin-left: 5%;
+    color: var(--text-color);
+}
+
+.playlist__add {
+    cursor: pointer;
+    border: solid 3px var(--border);
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.playlist__add__div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.modal__div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}

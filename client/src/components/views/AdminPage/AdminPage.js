@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { getUsers, deleteUser } from "../../../_actions/admin_actions";
-import { Table, Input } from "antd";
-import { Container } from "reactstrap";
-
-import axios from "axios";
-import { USER_SERVER } from "../../Config";
+import { Input, Table } from "antd";
 import "antd/dist/antd.css";
-import DarkMode from "../../DarkMode";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { RiShutDownLine } from "react-icons/ri";
-
 import { NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import { Container } from "reactstrap";
+import { deleteUser, getUsers } from "../../../_actions/admin_actions";
+import DarkMode from "../../common/DarkMode";
+import { USER_SERVER } from "../../Config";
+import "../../styles/AdminPage.css";
 
 const { Search } = Input;
 
@@ -70,29 +69,25 @@ function AdminPage(props) {
       dataIndex: "username",
       key: "username",
       sorter: (a, b) => a.username.localeCompare(b.username),
-      render: (record) => (
-        <p style={{ color: "var(--text-color)" }}> {record} </p>
-      ),
+      render: (record) => <p className="table__text"> {record} </p>,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      render: (record) => (
-        <p style={{ color: "var(--text-color)" }}> {record} </p>
-      ),
+      render: (record) => <p className="table__text"> {record} </p>,
     },
     {
       title: "Action",
       key: "action",
       render: (record) => (
-        <a
-          style={{ color: "red" }}
+        <span
+          className="table__action"
           href="/#"
           onClick={() => handleDelete(record)}
         >
           Delete{" "}
-        </a>
+        </span>
       ),
     },
   ];
@@ -114,35 +109,15 @@ function AdminPage(props) {
           className="center-items"
           style={{ display: "flex", flexDirection: "row" }}
         >
-          <p
-            style={{
-              fontWeight: "bold",
-              fontSize: "2rem",
-              textAlign: "center",
-              marginTop: "20px",
-              marginBottom: "20px",
+          <p className="panel__title">Admin control panel </p>{" "}
+          <RiShutDownLine
+            color="red"
+            size="sm"
+            className="logout-icon"
+            onClick={() => {
+              logoutHandler();
             }}
-          >
-            Admin control panel{" "}
-          </p>{" "}
-          <button
-            onClick={logoutHandler}
-            style={{
-              backgroundColor: "transparent",
-              border: "none",
-              padding: "0px!important",
-            }}
-          >
-            <RiShutDownLine
-              color="red"
-              size="sm"
-              style={{
-                maxHeight: "30px",
-                maxWidth: "30px",
-                marginLeft: "2vw",
-              }}
-            />{" "}
-          </button>{" "}
+          />
         </div>{" "}
         <Search
           style={{ margin: "0 0 20px 0" }}

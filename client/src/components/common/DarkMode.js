@@ -1,8 +1,8 @@
-import React from "react";
-import "../styles/DarkMode.css";
-import "antd/dist/antd.css";
 import { Switch } from "antd";
-import { FiSun, FiMoon } from "react-icons/fi";
+import "antd/dist/antd.css";
+import React from "react";
+import { FiMoon, FiSun } from "react-icons/fi";
+import "../styles/DarkMode.css";
 
 function DarkMode(props) {
   const body = document.body;
@@ -24,12 +24,10 @@ function DarkMode(props) {
       body.classList.replace(darkTheme, lightTheme);
       localStorage.setItem("theme", "light");
       theme = lightTheme;
-      //   checked = false;
     } else {
       body.classList.replace(lightTheme, darkTheme);
       localStorage.setItem("theme", "dark");
       theme = darkTheme;
-      //   checked = true;
     }
     if (props.switchParticle) props.switchParticle();
   };

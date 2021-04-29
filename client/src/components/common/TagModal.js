@@ -9,14 +9,15 @@ import {
   getContentTags,
   deleteTag,
   addTag,
-} from "../../../../_actions/tags_actions";
-import { useMediaQuery } from "../../../../hooks/MediaQuery";
+} from "../../_actions/tags_actions";
+import { useMediaQuery } from "../../hooks/MediaQuery";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Tag from "./Tag";
-import MixIt from "../../../../assets/images/MixIt256.gif";
+import MixIt from "../../assets/images/MixIt256.gif";
 import { SliderPicker } from "react-color";
-import "../../../../styles/Tag.css";
+import "../styles/Tag.css";
+import "../styles/TagModal.css";
 import { Input, Button } from "antd";
 import { NotificationManager } from "react-notifications";
 
@@ -248,16 +249,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
                 one!
               </span>
             )}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                margin: "0px",
-                marginBottom: "20px",
-                paddingTop: "10px",
-              }}
-            >
+            <div className="tag-div--assigned">
               {contentTags.length > 0 &&
                 contentTags.map(function (tag, index) {
                   return (
@@ -276,16 +268,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
                   );
                 })}
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                margin: "0px",
-                borderTop: "solid 1px var(--border)",
-                paddingTop: "10px",
-              }}
-            >
+            <div className="tag-div--unassigned">
               {unusedTags.map(function (tag, index) {
                 return (
                   <React.Fragment key={index}>
@@ -308,16 +291,8 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
                 onBodyClickFunction={() => openAddModal()}
               />
             </div>
-            <MdClose
-              style={{
-                color: "red",
-                cursor: "pointer",
-                position: "absolute",
-                top: "5px",
-                right: "5px",
-                size: "15px",
-              }}
-              className="increase-hover"
+            <MdClose 
+              className="increase-hover modal-close"
               onClick={closeModal}
             />
           </div>
@@ -337,12 +312,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
           value={newTagName}
           onChange={handleTagNameChange}
           size="large"
-          style={{
-            marginTop: "40px",
-            marginBottom: "20px",
-            width: "90%",
-            marginLeft: "5%",
-          }}
+          className="modal-input"
           autoComplete="off"
         />{" "}
         <div className="center-items">

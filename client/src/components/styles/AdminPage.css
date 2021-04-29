@@ -1,0 +1,30 @@
+.table__text {
+    color: var(--text-color);
+}
+
+.table__action {
+    color: red;
+    cursor: pointer;
+}
+
+.ant-table .ant-table-tbody>tr:hover>td {
+    background: gray !important;
+}
+
+.panel__title {
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logout-icon {
+    background-color: transparent;
+    border: none;
+    padding: 0px !important;
+    max-height: 30px;
+    max-width: 30px;
+    margin-left: 2vw;
+    cursor: pointer;
+}

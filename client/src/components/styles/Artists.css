@@ -27,7 +27,7 @@
 }
 
 .header-container__artist {
-    font-size: 4.5vmin;
+    font-size: 20px;
     margin: auto;
     width: 100%;
     cursor: pointer;
@@ -35,11 +35,24 @@
 }
 
 .header-container__followers {
-    font-size: 5vmin;
+    font-size: 15px;
     margin: auto;
     width: 100%;
     text-align: right;
-    padding-right: 5%;
+    padding: 10px;
+}
+
+.header__artist__image {
+    height: 90%;
+    border-radius: 50%;
+    max-height: 120px;
+    padding: 15px;
+}
+
+@media screen and (min-width: 990px) {
+    .header__artist__image {
+        max-height: 180px;
+    }
 }
 
 .albums-container {
@@ -63,4 +76,13 @@ h4 {
     width: 100%;
     border: solid var(--border) !important;
     border-width: 0px 0px 1px 0px !important;
+}
+
+@media screen and (min-width: 990px) {
+    .header-container__artist {
+        font-size: 30px;
+    }
+    .header-container__followers {
+        font-size: 25px;
+    }
 }

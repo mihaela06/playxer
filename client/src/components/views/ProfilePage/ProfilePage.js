@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getProfile } from "../../../_actions/spotify_actions";
-import Loading from "../../Loading";
+import Loading from "../../common/Loading";
 import { changeEmail, changePassword } from "../../../_actions/user_actions";
 import { Formik } from "formik";
 import * as Yup from "yup";

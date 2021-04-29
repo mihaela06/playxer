@@ -2,8 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
-import "../../../styles/index.css";
-import DarkMode from "../../DarkMode";
+import "../../../index.css";
+import DarkMode from "../../common/DarkMode";
 import MainPage from "../MainPage/MainPage";
 import spotifyIcon from "../../../assets/images/SpotifyIcon.png";
 

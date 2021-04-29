@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
-import "../../../../styles/AuthPage.css";
+import "../../../styles/AuthPage.css";
 import { Container, Row, Col } from "reactstrap";
 import { Form, Icon, Input, Button } from "antd";
 import { NotificationManager } from "react-notifications";
