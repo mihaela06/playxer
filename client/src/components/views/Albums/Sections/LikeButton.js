@@ -11,7 +11,7 @@ function LikeButton({ initial, trackId }) {
     setLiked(!liked);
     changeTrackSave(trackId, old)
       .then((response) => {
-        console.log(response);
+        //console.log(response);
       })
       .catch((err) => {
         console.log(err);

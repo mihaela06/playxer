@@ -1,25 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Col } from "reactstrap";
-import DefaultAlbum from "../../assets/images/DefaultAlbum.jpg";
-import DefaultArtist from "../../assets/images/DefaultArtist.jpg";
-import DefaultPlaylist from "../../assets/images/DefaultPlaylist.jpg";
 import "../styles/DisplayCard.css";
 
 import { getImageURL } from "../../functions/Helpers.js";
 
 function DisplayCard(props) {
   let { type, name, images, id } = props;
-  var defaultPic;
   var toLink;
   if (type === "artist") {
-    defaultPic = DefaultArtist;
     toLink = `/artists/${id}`;
   } else if (type === "album") {
-    defaultPic = DefaultAlbum;
     toLink = `/albums/${id}`;
   } else {
-    defaultPic = DefaultPlaylist;
     toLink = `/playlists/${id}`;
   }
   var source = getImageURL(type, images);

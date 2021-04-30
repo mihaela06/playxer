@@ -19,7 +19,6 @@ function Album({ match, history }) {
     const getData = () => {
       getAlbum(match.params.albumId)
         .then((response) => {
-          console.log("album", response);
           setAlbumInfo({
             ...response.spotifyData.body,
             savedTracks: response.spotifyData.savedTracks,

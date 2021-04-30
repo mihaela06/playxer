@@ -22,7 +22,6 @@ function AdminPage(props) {
   const getData = () => {
     getUsers()
       .then((response) => {
-        console.log(response);
         setUsersInfo(response.data);
         setFilteredInfo(response.data);
       })
@@ -33,10 +32,8 @@ function AdminPage(props) {
 
   const handleDelete = (record) => {
     if (window.confirm("Are you sure you wish to delete this user?")) {
-      console.log("delete", record);
       deleteUser({ user: record })
         .then((response) => {
-          console.log(response);
           if (response.success) {
             NotificationManager.success("User deleted", "Success!");
             let temp = usersInfo.filter((item) => item.email !== record.email);

@@ -12,13 +12,10 @@ function CallbackPage(props) {
     userID: id,
   };
 
-  console.log("Data to submit", dataToSubmit);
 
   dispatch(exchangeCode(dataToSubmit))
     .then((response) => {
-      console.log("Response ", response);
       if (response.payload.success && response.payload.success === true) {
-        console.log("Success!");
         window.location.replace("/");
         return <div> SUCCESS </div>;
       }

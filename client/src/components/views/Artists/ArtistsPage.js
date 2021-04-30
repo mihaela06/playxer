@@ -30,7 +30,6 @@ function ArtistsPage(props) {
 
     getFollowedArtists(loadingExtraData.after)
       .then((response) => {
-        console.log("Response", loadingExtraData.offset, response);
         setArtists((artists) => [
           ...artists,
           ...response.spotifyData.body.artists.items,

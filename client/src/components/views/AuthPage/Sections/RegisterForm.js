@@ -51,7 +51,6 @@ function RegisterPage(props) {
               let errorMessage = "Unknown error";
               if (response.payload.err.name === "MongoError") {
                 errorMessage = "";
-                console.log(response.payload.err.keyValue.value);
                 for (var prop in response.payload.err.keyValue)
                   errorMessage +=
                     prop.charAt(0).toUpperCase() +

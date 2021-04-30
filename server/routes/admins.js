@@ -11,11 +11,9 @@ router.get("/get_users", verifyAdmin, (req, res) => {
   User.find({}, (err, user) => {
     if (!err)
       user.map((u) => {
-        console.log(u.username);
         users.push({ username: u.username, email: u.email });
       });
 
-    console.log(users);
     return res.status(200).json({
       success: true,
       data: users,
@@ -31,7 +29,6 @@ router.post("/delete_user", verifyAdmin, (req, res) => {
       error: err,
     });
 
-    console.log("deleted", user);
     return res.status(200).json({
       success: true
     });

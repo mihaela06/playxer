@@ -43,7 +43,11 @@ function Tag({
         </div>
       </div>
       <div className="tag-head__div">
-        <img src={isWhite ? TagHeadWhite : TagHead} className="tag-head" />
+        <img
+          src={isWhite ? TagHeadWhite : TagHead}
+          alt="tag"
+          className="tag-head"
+        />
         <div
           className="tag-head__background"
           style={{ backgroundColor: color }}

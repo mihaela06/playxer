@@ -119,7 +119,14 @@ function getTracksFromIngredients(
   }
 
   function getTracksURI(tracks, checkInstrumentals, checkRemixes) {
-    let instrumentalsKeywords = ["(inst.)", "instrumental", "(inst)", "inst."];
+    let instrumentalsKeywords = [
+      "(inst.)",
+      "instrumental",
+      "(inst)",
+      "inst.",
+      "commentary",
+      "karaoke",
+    ];
     let remixKeywords = ["remix", "re-edit", "remixed"];
     var tracksId = [];
     tracks.forEach((e) => tracksId.push(e.id));
@@ -266,12 +273,12 @@ router.post("/create_playlist", loadTokens, (req, res) => {
             var addURIPromises = tracksURISubarrays.map(function (uris) {
               return spotifyApi.addTracksToPlaylist(playlistId, uris).then(
                 function (data) {
-                  console.log("Added tracks to playlist!", data);
                   return true;
                 },
                 function (err) {
                   console.log("Something went wrong!", err);
-                  return false;
+                  spotifyApi.addTracksToPlaylist(playlistId, uris);
+                  return true;
                 }
               );
             });
@@ -422,23 +429,11 @@ router.post("/edit_playlist", loadTokens, (req, res) => {
     ).then(function (ingredientsURI) {
       var promiseGetTracks = spotifyApi.getPlaylist(req.body.playlistId).then(
         function (data) {
-          var tracks = [];
-          tracks.push(...data.body.tracks.items);
-          if (tracks.length < data.body.tracks.total) {
-            var offsets = [];
-            for (let i = 100; i < data.body.tracks.total; i += 100)
-              offsets.push(i);
-            var promises = offsets.map(function (offset) {
-              return getTracks(offset);
-            });
-
-            Promise.all(promises).then(function (results) {
-              results.map(function (result) {
-                tracks.push(...result);
-                return tracks;
-              });
-            });
-          } else return tracks;
+          var offsets = [];
+          for (let i = 0; i < data.body.tracks.total; i += 100) offsets.push(i);
+          return (promise = offsets.map(function (offset) {
+            return getTracks(offset);
+          }));
         },
         function (err) {
           return { err: err, failed: true };
@@ -448,58 +443,68 @@ router.post("/edit_playlist", loadTokens, (req, res) => {
       promiseGetTracks.then(function (result) {
         if (!result || result.failed)
           return res.json({ success: false, err: result.err });
-        var tracks = result;
-        var toDel = [];
-        var toAdd = [];
-        tracks.forEach((t) => {
-          if (!ingredientsURI.find((e) => e === t.track.uri))
-            toDel.push({ uri: t.track.uri });
-        });
-        ingredientsURI.forEach((t) => {
-          if (!tracks.find((e) => e.track.uri === t)) toAdd.push(t);
-        });
+        var tracks = [];
 
-        var offsetsA = [];
-        var addSubarrays = [];
-        for (let i = 0; i < toAdd.length; i += 100) {
-          offsetsA.push(i);
-          addSubarrays.push([...toAdd].slice(i, i + 100));
-        }
+        Promise.all(result).then(function (results) {
+          results.map(function (result) {
+            tracks.push(...result);
+          });
+          var toDel = [];
+          var toAdd = [];
+          tracks.forEach((t) => {
+            if (!ingredientsURI.find((e) => e === t.track.uri))
+              toDel.push({ uri: t.track.uri });
+          });
+          ingredientsURI.forEach((t) => {
+            if (!tracks.find((e) => e.track.uri === t)) toAdd.push(t);
+          });
 
-        var offsetsD = [];
-        var delSubarrays = [];
-        for (let i = 0; i < toDel.length; i += 100) {
-          offsetsD.push(i);
-          delSubarrays.push([...toDel].slice(i, i + 100));
-        }
+          var offsetsA = [];
+          var addSubarrays = [];
+          for (let i = 0; i < toAdd.length; i += 100) {
+            offsetsA.push(i);
+            addSubarrays.push([...toAdd].slice(i, i + 100));
+          }
 
-        var promisesD = delSubarrays.map(function (a) {
-          return spotifyApi
-            .removeTracksFromPlaylist(req.body.playlistId, a)
-            .then(
-              function (data) {
-                return true;
-              },
-              function (err) {
-                return false;
-              }
-            );
-        });
+          var offsetsD = [];
+          var delSubarrays = [];
+          for (let i = 0; i < toDel.length; i += 100) {
+            offsetsD.push(i);
+            delSubarrays.push([...toDel].slice(i, i + 100));
+          }
 
-        Promise.all(promisesD).then(function (results) {
-          var promisesA = addSubarrays.map(function (a) {
-            return spotifyApi.addTracksToPlaylist(req.body.playlistId, a).then(
-              function (data) {
-                return true;
-              },
-              function (err) {
-                return false;
-              }
-            );
+          var promisesD = delSubarrays.map(function (a) {
+            return spotifyApi
+              .removeTracksFromPlaylist(req.body.playlistId, a)
+              .then(
+                function (data) {
+                  return true;
+                },
+                function (err) {
+                  return false;
+                }
+              );
           });
 
           Promise.all(promisesD).then(function (results) {
-            return res.status(200).json({ success: true, playlist: playlist });
+            var promisesA = addSubarrays.map(function (a) {
+              return spotifyApi
+                .addTracksToPlaylist(req.body.playlistId, a)
+                .then(
+                  function (data) {
+                    return true;
+                  },
+                  function (err) {
+                    return false;
+                  }
+                );
+            });
+
+            Promise.all(promisesD).then(function (results) {
+              return res
+                .status(200)
+                .json({ success: true, playlist: playlist });
+            });
           });
         });
       });

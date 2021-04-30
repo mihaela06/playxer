@@ -18,7 +18,6 @@ function Playlist({ match, history }) {
     const getData = () => {
       getPlaylist(match.params.playlistId)
         .then(function (response) {
-          console.log(response);
           setTracks(response.tracks);
           setPlaylist({
             ...response.playlist,
@@ -44,7 +43,6 @@ function Playlist({ match, history }) {
     setLoading(true);
     var temp = playlist.ingredients;
     temp.forEach((i) => (i.old = true));
-    console.log(temp);
     editPlaylist(
       temp,
       playlist.checkInstrumentals,
@@ -55,7 +53,6 @@ function Playlist({ match, history }) {
       playlist.playlistId
     )
       .then(function (response) {
-        console.log(response);
         setPlaylist({
           ...response.playlist,
           playlistImage: playlist.playlistImage,
@@ -74,15 +71,15 @@ function Playlist({ match, history }) {
       {playlist && (
         <div className="header-container">
           <Row className="header-container__row" noGutters>
-            <Col xs={3} md={2} className="center-items">
+            <Col xs={4} md={3} className="center-items">
               <img
                 src={playlist.playlistImage}
                 alt={playlist.name}
                 className="album__image"
               />
             </Col>
-            <Col xs={8} md={9}>
-              <h2 className="album__name">{playlist.name}</h2>
+            <Col xs={7} md={8}>
+              <p className="album__name">{playlist.name}</p>
             </Col>
             <Col xs={1} className="center-items">
               <div className="playlist__button__div">

@@ -20,8 +20,7 @@ export function createPlaylist(
     ingredients: [],
   };
 
-  ingredients.map(function (ingredient) {
-    console.log(ingredient);
+  ingredients.forEach((ingredient) => {
     let ref =
       ingredient.type === "Tag"
         ? ingredient.content.name
@@ -39,7 +38,6 @@ export function createPlaylist(
       name: ingredient.content.name,
     });
   });
-  console.log(dataToSubmit);
   return axios
     .post(`${PLAYLIST_SERVER}/${CREATE_PLAYLIST}`, dataToSubmit)
     .then((response) => response.data);
@@ -64,10 +62,7 @@ export function editPlaylist(
     ingredients: [],
   };
 
-  console.log(ingredients);
-
-  ingredients.map(function (ingredient) {
-    console.log(ingredient);
+  ingredients.forEach((ingredient) => {
     if (!ingredient.old) {
       let ref =
         ingredient.type === "Tag"
@@ -88,7 +83,6 @@ export function editPlaylist(
       });
     } else dataToSubmit.ingredients.push(ingredient);
   });
-  console.log(dataToSubmit);
   return axios
     .post(`${PLAYLIST_SERVER}/${EDIT_PLAYLIST}`, dataToSubmit)
     .then((response) => response.data);

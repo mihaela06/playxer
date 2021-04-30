@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import { Form, Icon, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
-
+import DefaultUser from "../../../assets/images/DefaultUser.jpg";
 import { NotificationManager } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 
@@ -58,7 +58,13 @@ function ProfilePage(props) {
         <Row>
           <Col xs={3} className="center-items">
             <img
-              src={profile.images ? profile.images[0].url : null}
+              src={
+                profile.images
+                  ? profile.images[0]
+                    ? profile.images[0].url
+                    : { DefaultUser }
+                  : { DefaultUser }
+              }
               alt={profile.display_name}
               style={{ borderRadius: "50%", height: "20vmin" }}
             ></img>{" "}
@@ -68,22 +74,21 @@ function ProfilePage(props) {
               {" "}
               {profile.display_name}{" "}
             </p>{" "}
-            <a onClick={logoutHandler}>
-              <button
-                style={{
-                  backgroundColor: "var(--cadet-blue)",
-                  borderRadius: "5px",
-                  border: "0px",
-                  fontSize: "4vmin",
-                  position: "absolute",
-                  bottom: "5px",
-                  maxHeight: "50px",
-                }}
-                className="increase-hover"
-              >
-                Logout from Playxer{" "}
-              </button>{" "}
-            </a>{" "}
+            <button
+              style={{
+                backgroundColor: "var(--cadet-blue)",
+                borderRadius: "5px",
+                border: "0px",
+                fontSize: "4vmin",
+                position: "absolute",
+                bottom: "5px",
+                maxHeight: "50px",
+              }}
+              className="increase-hover"
+              onClick={logoutHandler}
+            >
+              Logout from Playxer{" "}
+            </button>
           </Col>{" "}
         </Row>{" "}
         <h4 style={{ marginTop: "5vh" }}> Modify your account information </h4>{" "}
@@ -111,10 +116,8 @@ function ProfilePage(props) {
                   );
                 } else {
                   let errorMessage = "Unknown error";
-                  console.log(response.payload);
                   if (response.payload.err.name === "MongoError") {
                     errorMessage = "";
-                    console.log(response.payload.err.keyValue.value);
                     for (var prop in response.payload.err.keyValue)
                       errorMessage +=
                         prop.charAt(0).toUpperCase() +
@@ -242,7 +245,6 @@ function ProfilePage(props) {
                   );
                 } else {
                   let errorMessage = "Unknown error";
-                  console.log(response.payload);
                   if (response.payload) errorMessage = response.payload.message;
 
                   NotificationManager.error(

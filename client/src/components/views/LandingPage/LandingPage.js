@@ -9,7 +9,6 @@ import spotifyIcon from "../../../assets/images/SpotifyIcon.png";
 
 function LandingPage() {
   const user = useSelector((state) => state.user);
-  console.log("user", user);
   if (user.userData && user.userData.isAuth) {
     if (!user.userData.connectedSpotify)
       return (

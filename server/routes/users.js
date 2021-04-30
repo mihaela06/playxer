@@ -119,7 +119,6 @@ router.post("/change_password", auth, (req, res) => {
         });
       else {
         User.findOne({ _id: req.body.id }, (err, doc) => {
-          console.log(req.body.newPassword);
           if (err || !doc) return res.json({ success: false, err });
           doc["password"] = req.body.newPassword;
           doc.save(function (err) {

@@ -74,7 +74,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
 
   useEffect(() => {
     const assigned = (tag) => {
-      return contentTags.findIndex((e) => e.name == tag.name) !== -1
+      return contentTags.findIndex((e) => e.name === tag.name) !== -1
         ? true
         : false;
     };
@@ -109,13 +109,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
   };
 
   const assignTagByName = (name) => {
-    assignTag(name, contentId, contentType)
-      .then((response) => {
-        console.log("response", response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    assignTag(name, contentId, contentType);
     let temp = [...contentTags];
     temp.push(userTags.find((tag) => tag.name === name));
 
@@ -123,13 +117,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
   };
 
   const unassignTagByName = (name) => {
-    unassignTag(name, contentId)
-      .then((response) => {
-        console.log("response unassigned", response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    unassignTag(name, contentId);
     let oldContent = [...contentTags].filter((e) => e.name !== name);
 
     setContentTags(oldContent);
@@ -137,13 +125,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
 
   const deleteTagByName = (name) => {
     const sendDelete = (name) => {
-      deleteTag(name)
-        .then((response) => {
-          console.log("response delete", response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      deleteTag(name);
 
       let temp = [...userTags].filter((e) => e.name !== name);
       setUserTags(temp);
@@ -185,13 +167,12 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
       NotificationManager.error("Tag name must be unique");
       return;
     }
-    if (newTagName.length == 0) {
+    if (newTagName.length === 0) {
       NotificationManager.error("Please choose a name");
       return;
     }
     addTag(newTagName, color)
       .then((response) => {
-        console.log("response new", response.data);
         let temp = [...userTags];
         temp.push(response.tag);
         setUserTags(temp);
@@ -243,8 +224,11 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
         {loading && <img src={MixIt} alt="Loading" />}
         {!loading && (
           <div>
-            {contentTags.length == 0 && (
-              <span className="center-items" style={{ cursor: "default" }}>
+            {contentTags.length === 0 && (
+              <span
+                className="center-items"
+                style={{ cursor: "default", color: "var(--text-color)" }}
+              >
                 No tags assigned yet! Click on one of those below or add a new
                 one!
               </span>
@@ -291,7 +275,7 @@ function TagModal({ contentId, contentType, iconSize = "2rem" }) {
                 onBodyClickFunction={() => openAddModal()}
               />
             </div>
-            <MdClose 
+            <MdClose
               className="increase-hover modal-close"
               onClick={closeModal}
             />

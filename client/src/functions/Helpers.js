@@ -17,10 +17,10 @@ export function getContrast(hexcolor) {
 
 export function getImageURL(type, urlArray, highRes = true) {
   const getDefault = (type) => {
-    if (type.toLowerCase() == "album") return DefaultAlbum;
-    if (type.toLowerCase() == "artist") return DefaultArtist;
-    if (type.toLowerCase() == "playlist") return DefaultPlaylist;
-    if (type.toLowerCase() == "track") return DefaultAlbum;
+    if (type.toLowerCase() === "album") return DefaultAlbum;
+    if (type.toLowerCase() === "artist") return DefaultArtist;
+    if (type.toLowerCase() === "playlist") return DefaultPlaylist;
+    if (type.toLowerCase() === "track") return DefaultAlbum;
   };
   if (!urlArray) return getDefault(type);
   if (urlArray.length === 0) return getDefault(type);

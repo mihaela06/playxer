@@ -15,7 +15,6 @@ let exchangeCode = (req, res, next) => {
   let code = req.body.code;
 
   User.findOne({ _id: id }, (err, user) => {
-    console.log("ID ", id);
     if (!user)
       return res.json({
         success: false,
@@ -23,11 +22,6 @@ let exchangeCode = (req, res, next) => {
       });
     spotifyApi.authorizationCodeGrant(code).then(
       function (data) {
-        console.log(data);
-        console.log("The token expires in " + data.body["expires_in"]);
-        console.log("The access token is " + data.body["access_token"]);
-        console.log("The refresh token is " + data.body["refresh_token"]);
-
         User.findOneAndUpdate(
           { _id: id },
           {
@@ -70,20 +64,13 @@ let getTokens = (req, res, next) => {
 
 let refreshTokens = (req, res, next) => {
   let currentTimestamp = Math.floor(new Date().getTime() / 1000);
-  console.log(currentTimestamp);
-  console.log(req.user.accessTokenExp + req.user.accessTokenTimestamp);
   if (
     req.user.accessTokenExp + req.user.accessTokenTimestamp <=
-    (currentTimestamp - 60)
+    currentTimestamp - 60
   ) {
     spotifyApi.setRefreshToken(req.refreshToken);
     spotifyApi.refreshAccessToken().then(
       function (data) {
-        console.log("The access token has been refreshed!");
-        console.log("old token ", req.accessToken);
-        req.accessToken = data.body["access_token"];
-        console.log("new token ", req.accessToken);
-
         User.findOneAndUpdate(
           { _id: req.user._id },
           {

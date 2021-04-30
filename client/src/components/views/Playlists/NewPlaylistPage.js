@@ -42,7 +42,6 @@ function NewPlaylistPage({
 
   useEffect(() => {
     if (location.playlist) {
-      console.log("play", location.playlist);
       let ingr = location.playlist.ingredients;
       ingr.forEach((i) => (i.old = true));
       setIngredients(ingr);
@@ -57,7 +56,6 @@ function NewPlaylistPage({
       setLoadingIngr(true);
       getPlaylist(match.params.playlistId)
         .then(function (response) {
-          console.log(response);
           let ingr = response.playlist.ingredients;
           ingr.forEach((i) => (i.old = true));
           setIngredients(ingr);
@@ -73,7 +71,6 @@ function NewPlaylistPage({
           console.log(err);
         });
     }
-    console.log(match);
   }, [match]);
 
   const iconStyle = {
@@ -82,10 +79,10 @@ function NewPlaylistPage({
   };
 
   const getIcon = (type) => {
-    if (type == "Artist") return <IoMdMicrophone style={iconStyle} />;
-    if (type == "Track") return <IoMusicalNote style={iconStyle} />;
-    if (type == "Tag") return <IoMdPricetag style={iconStyle} />;
-    if (type == "Album") return <BiAlbum style={iconStyle} />;
+    if (type === "Artist") return <IoMdMicrophone style={iconStyle} />;
+    if (type === "Track") return <IoMusicalNote style={iconStyle} />;
+    if (type === "Tag") return <IoMdPricetag style={iconStyle} />;
+    if (type === "Album") return <BiAlbum style={iconStyle} />;
   };
 
   const stackStyle = (smallScreen) => ({
@@ -174,7 +171,6 @@ function NewPlaylistPage({
         search(searchTerm, dropdownValue.toLowerCase())
           .then((response) => {
             setSearchResult(response.spotifyData.body);
-            console.log(response.spotifyData.body);
           })
           .catch((err) => {
             console.log(err);
@@ -199,9 +195,7 @@ function NewPlaylistPage({
   };
 
   const getResultArray = () => {
-    console.log(dropdownValue, searchResult, "dv");
     if (searchResult === undefined && dropdownValue !== "Tag") return;
-    console.log("search res", searchResult);
     if (dropdownValue === "Artist") return searchResult.artists.items;
     if (dropdownValue === "Album") return searchResult.albums.items;
     if (dropdownValue === "Track") return searchResult.tracks.items;
@@ -259,7 +253,6 @@ function NewPlaylistPage({
           );
     promise
       .then((response) => {
-        console.log("rasp play", response);
         if (playlistId === "" && userPlaylists)
           setUserPlaylists([...userPlaylists, response.playlist]);
         else if (userPlaylists) {
@@ -277,11 +270,9 @@ function NewPlaylistPage({
       });
   };
 
-  function removeIngredient(ref) {
-    var i = ingredients.find((e) => e.reference === ref);
+  function removeIngredient(ingredient) {
     var temp = [...ingredients];
-    temp.splice(temp.indexOf(i), 1);
-    console.log(temp);
+    temp.splice(temp.indexOf(ingredient), 1);
     setIngredients(temp);
   }
 
@@ -513,7 +504,7 @@ function NewPlaylistPage({
                           marginBottom: "auto",
                         }}
                         className="center-items"
-                        onClick={() => removeIngredient(ingredient.reference)}
+                        onClick={() => removeIngredient(ingredient)}
                       >
                         <TiDelete
                           style={{

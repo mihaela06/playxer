@@ -29,7 +29,6 @@ function AlbumsPage(props) {
 
     getLikedAlbums(loadingExtraData.offset)
       .then((response) => {
-        console.log("Response", loadingExtraData.offset, response);
         setAlbums((albums) => [
           ...albums,
           ...response.spotifyData.body.items,
@@ -43,7 +42,6 @@ function AlbumsPage(props) {
           total: total,
           offset: offset,
         });
-        console.log("albums", albums);
       })
       .catch((err) => {
         console.log(err);

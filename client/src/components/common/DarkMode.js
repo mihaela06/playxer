@@ -34,7 +34,6 @@ function DarkMode(props) {
 
   const switchVisible = () => {
     const route = window.location.pathname;
-    console.log(route);
 
     if (route === "/profile" || route === "/connect" || route === "/auth")
       return true;

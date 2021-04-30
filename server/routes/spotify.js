@@ -13,18 +13,11 @@ var loadTokens = [auth, getTokens, refreshTokens];
 router.post("/get_followed_artists", loadTokens, (req, res) => {
   spotifyApi.setAccessToken(req.accessToken);
   spotifyApi.setRefreshToken(req.refreshToken);
-  console.log("after", req.body.after);
   var options = {};
   if (req.body.after == "") options = { limit: 24 };
   else options = { limit: 24, after: req.body.after };
   spotifyApi.getFollowedArtists(options).then(
     function (data) {
-      console.log(
-        "This user is following ",
-        data.body.artists.total,
-        " artists!",
-        data.body.artists.cursors.after
-      );
       return res.status(200).json({
         success: true,
         spotifyData: data,
@@ -38,22 +31,13 @@ router.post("/get_followed_artists", loadTokens, (req, res) => {
 });
 
 router.post("/get_liked_albums", loadTokens, (req, res) => {
-  console.log("token access", req.accessToken);
   spotifyApi.setAccessToken(req.accessToken);
   spotifyApi.setRefreshToken(req.refreshToken);
-  console.log("after", req.body.after);
   var options = {};
   if (req.body.after == "") options = { limit: 24 };
   else options = { limit: 24, offset: req.body.after };
-  console.log(options);
   spotifyApi.getMySavedAlbums(options).then(
     function (data) {
-      console.log(
-        "This user is following ",
-        data.body.total,
-        " albums!",
-        data.body.offset
-      );
       return res.status(200).json({
         success: true,
         spotifyData: data,
@@ -247,8 +231,6 @@ router.post("/get_artist_albums", loadTokens, (req, res) => {
   spotifyApi.setAccessToken(req.accessToken);
   spotifyApi.setRefreshToken(req.refreshToken);
   let artistIds = [req.body.artistId];
-  console.log("id", req.body.artistId);
-  console.log("offset", req.body.offset);
   spotifyApi
     .getArtistAlbums(artistIds, {
       limit: 50,
@@ -257,7 +239,6 @@ router.post("/get_artist_albums", loadTokens, (req, res) => {
     })
     .then(
       function (data) {
-        //console.log("Album information", data.body);
         return res.status(200).json({
           success: true,
           spotifyData: data,

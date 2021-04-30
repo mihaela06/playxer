@@ -123,8 +123,7 @@
 }
 
 .box img {
-    min-width: 100%;
-    height: auto;
+    min-width: 100% !important;
 }
 
 .box:hover {

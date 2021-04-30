@@ -33,7 +33,6 @@ function PlaylistsPage({ history, userPlaylists }) {
         <div style={{ marginTop: "5%" }}>
           <Row noGutters>
             {userPlaylists.map(function (playlist, index) {
-              console.log(playlist);
               return (
                 <React.Fragment key={index}>
                   <DisplayCard

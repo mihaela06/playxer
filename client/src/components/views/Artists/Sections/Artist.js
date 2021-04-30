@@ -23,7 +23,6 @@ function Artist({ match }) {
     const getData = () => {
       getArtist(match.params.artistId)
         .then((response) => {
-          console.log(response);
           setArtistInfo({
             ...response.spotifyData.body,
             ...{ relatedArtists: response.spotifyData.relatedArtists.artists },
@@ -36,6 +35,7 @@ function Artist({ match }) {
         });
     };
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setAlbumsInfo([]);
     setLoading(true);
     getData();
   }, [match]);
@@ -52,11 +52,7 @@ function Artist({ match }) {
   const getAlbums = (artistId) => {
     getArtistAlbums(artistId, offset)
       .then((response) => {
-        console.log(response);
-        setAlbumsInfo((albumsInfo) => [
-          ...albumsInfo,
-          ...response.spotifyData.body.items,
-        ]);
+        setAlbumsInfo([...albumsInfo, ...response.spotifyData.body.items]);
         offset += 50;
         totalAlbums = response.spotifyData.body.total;
         if (offset < totalAlbums) getAlbums(artistId);
@@ -92,9 +88,8 @@ function Artist({ match }) {
               alt={artistInfo.name}
             />
             <button
-              className="increase-hover"
+              className="increase-hover save__button"
               onClick={clickedFollowButton}
-              className="save__button"
             >
               {following ? "Unfollow" : "Follow"}
             </button>
