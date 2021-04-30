@@ -62,8 +62,8 @@ function ProfilePage(props) {
                 profile.images
                   ? profile.images[0]
                     ? profile.images[0].url
-                    : { DefaultUser }
-                  : { DefaultUser }
+                    : DefaultUser
+                  : DefaultUser
               }
               alt={profile.display_name}
               style={{ borderRadius: "50%", height: "20vmin" }}
