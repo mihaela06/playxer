@@ -52,7 +52,10 @@ function Artist({ match }) {
   const getAlbums = (artistId) => {
     getArtistAlbums(artistId, offset)
       .then((response) => {
-        setAlbumsInfo([...albumsInfo, ...response.spotifyData.body.items]);
+        setAlbumsInfo((albumsInfo) => [
+          ...albumsInfo,
+          ...response.spotifyData.body.items,
+        ]);
         offset += 50;
         totalAlbums = response.spotifyData.body.total;
         if (offset < totalAlbums) getAlbums(artistId);
