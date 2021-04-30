@@ -2,9 +2,8 @@
 A playlist mixer designed for Spotify©
 
 
-1. make dev.js file inside config folder 
-2. put mongoDB info into dev.js file 
-3. Type  " npm install " inside the root directory  ( Download Server Dependencies ) 
-4. Type " npm install " inside the client directory ( Download Front-end Dependencies )
+1. Create and edit dev.js file inside config folder, containing: mongoURI (used for connecting to MongoDB), clientID and clientSecret (generated through the Spotify Devs website), redirectURL and scopes used by the Spotify requests
+2. Run "npm install" inside the root directory to download the server dependencies
+3. Run "npm install" inside the client directory to download the client dependencies
 
 
